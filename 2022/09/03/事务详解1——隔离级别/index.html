@@ -24,7 +24,6 @@
 <meta property="og:description" content="概要本文主要讨论的是事务隔离级别，从事务隔离级别的起源，标准和本质来深入分析事务并发控制下的隔离级别的原理和实现。阅读文本前，你需要具备事务的一些基本知识，本文的第一章节会回顾我们所熟知的有关隔离级别和事务的基础知识。如果你了解事务的一般基础知识，你可以跳过第一章节，直接阅读第二章节。 事务概述什么是事务事务由一组操作构成，我们希望这组操作能够全部正确执行，如果这一组操作中的任意一个步骤发生错误，">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/distributed-transaction-1-1645758703747-20221130195200370.png">
-<meta property="og:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/hdImg_520121588f302c46822fed933226a3ff1642563922049.jpg">
 <meta property="og:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/distributed-transaction-1-1645758868868-20221130195200538.png">
 <meta property="og:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/distributed-transaction-1-1645758966889-20221130195200625.png">
 <meta property="og:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/distributed-transaction-1-1645759042722-20221130195200717.png">
@@ -479,7 +478,6 @@
 <p>在上述隔离性（Isolation）的定义中，我们可以发现其目标是使并发事务的执行效果与串行一致。并从一致性（Consistency）定义中知道，事务是需要将数据状态从一个变成另一个状态。假设我们有数据x &#x3D; 1，经过若干事务之后，我们需要让x &#x3D; x’。</p>
 <p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/distributed-transaction-1-1645758703747-20221130195200370.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>注意事务的顺序，当顺序确定之后，对于事务对数据的改变就是原子性的。也就是说事务2不可以在事务1前面更改数据状态，必须从事务A1结束后的状态开始执行。<br>但我们知道，事务中会包含对数据的Read操作和Wirte操作。Read操作不会影响数据的状态，但是Wirte则会影响数据的状态。<br>我们假设x的初始值是x &#x3D; 1,事务A由（Read(x), Wirte(x, x &#x3D;2), Read(x), Wirte(x, x &#x3D;1) 的操作序列组成。那么对x的状态变化如下图：</p>
-<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/hdImg_520121588f302c46822fed933226a3ff1642563922049.jpg" srcset="/img/loading.gif" lazyload alt="hdImg_520121588f302c46822fed933226a3ff1642563922049"></p>
 <p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/distributed-transaction-1-1645758868868-20221130195200538.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>假如，此时有个事务2，序列为(Read(x), Wirte(x,x + 1)),状态为下图：</p>
 <p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/distributed-transaction-1-1645758966889-20221130195200625.png" srcset="/img/loading.gif" lazyload alt="img"></p>
