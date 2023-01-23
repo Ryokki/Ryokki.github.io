@@ -16,17 +16,20 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="#database #isolation #blog&#x2F;reading https:&#x2F;&#x2F;catkang.github.io&#x2F;2018&#x2F;08&#x2F;31&#x2F;isolation-level.html 目标事务隔离是事务并发产生的直接需求，最直观的、保证正确性的隔离方式，显然是让并发的事务依次执行，或是看起来像是依次执行。但在真实的场景中，有时并不需要如此高的正确性保证，因此希望牺牲一些正确性来提高整体">
+    <meta name="description" content="learn from https:&#x2F;&#x2F;catkang.github.io&#x2F;2018&#x2F;08&#x2F;31&#x2F;isolation-level.html 目标事务隔离是事务并发产生的直接需求，最直观的、保证正确性的隔离方式，显然是让并发的事务依次执行，或是看起来像是依次执行。但在真实的场景中，有时并不需要如此高的正确性保证，因此希望牺牲一些正确性来提高整体性能。通过区别不同强度的隔离级别使得使用者可以在正确性和性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库隔离发展历史">
 <meta property="og:url" content="https://ryokki.github.io/2022/06/24/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="#database #isolation #blog&#x2F;reading https:&#x2F;&#x2F;catkang.github.io&#x2F;2018&#x2F;08&#x2F;31&#x2F;isolation-level.html 目标事务隔离是事务并发产生的直接需求，最直观的、保证正确性的隔离方式，显然是让并发的事务依次执行，或是看起来像是依次执行。但在真实的场景中，有时并不需要如此高的正确性保证，因此希望牺牲一些正确性来提高整体">
+<meta property="og:description" content="learn from https:&#x2F;&#x2F;catkang.github.io&#x2F;2018&#x2F;08&#x2F;31&#x2F;isolation-level.html 目标事务隔离是事务并发产生的直接需求，最直观的、保证正确性的隔离方式，显然是让并发的事务依次执行，或是看起来像是依次执行。但在真实的场景中，有时并不需要如此高的正确性保证，因此希望牺牲一些正确性来提高整体性能。通过区别不同强度的隔离级别使得使用者可以在正确性和性">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/ansi_def.png">
 <meta property="article:published_time" content="2022-06-24T05:18:02.225Z">
-<meta property="article:modified_time" content="2022-12-01T13:54:52.628Z">
+<meta property="article:modified_time" content="2022-12-01T14:28:43.746Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="database">
+<meta property="article:tag" content="isolation">
+<meta property="article:tag" content="notFinished">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/ansi_def.png">
   
@@ -284,8 +287,7 @@
             
               <div class="markdown-body">
                 
-                <p>#database #isolation #blog&#x2F;reading</p>
-<p><a target="_blank" rel="noopener" href="https://catkang.github.io/2018/08/31/isolation-level.html">https://catkang.github.io/2018/08/31/isolation-level.html</a></p>
+                <p>learn from <a target="_blank" rel="noopener" href="https://catkang.github.io/2018/08/31/isolation-level.html">https://catkang.github.io/2018/08/31/isolation-level.html</a></p>
 <h1 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h1><p>事务隔离是事务并发产生的直接需求，最直观的、保证正确性的隔离方式，显然是让并发的事务依次执行，或是看起来像是依次执行。但在真实的场景中，有时并不需要如此高的正确性保证，因此希望牺牲一些正确性来提高整体性能。<strong>通过区别不同强度的隔离级别使得使用者可以在正确性和性能上自由权衡。随着数据库产品数量以及使用场景的膨胀，带来了各种隔离级别选择的混乱，数据库的众多设计者和使用者亟需一个对隔离级别划分的共识，这就是标准出现的意义。一个好的隔离级别定义有如下两个重要的目标</strong>：</p>
 <ul>
 <li><strong>正确</strong>：每个级别的定义，应该能够将所<strong>有损害该级别想要保证的正确性的情况排除在外</strong>。也就是说，只要实现满足某一隔离级别定义，就一定能获得<strong>对应的正确性保证</strong>。</li>
@@ -360,6 +362,17 @@
 
     </div>
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/database/">#database</a>
+      
+        <a href="/tags/isolation/">#isolation</a>
+      
+        <a href="/tags/notFinished/">#notFinished</a>
+      
+    </div>
   
 </div>
 

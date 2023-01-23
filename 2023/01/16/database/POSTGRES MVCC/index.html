@@ -16,29 +16,30 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="https:&#x2F;&#x2F;awesome-programming-books.github.io&#x2F;mysql&#x2F;MySQL技术内幕：InnoDB存储引擎.pdf  插入。。。 删除 一开始如下图： 删除70，直接删掉即可： 删除25， 目前无法restore project的error message和‘现在正有一个项目部署’的error message一样，所以前端无法区分。给前者换一个error mess">
+    <meta name="description" content="Referenced From   [PostgreSQL 中的 MVCC (01)——基本可见性判断](https:&#x2F;&#x2F;smartkeyerror.com&#x2F;PostgreSQL-MVCC-01 认识PostgreSQL的MVCC - SELECT * FROM LiuYangming; PgSQL · 特性分析 · MVCC机制浅析 The Internals of PostgreSQL : C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://ryokki.github.io/2022/07/11/database/innodb%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E-B+Tree/index.html">
+<meta property="og:title" content="数据库隔离发展历史">
+<meta property="og:url" content="https://ryokki.github.io/2023/01/16/database/POSTGRES%20MVCC/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="https:&#x2F;&#x2F;awesome-programming-books.github.io&#x2F;mysql&#x2F;MySQL技术内幕：InnoDB存储引擎.pdf  插入。。。 删除 一开始如下图： 删除70，直接删掉即可： 删除25， 目前无法restore project的error message和‘现在正有一个项目部署’的error message一样，所以前端无法区分。给前者换一个error mess">
+<meta property="og:description" content="Referenced From   [PostgreSQL 中的 MVCC (01)——基本可见性判断](https:&#x2F;&#x2F;smartkeyerror.com&#x2F;PostgreSQL-MVCC-01 认识PostgreSQL的MVCC - SELECT * FROM LiuYangming; PgSQL · 特性分析 · MVCC机制浅析 The Internals of PostgreSQL : C">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20220711200810.png">
-<meta property="og:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20220711200932.png">
-<meta property="og:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20220711201148.png">
-<meta property="og:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20220711201346.png">
-<meta property="og:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20220711201454.png">
-<meta property="article:published_time" content="2022-07-11T12:05:53.404Z">
-<meta property="article:modified_time" content="2022-12-01T13:13:50.646Z">
+<meta property="og:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20230116171816.png">
+<meta property="article:published_time" content="2023-01-16T08:59:01.385Z">
+<meta property="article:modified_time" content="2023-01-17T15:32:01.027Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="database">
+<meta property="article:tag" content="isolation">
+<meta property="article:tag" content="notFinished">
+<meta property="article:tag" content="MVCC">
+<meta property="article:tag" content="postgresql">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20220711200810.png">
+<meta name="twitter:image" content="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20230116171816.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Hexo</title>
+  <title>数据库隔离发展历史 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -203,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="数据库隔离发展历史"></span>
           
         </div>
 
@@ -214,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-11 20:05" pubdate>
-          2022年07月11日 晚上
+        <time datetime="2023-01-16 16:59" pubdate>
+          2023年01月16日 下午
         </time>
       </span>
     
@@ -226,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          847 字
+          1.2k 字
         
       </span>
     
@@ -283,22 +284,47 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">数据库隔离发展历史</h1>
             
             
               <div class="markdown-body">
                 
-                <p><a target="_blank" rel="noopener" href="https://awesome-programming-books.github.io/mysql/MySQL%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%EF%BC%9AInnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.pdf">https://awesome-programming-books.github.io/mysql/MySQL技术内幕：InnoDB存储引擎.pdf</a></p>
-<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20220711200810.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20220711200932.png" srcset="/img/loading.gif" lazyload><br>。。。</p>
-<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20220711201148.png" srcset="/img/loading.gif" lazyload></p>
-<p>一开始如下图：<br><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20220711201346.png" srcset="/img/loading.gif" lazyload></p>
-<p>删除70，直接删掉即可：<br><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20220711201454.png" srcset="/img/loading.gif" lazyload></p>
-<p>删除25，</p>
-<p>目前无法restore project的error message和‘现在正有一个项目部署’的error message一样，所以前端无法区分。给前者换一个error message</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs json"><br><span class="hljs-punctuation">&#123;</span>data<span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">null</span></span><span class="hljs-punctuation">,</span> errors<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">,</span>…<span class="hljs-punctuation">]</span><span class="hljs-punctuation">&#125;</span><br><br>data<span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">null</span></span>  <br>errors<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">,</span>…<span class="hljs-punctuation">]</span>  <br><span class="hljs-number">0</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>errorCode<span class="hljs-punctuation">:</span> <span class="hljs-number">403</span><span class="hljs-punctuation">,</span> errorType<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;INVALID_DEPLOYMENT&quot;</span><span class="hljs-punctuation">,</span> extensions<span class="hljs-punctuation">:</span><br><br><span class="hljs-punctuation">&#123;</span>classification<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;INVALID_DEPLOYMENT&quot;</span><span class="hljs-punctuation">&#125;</span><br><br><span class="hljs-punctuation">,</span>…<span class="hljs-punctuation">&#125;</span>  <br>errorCode<span class="hljs-punctuation">:</span> <span class="hljs-number">403</span>  <br>errorType<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;INVALID_DEPLOYMENT&quot;</span>  <br>extensions<span class="hljs-punctuation">:</span><br><br><span class="hljs-punctuation">&#123;</span>classification<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;INVALID_DEPLOYMENT&quot;</span><span class="hljs-punctuation">&#125;</span><br><br>classification<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;INVALID_DEPLOYMENT&quot;</span>  <br>locations<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br><br><span class="hljs-punctuation">&#123;</span>column<span class="hljs-punctuation">:</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span> line<span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">&#125;</span><br><br><span class="hljs-punctuation">]</span>  <br><span class="hljs-number">0</span><span class="hljs-punctuation">:</span><br><br><span class="hljs-punctuation">&#123;</span>column<span class="hljs-punctuation">:</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span> line<span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">&#125;</span><br><br>message<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Cannot deploy project when deployment env config status is RESTORE_FAILED&quot;</span>  <br>operation<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;deploy&quot;</span>  <br>path<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;deploy&quot;</span><span class="hljs-punctuation">]</span>  <br><span class="hljs-number">0</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;deploy&quot;</span>  <br></code></pre></td></tr></table></figure>
+                <p>Referenced From </p>
+<ol>
+<li>[PostgreSQL 中的 MVCC (01)——基本可见性判断](<a target="_blank" rel="noopener" href="https://smartkeyerror.com/PostgreSQL-MVCC-01">https://smartkeyerror.com/PostgreSQL-MVCC-01</a></li>
+<li><a target="_blank" rel="noopener" href="http://liuyangming.tech/05-2018/MvccAndVacuum.html">认识PostgreSQL的MVCC - SELECT * FROM LiuYangming;</a></li>
+<li><a target="_blank" rel="noopener" href="http://mysql.taobao.org/monthly/2017/10/01/">PgSQL · 特性分析 · MVCC机制浅析</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.interdb.jp/pg/pgsql05.html">The Internals of PostgreSQL : Chapter 5 Concurrency Control</a></li>
+<li><a target="_blank" rel="noopener" href="http://feelkill.github.io/2017/08/01/pg-mvcc.html">PostgreSQL之MVCC | 张朝威的博客</a></li>
+</ol>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>并发控制是用于维护事务的一致性和隔离性，有三种并发控制策略：</p>
+<ol>
+<li>多版本并发控制（Multi-Version Concurrency Control, MVCC）：维护数据的<strong>多个版本</strong>，通过获取数据版本快照进行事务隔离，使得每个快照版本都能拿到对应可见的数据版本。（这样就不需要通过行的读写锁来并发控制了，读和写可以并发进行）</li>
+<li>严格两阶段锁（S2PL）：依赖锁来进行事务隔离</li>
+<li>乐观的并发控制：在事务commit时才进行冲突判断（适合冲突概率小的情况）</li>
+</ol>
+<p>MVCC是一种<strong>通过冗余多份历史数据来达到并发读写目的</strong>的一种技术，在写入或更新数据时，旧版本的历史数据将不会被删除，那么此时并发的读仍然能够读取到对应的历史数据，这样就使得读和写能够并发运行，并且不会出现数据不一致的问题。<br>在实现 MVCC 时，主要有两种方式:</p>
+<ol>
+<li>将多版本的记录都存储在数据库中，垃圾收集器清理不需要的记录 (如Postgresql)</li>
+<li>将最新的记录放在数据库中，旧数据放在undo log，其他线程在读取改行数据时，从回滚段中将旧数据读出来 (如Oracle, Mysql)</li>
+</ol>
+<h2 id="事务ID"><a href="#事务ID" class="headerlink" title="事务ID"></a>事务ID</h2><p>pg维护了一个自增的unsigned int32作为事务ID</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> txid_current();<br></code></pre></td></tr></table></figure>
 
-<p>需要改成BROKEN_DEPLOYMENT</p>
+<h2 id="Tuple结构"><a href="#Tuple结构" class="headerlink" title="Tuple结构"></a>Tuple结构</h2><p>堆元组由 HeapTupleHeaderData、null bitmap, data所组成，如下图所示:<br><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20230116171816.png" srcset="/img/loading.gif" lazyload></p>
+<p>与 MVCC 相关的字段只有 4 个，其含义如下:</p>
+<ul>
+<li><code>t_xmin</code>: 保存了插入该元组的事务的 txid</li>
+<li><code>t_xmax</code>: 保存删除的txid 【更新 ～&#x3D; 删除+插入】，若一个 tuple 既没有被更新也没有被删除的话，该字段的值为 0</li>
+<li><code>t_cid</code>: 即 Command ID，表示在<strong>当前</strong>事务中，执行当前命令<strong>之前</strong>共执行了多少条命令，从 0 开始计数。<code>t_cid</code> 的主要作用就在于判断游标的数据可见性，将在后文详细描述</li>
+<li><code>t_infomask</code>: 位掩码，主要保存了事务执行的状态，如 <code>XMIN_COMMITTED</code>、<code>XMAX_COMMITTED</code> 等。同时也保存了 <code>COMBOCID</code> 这一非常重要的标识位，也是和游标相关的字段。</li>
+</ul>
+<p>对当前事务来说，每一个XMIN值比当前事务的XID要小（且xmax &#x3D; 0 或 &gt; 当前事务?）、并且该事务是已提交的元组，对于当前事务都是可见的。</p>
+<p>具体:</p>
+<ul>
+<li>当事务ID小于xmin的事务表示已经被提交，其涉及的修改对当前快照可见</li>
+<li>事务ID大于或等于xmax的事务表示正在执行，其所做的修改对当前快照不可见</li>
+</ul>
 
                 
               </div>
@@ -329,6 +355,21 @@
     </div>
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/database/">#database</a>
+      
+        <a href="/tags/isolation/">#isolation</a>
+      
+        <a href="/tags/notFinished/">#notFinished</a>
+      
+        <a href="/tags/MVCC/">#MVCC</a>
+      
+        <a href="/tags/postgresql/">#postgresql</a>
+      
+    </div>
+  
 </div>
 
 
@@ -339,9 +380,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/09/03/database/%E4%BA%8B%E5%8A%A1%E8%AF%A6%E8%A7%A31%E2%80%94%E2%80%94%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" title="事务详解1——隔离级别">
+                      <a href="/2023/01/23/Sights/P2P/" title="">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">事务详解1——隔离级别</span>
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -349,8 +390,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/28/database/15445-B+Tree1/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2022/09/03/database/%E4%BA%8B%E5%8A%A1%E8%AF%A6%E8%A7%A31%E2%80%94%E2%80%94%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" title="事务详解1——隔离级别">
+                        <span class="hidden-mobile">事务详解1——隔离级别</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

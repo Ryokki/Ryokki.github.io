@@ -24,7 +24,7 @@
 <meta property="og:description" content="#wikipedia #database #lockhttps:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Record_locking Record lockingRecord locking (锁定记录)是为了防止并发访问时的不一致而诞生的 典型的例子是两个银行职员试图为两个不同的交易更新同一个银行账户，比如职员1给这个账户扣100元，职员2为这个账户扣200元。 职员1和职员2都拿到初始">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-24T06:05:23.521Z">
-<meta property="article:modified_time" content="2022-12-01T13:13:50.647Z">
+<meta property="article:modified_time" content="2023-01-16T08:41:30.558Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          977 字
+          988 字
         
       </span>
     
@@ -286,6 +286,8 @@
 <h1 id="Record-locking"><a href="#Record-locking" class="headerlink" title="Record locking"></a>Record locking</h1><p><strong>Record locking</strong> (锁定记录)是为了防止并发访问时的不一致而诞生的</p>
 <p>典型的例子是两个银行职员试图为两个不同的交易<strong>更新同一个银行账户</strong>，比如职员1给这个账户扣100元，职员2为这个账户扣200元。 职员1和职员2都拿到初始钱为500元，职员1扣了100元提交，此时是400元。由于职员2拿到的是旧数据，所以职员2扣了200元提交，此时是300元。这样就少扣了100元。</p>
 <p>为了避免这种不一致，在检索一条记录进行更新时可以<strong>锁定该记录</strong>，任何试图查询这个记录并更新的人都会因为锁而被拒绝写访问。一旦记录保存或者rollback，锁就会释放。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> hell<br></code></pre></td></tr></table></figure>
+
 <h1 id="Dead-lock"><a href="#Dead-lock" class="headerlink" title="Dead lock"></a>Dead lock</h1><p>当使用 <em>incremental locking</em>  （增量锁定：即先锁定一个，再逐步锁定第二个…）时，死锁是可能的。</p>
 <p>例如：如果A用户要转给B用户100，B用户要转给A用户两百，这是两个并发sql。A用户执行时，先要拿到A用户的原始值，所以A被锁定。B用户执行时，也需要拿到B的原始值，所以B锁定。<strong>此时，这两个帐户是锁定的</strong>。  然后，A用户扣了100元，想要给B用户+100时，发现B上锁了；而B也发现A上锁了。因而死锁了。</p>
 <p>所以，在数据库中，还要注意避免死锁的问题。</p>
