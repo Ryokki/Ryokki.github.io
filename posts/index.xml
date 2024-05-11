@@ -16,5 +16,26 @@
       <description>int main() { printf(&amp;#34;hello, kkbabe&amp;#34;); } hello, kkbabe 你好珂宝</description>
     </item>
     
+    <item>
+      <title>Git Internal（施工中）</title>
+      <link>https://ryokki.github.io/posts/git-internal-%E7%B2%97%E7%B3%99%E7%89%88/</link>
+      <pubDate>Fri, 10 May 2024 11:28:47 +0800</pubDate>
+      
+      <guid>https://ryokki.github.io/posts/git-internal-%E7%B2%97%E7%B3%99%E7%89%88/</guid>
+      <description>Git Doc: All commands Git Pro2 Understanding Git — Data Model. GIt is a great and powerful VCS but can… | by Zvonimir Spajic | Medium Deep Dive Into Git • Edward Thomson • GOTO 2015 - YouTube You searched for database internal - The GitHub Blog 这里有五篇git internal，看起来更deep，可以做完gitlet后看，或者瓶颈时看 从 Commit 到 Branch，一文明白 git 到底怎么回事 - 掘金 （写的巨好） 从 Commit 到 Branch，一文明白 git 到底怎么回事 - Chenyu&amp;rsquo;s Blog （原理 OR 实现 OR 提交 &amp;ldquo;commits-are-snapshots-not-diffs&amp;rdquo;） Commits are snapshots, not diffs - The GitHub Blog : r/programming git 工作原理与撤销操作图解 | Shall We Code?</description>
+    </item>
+    
+    <item>
+      <title>jpa entity lifecycle</title>
+      <link>https://ryokki.github.io/posts/jpa-entity-lifecycle/</link>
+      <pubDate>Fri, 10 May 2024 11:28:47 +0800</pubDate>
+      
+      <guid>https://ryokki.github.io/posts/jpa-entity-lifecycle/</guid>
+      <description>#todo
+ Entity Lifecycle Model in JPA &amp;amp; Hibernate Spring Data JPA: Entity Lifecycle Model | by Suraj Mishra | Javarevisited | Medium、 Hibernate Persistence Context and Object’s LifeCycle | MyArchiBook language agnostic - Using an ORM or plain SQL? - Stack Overflow  关键词：jpa persistence context &amp;quot;dirty check&amp;quot; JPA: Persistence Context And Dirty Check Mechanism | Thameena | Developer Journal 目标：理解entity如何状态变化，以及为什么这么设计，解决了什么问题。【看起来就是ORM的普遍问题？】
+  延迟写入（Write-Behind）：更改到托管实体的更新不是立即执行，而是在事务提交时一次性进行，这样可以整合多个更新操作，减少数据库操作的次数。 减少数据库访问次数：由于一级缓存的存在，同一个事务中对同一个实体的多次读取不需要每次都访问数据库。这大大减少了数据库访问次数，提高了应用的性能。   写这篇文章的起因是我发现下面代码跑完后不会把setStatus自动同步到数据库
+@Transactional public Commission distributeCommission( long orderId, long commissionRuleId, BigDecimal commissionAmount) { Commission commission = self.</description>
+    </item>
+    
   </channel>
 </rss>

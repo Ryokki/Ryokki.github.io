@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" prefix="og: http://ogp.me/ns#">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="Hugo 0.92.2" />
@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="" />
-  <meta property="og:url" content="https://ryokki.github.io/" />
-  <link rel="canonical" href="https://ryokki.github.io/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="Blog">
+  <meta property="og:url" content="https://ryokki.github.io/posts/jpa-entity-lifecycle/" />
+  <link rel="canonical" href="https://ryokki.github.io/posts/jpa-entity-lifecycle/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="Blog">
 
   <script type="application/ld+json">
   {
@@ -18,10 +18,10 @@
            "@type": "WebPage",
            "@id": "https:\/\/ryokki.github.io\/"
       },
-      "articleSection" : "",
-      "name" : "Blog",
-      "headline" : "Blog",
-      "description" : "",
+      "articleSection" : "posts",
+      "name" : "jpa entity lifecycle",
+      "headline" : "jpa entity lifecycle",
+      "description" : "#todo\n Entity Lifecycle Model in JPA \u0026amp; Hibernate Spring Data JPA: Entity Lifecycle Model | by Suraj Mishra | Javarevisited | Medium、 Hibernate Persistence Context and Object’s LifeCycle | MyArchiBook language agnostic - Using an ORM or plain SQL? - Stack Overflow  关键词：jpa persistence context \u0026quot;dirty check\u0026quot; JPA: Persistence Context And Dirty Check Mechanism | Thameena | Developer Journal 目标：理解entity如何状态变化，以及为什么这么设计，解决了什么问题。【看起来就是ORM的普遍问题？】\n  延迟写入（Write-Behind）：更改到托管实体的更新不是立即执行，而是在事务提交时一次性进行，这样可以整合多个更新操作，减少数据库操作的次数。 减少数据库访问次数：由于一级缓存的存在，同一个事务中对同一个实体的多次读取不需要每次都访问数据库。这大大减少了数据库访问次数，提高了应用的性能。   写这篇文章的起因是我发现下面代码跑完后不会把setStatus自动同步到数据库\n@Transactional public Commission distributeCommission( long orderId, long commissionRuleId, BigDecimal commissionAmount) { Commission commission = self.",
       "inLanguage" : "en-US",
       "author" : "",
       "creator" : "",
@@ -29,17 +29,23 @@
       "accountablePerson" : "",
       "copyrightHolder" : "",
       "copyrightYear" : "2024",
-      "datePublished": "2024-05-11 11:28:47 \u002b0800 CST",
-      "dateModified" : "2024-05-11 11:28:47 \u002b0800 CST",
-      "url" : "https:\/\/ryokki.github.io\/",
+      "datePublished": "2024-05-10 11:28:47 \u002b0800 CST",
+      "dateModified" : "2024-05-10 11:28:47 \u002b0800 CST",
+      "url" : "https:\/\/ryokki.github.io\/posts\/jpa-entity-lifecycle\/",
       "keywords" : [  ]
   }
 </script>
-<title>Blog</title>
-  <meta property="og:title" content="Blog" />
-  <meta property="og:type" content="website" />
-  <meta property="og:description" content="" />
-  <meta name="description" content="" />
+<title>jpa entity lifecycle</title>
+  <meta property="og:title" content="jpa entity lifecycle" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="#todo
+ Entity Lifecycle Model in JPA &amp;amp; Hibernate Spring Data JPA: Entity Lifecycle Model | by Suraj Mishra | Javarevisited | Medium、 Hibernate Persistence Context and Object’s LifeCycle | MyArchiBook language agnostic - Using an ORM or plain SQL? - Stack Overflow  关键词：jpa persistence context &amp;quot;dirty check&amp;quot; JPA: Persistence Context And Dirty Check Mechanism | Thameena | Developer Journal 目标：理解entity如何状态变化，以及为什么这么设计，解决了什么问题。【看起来就是ORM的普遍问题？】
+  延迟写入（Write-Behind）：更改到托管实体的更新不是立即执行，而是在事务提交时一次性进行，这样可以整合多个更新操作，减少数据库操作的次数。 减少数据库访问次数：由于一级缓存的存在，同一个事务中对同一个实体的多次读取不需要每次都访问数据库。这大大减少了数据库访问次数，提高了应用的性能。   写这篇文章的起因是我发现下面代码跑完后不会把setStatus自动同步到数据库
+@Transactional public Commission distributeCommission( long orderId, long commissionRuleId, BigDecimal commissionAmount) { Commission commission = self." />
+  <meta name="description" content="#todo
+ Entity Lifecycle Model in JPA &amp;amp; Hibernate Spring Data JPA: Entity Lifecycle Model | by Suraj Mishra | Javarevisited | Medium、 Hibernate Persistence Context and Object’s LifeCycle | MyArchiBook language agnostic - Using an ORM or plain SQL? - Stack Overflow  关键词：jpa persistence context &amp;quot;dirty check&amp;quot; JPA: Persistence Context And Dirty Check Mechanism | Thameena | Developer Journal 目标：理解entity如何状态变化，以及为什么这么设计，解决了什么问题。【看起来就是ORM的普遍问题？】
+  延迟写入（Write-Behind）：更改到托管实体的更新不是立即执行，而是在事务提交时一次性进行，这样可以整合多个更新操作，减少数据库操作的次数。 减少数据库访问次数：由于一级缓存的存在，同一个事务中对同一个实体的多次读取不需要每次都访问数据库。这大大减少了数据库访问次数，提高了应用的性能。   写这篇文章的起因是我发现下面代码跑完后不会把setStatus自动同步到数据库
+@Transactional public Commission distributeCommission( long orderId, long commissionRuleId, BigDecimal commissionAmount) { Commission commission = self." />
   <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
 
@@ -66,10 +72,11 @@
 
 
 <body>
-  <article class="posts">
+  <article class="post " id="article">
     <div class="row">
       <div class="col-xs-12">
-        
+        <div class="site-header">
+          
 <header>
   <div class="header-title">
     <a href="/"
@@ -86,62 +93,107 @@
 </div>
 <div class="header-line"></div>
 
-        <div id="posts-list">
-          <section>
-            <h1 class="site-date-catalog">2024</h1>
-
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-3 col-sm-2">
-                <time datetime="2024-05-11 11:28:47 CST">May 11</time>
-              </div>
-              <div class="posts-title col-xs-9 col-sm-10">
-                <div class="row">
-                  <div class="col-xs-11 col-sm-10">
-                    <a href="/posts/first-post/">Hello</a>
-                  </div>
-                  <div class="col-xs-1 col-sm-2 posts-categories">
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-3 col-sm-2">
-                <time datetime="2024-05-10 11:28:47 CST">May 10</time>
-              </div>
-              <div class="posts-title col-xs-9 col-sm-10">
-                <div class="row">
-                  <div class="col-xs-11 col-sm-10">
-                    <a href="/posts/jpa-entity-lifecycle/">jpa entity lifecycle</a>
-                  </div>
-                  <div class="col-xs-1 col-sm-2 posts-categories">
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-3 col-sm-2">
-                <time datetime="2024-05-10 11:28:47 CST">May 10</time>
-              </div>
-              <div class="posts-title col-xs-9 col-sm-10">
-                <div class="row">
-                  <div class="col-xs-11 col-sm-10">
-                    <a href="/posts/git-internal-%E7%B2%97%E7%B3%99%E7%89%88/">Git Internal（施工中）</a>
-                  </div>
-                  <div class="col-xs-1 col-sm-2 posts-categories">
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </section>
-          
         </div>
+        <header class="post-header">
+          <h1 class="post-title">jpa entity lifecycle</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2024-05-10 11:28:47 CST">
+                10 May 2024
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+          <p>#todo</p>
+<ul>
+<li><a href="https://thorben-janssen.com/entity-lifecycle-model/">Entity Lifecycle Model in JPA &amp; Hibernate</a></li>
+<li><a href="https://medium-parser.vercel.app/?url=https://medium.com/javarevisited/spring-data-jpa-entity-lifecycle-model-c67fdae2d0c2">Spring Data JPA: Entity Lifecycle Model | by Suraj Mishra | Javarevisited | Medium</a>、</li>
+<li><a href="https://aishwaryavaishno.wordpress.com/2013/06/07/hibernate-persistent-context-and-objects-lifecycle/comment-page-1/">Hibernate Persistence Context and Object’s LifeCycle | MyArchiBook</a></li>
+<li><a href="https://stackoverflow.com/questions/494816/using-an-orm-or-plain-sql">language agnostic - Using an ORM or plain SQL? - Stack Overflow</a></li>
+</ul>
+<p>关键词：<code>jpa persistence context &quot;dirty check&quot;</code> <a href="https://thameena.blog/posts/jpa_persistence_context/">JPA: Persistence Context And Dirty Check Mechanism | Thameena | Developer Journal</a>
+目标：理解entity如何状态变化，以及为什么这么设计，解决了什么问题。【看起来就是ORM的普遍问题？】</p>
+<blockquote>
+<ul>
+<li><strong>延迟写入（Write-Behind）</strong>：更改到托管实体的更新不是立即执行，而是在事务提交时一次性进行，这样可以整合多个更新操作，减少数据库操作的次数。</li>
+<li><strong>减少数据库访问次数</strong>：由于一级缓存的存在，同一个事务中对同一个实体的多次读取不需要每次都访问数据库。这大大减少了数据库访问次数，提高了应用的性能。</li>
+</ul>
+</blockquote>
+<p>写这篇文章的起因是我发现下面代码跑完后不会把setStatus自动同步到数据库</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#a6e22e">@Transactional</span>
+  <span style="color:#66d9ef">public</span> Commission <span style="color:#a6e22e">distributeCommission</span><span style="color:#f92672">(</span>
+      <span style="color:#66d9ef">long</span> orderId<span style="color:#f92672">,</span> <span style="color:#66d9ef">long</span> commissionRuleId<span style="color:#f92672">,</span> BigDecimal commissionAmount<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    Commission commission <span style="color:#f92672">=</span>
+        self<span style="color:#f92672">.</span><span style="color:#a6e22e">createCommissionInNewTransaction</span><span style="color:#f92672">(</span>orderId<span style="color:#f92672">,</span> commissionRuleId<span style="color:#f92672">,</span> commissionAmount<span style="color:#f92672">);</span>
+    <span style="color:#75715e">// do something
+</span><span style="color:#75715e"></span>    commission<span style="color:#f92672">.</span><span style="color:#a6e22e">setStatus</span><span style="color:#f92672">(</span>status<span style="color:#f92672">);</span>
+  <span style="color:#f92672">}</span>
+</code></pre></div><p>chatgpt给我的回答如下，他说在createCommissionInNewTransaction事务中，save Commission后是Managed状态，在这个事务中所有对这个entity的更新都会在事务提交时同步到数据库。 当这个事务结束后，commission是detached状态，后续更新都不会自动同步到数据库，因为entity不再与持久化上下文关联了。还是挺有道理的，但还是想弄清楚jpa entity lifecycle的更多东西，所以写这篇文章。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">你所遇到的情况涉及到JPA/Hibernate的几个核心机制，包括实体状态、事务隔离和上下文会话的管理。这些机制确保了数据一致性并处理了持久化操作。下面详细解释这些机制及其在你的代码中的表现：
+
+<span style="color:#75715e">### 1. 实体状态和持久化上下文（Persistence Context）
+</span><span style="color:#75715e"></span>
+在JPA中，实体（Entity）有几种状态：新建（New）、托管（Managed）、脱管（Detached）、删除（Removed）。当你使用`save()`方法保存一个实体时，该实体变成托管状态。这意味着实体与持久化上下文关联，任何对其状态的改变都会在事务提交时同步到数据库。
+
+<span style="color:#75715e">### 2. 事务隔离和`REQUIRES_NEW`
+</span><span style="color:#75715e"></span>
+当你为`createCommissionInNewTransaction`方法指定`REQUIRES_NEW`，它会启动一个新的事务并拥有一个全新的持久化上下文。这个方法内创建的`Commission`实体是在这个新的上下文中被管理。当这个方法结束并且事务提交时，所有在这个持久化上下文中的更改都被推送到数据库。
+
+<span style="color:#75715e">### 3. 脱管实体（Detached Entity）
+</span><span style="color:#75715e"></span>
+当`createCommissionInNewTransaction`方法完成，它返回的`Commission`实体变成了脱管状态，因为它所属的持久化上下文（即新建的事务）已经结束。这意味着即使`distributeCommission`方法后续对这个实体的更改，这些更改不会自动同步到数据库，因为实体不再与当前的持久化上下文关联。
+
+<span style="color:#75715e">### 4. 同步到数据库的时机
+</span><span style="color:#75715e"></span>
+在`REQUIRES_NEW`情况下，对于从`createCommissionInNewTransaction`返回的实体，即使在`distributeCommission`方法中修改了状态，这个更改也不会被自动同步到数据库。你需要重新将这个实体附加到当前的持久化上下文中，并确保在事务结束前进行状态更新。这通常通过在另一个事务中重新保存（re-save）或更新（update）实体来完成。
+
+<span style="color:#75715e">### 解决方案
+</span><span style="color:#75715e"></span>
+要解决这个问题，确保在需要同步更改到数据库的地方正确管理事务和实体状态。如果需要在`distributeCommission`方法中更新实体状态并同步到数据库，可以考虑以下两种策略：
+
+<span style="color:#66d9ef">-</span> **重附加实体**：可以使用JPA的`merge()`方法将脱管的实体重附加到持久化上下文。这会使得任何更改在当前事务提交时被同步。
+<span style="color:#66d9ef">-</span> **显式更新**：可以显式调用一个更新实体状态的方法，该方法在新的事务中运行，确保状态更改被提交。
+
+理解这些机制有助于在实际开发中更有效地使用JPA和Hibernate，避免数据一致性问题。
+</code></pre></div><blockquote>
+<p>Question: 如果一个事务中根据column1查出row，根据column2查出row，他们是同个row，他们是一个jpa entity还是两个entity？应该是一个吧，不然的话两个entity做修改，会同步两次，一个会覆盖这个另一个。一个的话是通过什么来确认是同个entity，根据主键嘛？但好像表可以没有主键呀。
+<img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240507143005.png" alt="image.png">
+听起来很合理～～ 确实是通过主键来标识是不是同个entity的，没有主键的话jpa会sb</p>
+</blockquote>
+
+        </div>
+
+        <div class="row middle-xs">
+          <div class="col-xs-12">
+            
+          </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-xs-12">
+              
+            </div>
+          </div>
+
+          
+
+
+
+          
+          
+          <div style="height: 50px;"></div>
+          
+        
 
         <div class="site-footer">
   
@@ -161,6 +213,8 @@
     
   
 </script>
+
+  
 
 </body>
 
