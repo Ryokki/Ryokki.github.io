@@ -9,10 +9,10 @@
     <lastBuildDate>Sat, 11 May 2024 11:28:47 +0800</lastBuildDate><atom:link href="https://ryokki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hello</title>
-      <link>https://ryokki.github.io/posts/first-post/</link>
+      <link>https://ryokki.github.io/posts/hello/</link>
       <pubDate>Sat, 11 May 2024 11:28:47 +0800</pubDate>
       
-      <guid>https://ryokki.github.io/posts/first-post/</guid>
+      <guid>https://ryokki.github.io/posts/hello/</guid>
       <description>int main() { printf(&amp;#34;hello, kkbabe&amp;#34;); } hello, kkbabe 你好珂宝</description>
     </item>
     

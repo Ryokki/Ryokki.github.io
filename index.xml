@@ -9,20 +9,10 @@
     <lastBuildDate>Sat, 11 May 2024 11:28:47 +0800</lastBuildDate><atom:link href="https://ryokki.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hello</title>
-      <link>https://ryokki.github.io/hello/</link>
+      <link>https://ryokki.github.io/posts/hello/</link>
       <pubDate>Sat, 11 May 2024 11:28:47 +0800</pubDate>
       
-      <guid>https://ryokki.github.io/hello/</guid>
-      <description>int main() { printf(&amp;#34;hello, world&amp;#34;); } hello
-你好</description>
-    </item>
-    
-    <item>
-      <title>Hello</title>
-      <link>https://ryokki.github.io/posts/first-post/</link>
-      <pubDate>Sat, 11 May 2024 11:28:47 +0800</pubDate>
-      
-      <guid>https://ryokki.github.io/posts/first-post/</guid>
+      <guid>https://ryokki.github.io/posts/hello/</guid>
       <description>int main() { printf(&amp;#34;hello, kkbabe&amp;#34;); } hello, kkbabe 你好珂宝</description>
     </item>
     
@@ -45,6 +35,24 @@
  Entity Lifecycle Model in JPA &amp;amp; Hibernate Spring Data JPA: Entity Lifecycle Model | by Suraj Mishra | Javarevisited | Medium、 Hibernate Persistence Context and Object’s LifeCycle | MyArchiBook language agnostic - Using an ORM or plain SQL? - Stack Overflow  关键词：jpa persistence context &amp;quot;dirty check&amp;quot; JPA: Persistence Context And Dirty Check Mechanism | Thameena | Developer Journal 目标：理解entity如何状态变化，以及为什么这么设计，解决了什么问题。【看起来就是ORM的普遍问题？】
   延迟写入（Write-Behind）：更改到托管实体的更新不是立即执行，而是在事务提交时一次性进行，这样可以整合多个更新操作，减少数据库操作的次数。 减少数据库访问次数：由于一级缓存的存在，同一个事务中对同一个实体的多次读取不需要每次都访问数据库。这大大减少了数据库访问次数，提高了应用的性能。   写这篇文章的起因是我发现下面代码跑完后不会把setStatus自动同步到数据库
 @Transactional public Commission distributeCommission( long orderId, long commissionRuleId, BigDecimal commissionAmount) { Commission commission = self.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ryokki.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/about/</guid>
+      <description>love cs and kkbabe.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ryokki.github.io/now/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/now/</guid>
+      <description>COMING SOON&amp;hellip;</description>
     </item>
     
   </channel>
