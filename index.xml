@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My New Hugo Site</title>
+    <link>http://example.org/</link>
+    <description>Recent content on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 11 May 2024 11:28:47 +0800</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello</title>
+      <link>http://example.org/hello/</link>
+      <pubDate>Sat, 11 May 2024 11:28:47 +0800</pubDate>
+      
+      <guid>http://example.org/hello/</guid>
+      <description>int main() { printf(&amp;#34;hello, world&amp;#34;); } hello
+你好</description>
+    </item>
+    
+    <item>
+      <title>Hello</title>
+      <link>http://example.org/posts/first-post/</link>
+      <pubDate>Sat, 11 May 2024 11:28:47 +0800</pubDate>
+      
+      <guid>http://example.org/posts/first-post/</guid>
+      <description>int main() { printf(&amp;#34;hello, kkbabe&amp;#34;); } hello, kkbabe 你好珂宝</description>
+    </item>
+    
+  </channel>
+</rss>
