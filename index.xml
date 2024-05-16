@@ -8,6 +8,16 @@
     <language>zh</language>
     <lastBuildDate>Thu, 16 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ryokki.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Now</title>
+      <link>https://ryokki.github.io/now/</link>
+      <pubDate>Thu, 16 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/now/</guid>
+      <description>Now 页面会随着时间和当下生活的优先级而更新，用来让别人看见这个人现在生活的重点是什么，和提醒自己专注于当下最重要的事。
+ 研究学习的整个workflow（包括信息接收，信息存储，项目/时间管理），以及学习方法 git learn  学习(预计10h): (看一些blog &amp;amp;&amp;amp; 调试rezero的代码) 输出: git internal blog 知识应用(预计20h): gitlet   优惠券系统设计 &amp;amp; 分销系统设计 总结 java &amp;amp; 并发  effective-java 【单例模式】猛男因不懂单例模式，被面试官无情嘲讽_哔哩哔哩_bilibili 这个视频及相关的并发知识、以及其他的视频都挺适合我的   jimmer原理 jimmer/project/jimmer-sql/src/main/java/org/babyfish/jimmer/sql/ast/impl/table/MergedNode.java at main · babyfish-ct/jimmer · GitHub  </description>
+    </item>
+    
+    <item>
       <title>设计优惠券系统(更新中)</title>
       <link>https://ryokki.github.io/posts/%E8%AE%BE%E8%AE%A1%E4%BC%98%E6%83%A0%E5%88%B8%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Thu, 16 May 2024 00:00:00 +0000</pubDate>
@@ -63,6 +73,21 @@ b. 白名单。
     </item>
     
     <item>
+      <title>改善拖延和习惯</title>
+      <link>https://ryokki.github.io/posts/%E6%8B%96%E5%BB%B6-%E4%B9%A0%E6%83%AF/</link>
+      <pubDate>Thu, 09 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/posts/%E6%8B%96%E5%BB%B6-%E4%B9%A0%E6%83%AF/</guid>
+      <description> 每個人都是拖延症患者,怎麼克服拖延症？ - 全职妈妈爱生活 早睡 我是如何改掉熬夜這個習慣的？睡的好才能學的好。 - 全职妈妈爱生活（后面看）  什么是拖延 - learn from Inside the mind of a master procrastinator。 脑子里： 即时满足的猴子 + 理性决策的思考者。这个猴子眼中没有任何未来的规划，only for easy and fun. 这种即时满足在原始时代没有问题。
+拖延症就是即时满足的猴子占据了大部分时间。在不该即时满足的即时满足的时候得到的快乐不是快乐，因为会带来内疚和自我憎恨。
+只有恐慌panic monster会驱逐这个猴子（DDL..),
+而且DDL快来的时候，这个猴子还会开始做无意义的事情，明明没有乐趣的事情，也不愿意开始做那个重要的事情
+(太真实)
+因为拖延严重影响了生活，带来了强烈的挫败感
+ with deadline: 拖延是有限的 no deadline: 往往是没有下文了，因为panic monster不会出现。这些往往不被发现，但是大量长期不快乐、内疚的来源。活的像一个旁观者（真实  改善拖延的做法  番茄钟 為什麼番茄鐘工作法這麼強大？Coursera Learning How To Learn《學習如何學習》心得1 - 全职妈妈爱生活 先做最困难最重要的事。 避免掉入僵尸模式（例如起床后刷b站，一下就是一个小时），要意识到这些trigger、形成新习惯（例如规定一起床要做什么事）、改变地点（比如去图书馆） 不要使用意志力。意志力是一项宝贵的资源，也是需要耗费大脑非常多的能量。应该把意志力用在更有价值的地方，比如专注于对我们重要但是很有难度的任务上面。【所以我应该尽可能远离诱惑】 让自己有好的状态-运动/睡眠的重要性，状态好更容易正向思考以及主动 保有信念，I can do it.我们拖延主要是我们大脑会觉得很难，所以我们会主动逃避，避免痛苦。如果我们改变信念，觉得自己可以做到，就可以欺骗大脑，避免大脑主动逃避拖延。【或者降低目标，不要求做的多好，目标是做个破烂出来就行】 设定截止时间。设定每天工作或任务的截止时间一方面是奖励一些时间给自己，这个时间就是可以随意享受的时间，另一方面是让自己大脑充电，让第二天更有效率。现在我每天都会设定9:30后就关掉电脑关掉手机，敷面膜、泡澡或者看电影，然后睡前在看一会书。 奖励自己。当我们真的改掉一个坏习惯，养成一个好习惯的时候，要好好奖励自己。比如我现在每天都会写作2个番茄钟，如果我这一个月都可以做到，我就排除万难去看一部电影。  </description>
+    </item>
+    
+    <item>
       <title>Git Internal（施工中）</title>
       <link>https://ryokki.github.io/posts/git-internal/</link>
       <pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate>
@@ -90,15 +115,6 @@ b. 白名单。
       
       <guid>https://ryokki.github.io/about/</guid>
       <description>love cs and kkbabe.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://ryokki.github.io/now/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://ryokki.github.io/now/</guid>
-      <description>COMING SOON&amp;hellip;</description>
     </item>
     
   </channel>
