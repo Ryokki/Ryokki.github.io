@@ -14,7 +14,7 @@
       
       <guid>https://ryokki.github.io/now/</guid>
       <description>Now 页面会随着时间和当下生活的优先级而更新，用来让别人看见这个人现在生活的重点是什么，和提醒自己专注于当下最重要的事。
- 研究学习的整个workflow（包括信息接收，信息存储，项目/时间管理），以及学习方法 git learn  学习(预计10h): (看一些blog &amp;amp;&amp;amp; 调试rezero的代码) 输出: git internal blog 知识应用(预计20h): gitlet   优惠券系统设计 &amp;amp; 分销系统设计 总结 java &amp;amp; 并发  effective-java 【单例模式】猛男因不懂单例模式，被面试官无情嘲讽_哔哩哔哩_bilibili 这个视频及相关的并发知识、以及其他的视频都挺适合我的   jimmer原理 jimmer/project/jimmer-sql/src/main/java/org/babyfish/jimmer/sql/ast/impl/table/MergedNode.java at main · babyfish-ct/jimmer · GitHub  </description>
+ 重新启动游泳～ Signals. I spent 2 years to understand this part. - YouTube Sending and Handling Signals in C (kill, signal, sigaction) - YouTube 研究学习的整个workflow（包括信息接收，信息存储，项目/时间管理），以及学习方法[[workflow and method]] git learn  学习(预计10h): (看一些blog &amp;amp;&amp;amp; 调试rezero的代码)  学习workflow中看代码的方法，结合实践，写一篇blog   输出: git internal blog 知识应用(预计20h): gitlet   优惠券系统设计 &amp;amp; 分销系统设计 总结 java &amp;amp; 并发  effective-java 【单例模式】猛男因不懂单例模式，被面试官无情嘲讽_哔哩哔哩_bilibili 这个视频及相关的并发知识、以及其他的视频都挺适合我的   jimmer原理 jimmer/project/jimmer-sql/src/main/java/org/babyfish/jimmer/sql/ast/impl/table/MergedNode.java at main · babyfish-ct/jimmer · GitHub  </description>
     </item>
     
     <item>
@@ -36,11 +36,8 @@ b. 白名单。
 白名单适用于券的可使用商品范围比较小这种情况，直接配置券的可使用商品。
  除此以外，还有超级黑名单的配置，黑名单和白名单只对单个券有效，超级黑名单对所有券有效。当前优惠券系统提供商品级的关联，后续优惠券会支持商品分类维度的关联，分类维度 + 商品维度可以更灵活地关联优惠券和商品。
 思维导图 我们这个优惠券和电商的优惠券有很大的不同
- 我们的使用范围一般是指定某些商品，但是电商是指定单品的 我们现在只支持事件触发吧（绑定promoCode后、新用户注册后、我们应该没有主动领券的流程吧，电商是去店铺或者什么地方主动领一些券，是这个店铺给的优惠。但我们是主动给）  需要产品确认下优惠券名字 显示
-表结构 coupon_rule:
-  id bigint [primary key]
-  coupon_rule_type text
-  threshold_amount decimal</description>
+ 我们的使用范围一般是指定某些商品，但是电商是指定单品的 我们现在只支持事件触发吧（绑定promoCode后、新用户注册后、我们应该没有主动领券的流程吧，电商是去店铺或者什么地方主动领一些券，是这个店铺给的优惠。但我们是主动给）   需要产品确认下优惠券名字 显示 productType 如何和优惠券关联  表结构 Coupon
+ id coupon_type (enum: DISCOUNT折扣券, DIRECT_REDUCTION立减券) value 优惠券价值（百分比或减免金额） effective_duration（领取后持续多久可用） rootProducts (适用的root商品类型，有四种可选 项目版本、算力包、加油包、多客户端)   其中 applicable_product_rule 要支持的粒度如下，所有项目版本、年付项目版本、基于某个模版买啥东西（不确定）</description>
     </item>
     
     <item>

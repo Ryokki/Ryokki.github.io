@@ -21,7 +21,7 @@
       "articleSection" : "posts",
       "name" : "设计优惠券系统(更新中)",
       "headline" : "设计优惠券系统(更新中)",
-      "description" : "References:\n 不会敲代码了 https:\/\/www.processon.com\/diagraming\/664472aaffdb264e78b5e231 谷粒商城 表结构可以参考 https:\/\/zhuanlan.zhihu.com\/p\/520220966 优惠券系统应该如何设计？ vivo优惠券设计 优惠卷 | EhFCptePcp - Xmind 电商系统：优惠券介绍(一) | 人人都是产品经理  vivo优惠券设计 目前，优惠券系统覆盖了优惠券的4个核心要点：创、发、用、计。\n **“创”**指优惠券的创建，包含各种券规则和使用门槛的配置。 **“发”**指优惠券的发放，优惠券系统提供了多种发放优惠券的方式，满足针对不同人群的主动发放和被动发放。 **“用”**指优惠券的使用，包括正向购买商品及反向退款后的优惠券回退。 **“计”**指优惠券的统计，包括优惠券的发放数量、使用数量、使用商品等数据汇总。  提供通用的优惠券服务，独立后的系统架构如下：\n为满足各种不同场景的发券需求，优惠券系统提供三种发券方式：统一领券接口、后台定向发券、券码兑换发放。\n券和商品之间的关系 优惠券的使用需要和商品关联，可关联所有商品，也可以关联部分商品。为了灵活性地满足运营对于券关联商品的配置，优惠券系统有两种关联方式：\n a. 黑名单。\n可用商品 = 全部商品 - 黑名单商品。\n黑名单适用于券的可使用商品范围比较广这种情况，全部商品排除掉黑名单商品就是券的可使用范围。\nb. 白名单。\n可用商品 = 白名单商品。\n白名单适用于券的可使用商品范围比较小这种情况，直接配置券的可使用商品。\n 除此以外，还有超级黑名单的配置，黑名单和白名单只对单个券有效，超级黑名单对所有券有效。当前优惠券系统提供商品级的关联，后续优惠券会支持商品分类维度的关联，分类维度 \u002b 商品维度可以更灵活地关联优惠券和商品。\n思维导图 我们这个优惠券和电商的优惠券有很大的不同\n 我们的使用范围一般是指定某些商品，但是电商是指定单品的 我们现在只支持事件触发吧（绑定promoCode后、新用户注册后、我们应该没有主动领券的流程吧，电商是去店铺或者什么地方主动领一些券，是这个店铺给的优惠。但我们是主动给）  需要产品确认下优惠券名字 显示\n表结构 coupon_rule:\n  id bigint [primary key]\n  coupon_rule_type text\n  threshold_amount decimal",
+      "description" : "References:\n 不会敲代码了 https:\/\/www.processon.com\/diagraming\/664472aaffdb264e78b5e231 谷粒商城 表结构可以参考 https:\/\/zhuanlan.zhihu.com\/p\/520220966 优惠券系统应该如何设计？ vivo优惠券设计 优惠卷 | EhFCptePcp - Xmind 电商系统：优惠券介绍(一) | 人人都是产品经理  vivo优惠券设计 目前，优惠券系统覆盖了优惠券的4个核心要点：创、发、用、计。\n **“创”**指优惠券的创建，包含各种券规则和使用门槛的配置。 **“发”**指优惠券的发放，优惠券系统提供了多种发放优惠券的方式，满足针对不同人群的主动发放和被动发放。 **“用”**指优惠券的使用，包括正向购买商品及反向退款后的优惠券回退。 **“计”**指优惠券的统计，包括优惠券的发放数量、使用数量、使用商品等数据汇总。  提供通用的优惠券服务，独立后的系统架构如下：\n为满足各种不同场景的发券需求，优惠券系统提供三种发券方式：统一领券接口、后台定向发券、券码兑换发放。\n券和商品之间的关系 优惠券的使用需要和商品关联，可关联所有商品，也可以关联部分商品。为了灵活性地满足运营对于券关联商品的配置，优惠券系统有两种关联方式：\n a. 黑名单。\n可用商品 = 全部商品 - 黑名单商品。\n黑名单适用于券的可使用商品范围比较广这种情况，全部商品排除掉黑名单商品就是券的可使用范围。\nb. 白名单。\n可用商品 = 白名单商品。\n白名单适用于券的可使用商品范围比较小这种情况，直接配置券的可使用商品。\n 除此以外，还有超级黑名单的配置，黑名单和白名单只对单个券有效，超级黑名单对所有券有效。当前优惠券系统提供商品级的关联，后续优惠券会支持商品分类维度的关联，分类维度 \u002b 商品维度可以更灵活地关联优惠券和商品。\n思维导图 我们这个优惠券和电商的优惠券有很大的不同\n 我们的使用范围一般是指定某些商品，但是电商是指定单品的 我们现在只支持事件触发吧（绑定promoCode后、新用户注册后、我们应该没有主动领券的流程吧，电商是去店铺或者什么地方主动领一些券，是这个店铺给的优惠。但我们是主动给）   需要产品确认下优惠券名字 显示 productType 如何和优惠券关联  表结构 Coupon\n id coupon_type (enum: DISCOUNT折扣券, DIRECT_REDUCTION立减券) value 优惠券价值（百分比或减免金额） effective_duration（领取后持续多久可用） rootProducts (适用的root商品类型，有四种可选 项目版本、算力包、加油包、多客户端)   其中 applicable_product_rule 要支持的粒度如下，所有项目版本、年付项目版本、基于某个模版买啥东西（不确定）",
       "inLanguage" : "en-US",
       "author" : "",
       "creator" : "",
@@ -51,11 +51,8 @@ b. 白名单。
 白名单适用于券的可使用商品范围比较小这种情况，直接配置券的可使用商品。
  除此以外，还有超级黑名单的配置，黑名单和白名单只对单个券有效，超级黑名单对所有券有效。当前优惠券系统提供商品级的关联，后续优惠券会支持商品分类维度的关联，分类维度 &#43; 商品维度可以更灵活地关联优惠券和商品。
 思维导图 我们这个优惠券和电商的优惠券有很大的不同
- 我们的使用范围一般是指定某些商品，但是电商是指定单品的 我们现在只支持事件触发吧（绑定promoCode后、新用户注册后、我们应该没有主动领券的流程吧，电商是去店铺或者什么地方主动领一些券，是这个店铺给的优惠。但我们是主动给）  需要产品确认下优惠券名字 显示
-表结构 coupon_rule:
-  id bigint [primary key]
-  coupon_rule_type text
-  threshold_amount decimal" />
+ 我们的使用范围一般是指定某些商品，但是电商是指定单品的 我们现在只支持事件触发吧（绑定promoCode后、新用户注册后、我们应该没有主动领券的流程吧，电商是去店铺或者什么地方主动领一些券，是这个店铺给的优惠。但我们是主动给）   需要产品确认下优惠券名字 显示 productType 如何和优惠券关联  表结构 Coupon
+ id coupon_type (enum: DISCOUNT折扣券, DIRECT_REDUCTION立减券) value 优惠券价值（百分比或减免金额） effective_duration（领取后持续多久可用） rootProducts (适用的root商品类型，有四种可选 项目版本、算力包、加油包、多客户端)   其中 applicable_product_rule 要支持的粒度如下，所有项目版本、年付项目版本、基于某个模版买啥东西（不确定）" />
   <meta name="description" content="References:
  不会敲代码了 https://www.processon.com/diagraming/664472aaffdb264e78b5e231 谷粒商城 表结构可以参考 https://zhuanlan.zhihu.com/p/520220966 优惠券系统应该如何设计？ vivo优惠券设计 优惠卷 | EhFCptePcp - Xmind 电商系统：优惠券介绍(一) | 人人都是产品经理  vivo优惠券设计 目前，优惠券系统覆盖了优惠券的4个核心要点：创、发、用、计。
  **“创”**指优惠券的创建，包含各种券规则和使用门槛的配置。 **“发”**指优惠券的发放，优惠券系统提供了多种发放优惠券的方式，满足针对不同人群的主动发放和被动发放。 **“用”**指优惠券的使用，包括正向购买商品及反向退款后的优惠券回退。 **“计”**指优惠券的统计，包括优惠券的发放数量、使用数量、使用商品等数据汇总。  提供通用的优惠券服务，独立后的系统架构如下：
@@ -69,11 +66,8 @@ b. 白名单。
 白名单适用于券的可使用商品范围比较小这种情况，直接配置券的可使用商品。
  除此以外，还有超级黑名单的配置，黑名单和白名单只对单个券有效，超级黑名单对所有券有效。当前优惠券系统提供商品级的关联，后续优惠券会支持商品分类维度的关联，分类维度 &#43; 商品维度可以更灵活地关联优惠券和商品。
 思维导图 我们这个优惠券和电商的优惠券有很大的不同
- 我们的使用范围一般是指定某些商品，但是电商是指定单品的 我们现在只支持事件触发吧（绑定promoCode后、新用户注册后、我们应该没有主动领券的流程吧，电商是去店铺或者什么地方主动领一些券，是这个店铺给的优惠。但我们是主动给）  需要产品确认下优惠券名字 显示
-表结构 coupon_rule:
-  id bigint [primary key]
-  coupon_rule_type text
-  threshold_amount decimal" />
+ 我们的使用范围一般是指定某些商品，但是电商是指定单品的 我们现在只支持事件触发吧（绑定promoCode后、新用户注册后、我们应该没有主动领券的流程吧，电商是去店铺或者什么地方主动领一些券，是这个店铺给的优惠。但我们是主动给）   需要产品确认下优惠券名字 显示 productType 如何和优惠券关联  表结构 Coupon
+ id coupon_type (enum: DISCOUNT折扣券, DIRECT_REDUCTION立减券) value 优惠券价值（百分比或减免金额） effective_duration（领取后持续多久可用） rootProducts (适用的root商品类型，有四种可选 项目版本、算力包、加油包、多客户端)   其中 applicable_product_rule 要支持的粒度如下，所有项目版本、年付项目版本、基于某个模版买啥东西（不确定）" />
   <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
 
@@ -188,34 +182,51 @@ b. 白名单。
 <li>我们的使用范围一般是指定某些商品，但是电商是指定单品的</li>
 <li>我们现在只支持事件触发吧（绑定promoCode后、新用户注册后、我们应该没有主动领券的流程吧，电商是去店铺或者什么地方主动领一些券，是这个店铺给的优惠。但我们是主动给）</li>
 </ol>
-<p>需要产品确认下优惠券名字 显示</p>
+<ul>
+<li>需要产品确认下优惠券名字 显示</li>
+<li>productType 如何和优惠券关联</li>
+</ul>
+<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240516184259.png" alt="image.png"></p>
 <h1 id="表结构">表结构</h1>
+<p>Coupon</p>
+<ul>
+<li>id</li>
+<li>coupon_type (enum: DISCOUNT折扣券, DIRECT_REDUCTION立减券)</li>
+<li>value 优惠券价值（百分比或减免金额）</li>
+<li>effective_duration（领取后持续多久可用）</li>
+<li>rootProducts (适用的root商品类型，有四种可选 项目版本、算力包、加油包、多客户端)</li>
+<li></li>
+</ul>
+<p>其中 applicable_product_rule 要支持的粒度如下，所有项目版本、年付项目版本、基于某个模版买啥东西（不确定）</p>
+<p>CouponUsage</p>
+<ul>
+<li>id</li>
+<li>coupon_id</li>
+<li>account_id</li>
+<li>total_count</li>
+<li>used_count（一开始是0）</li>
+<li>receive_event_id</li>
+<li>receive_amount</li>
+<li>receive_time</li>
+<li>expire_time</li>
+</ul>
+<hr>
+<p>product_rule 如何存</p>
+<ol>
+<li>存 <code>List&lt;ProductType&gt; roots</code>，这样只支持定位到root级别的产品类</li>
+<li>存 <code>List&lt;ProductType&gt; roots</code></li>
+<li></li>
+</ol>
 <p>coupon_rule:</p>
 <ul>
-<li>
-<p>id bigint [primary key]</p>
-</li>
-<li>
-<p>coupon_rule_type text</p>
-</li>
-<li>
-<p>threshold_amount decimal</p>
-</li>
-<li>
-<p>coupon_amount decimal</p>
-</li>
-<li>
-<p>productTypes jsonb</p>
-</li>
-<li>
-<p>max_uses_per_account bigint</p>
-</li>
-<li>
-<p>is_mutex boolean</p>
-</li>
-<li>
-<p>duration duration</p>
-</li>
+<li>id bigint [primary key]</li>
+<li>coupon_rule_type text</li>
+<li>threshold_amount decimal</li>
+<li>coupon_amount decimal</li>
+<li>productTypes jsonb</li>
+<li>max_uses_per_account bigint</li>
+<li>is_mutex boolean</li>
+<li>duration duration</li>
 <li></li>
 </ul>
 <p>account_has_coupon:</p>
