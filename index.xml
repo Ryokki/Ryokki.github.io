@@ -6,35 +6,64 @@
     <description>Recent content on Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 11 May 2024 11:28:47 +0800</lastBuildDate><atom:link href="https://ryokki.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ryokki.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hello</title>
-      <link>https://ryokki.github.io/posts/hello/</link>
-      <pubDate>Sat, 11 May 2024 11:28:47 +0800</pubDate>
+      <title>设计优惠券系统(更新中)</title>
+      <link>https://ryokki.github.io/posts/%E8%AE%BE%E8%AE%A1%E4%BC%98%E6%83%A0%E5%88%B8%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Thu, 16 May 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://ryokki.github.io/posts/hello/</guid>
-      <description>int main() { printf(&amp;#34;hello, kkbabe&amp;#34;); } hello, kkbabe 你好珂宝</description>
+      <guid>https://ryokki.github.io/posts/%E8%AE%BE%E8%AE%A1%E4%BC%98%E6%83%A0%E5%88%B8%E7%B3%BB%E7%BB%9F/</guid>
+      <description>最近在实现一个优惠券系统，会把研究的结果放在这里.</description>
     </item>
     
     <item>
-      <title>Git Internal（施工中）</title>
-      <link>https://ryokki.github.io/posts/git-internal-%E7%B2%97%E7%B3%99%E7%89%88/</link>
-      <pubDate>Fri, 10 May 2024 11:28:47 +0800</pubDate>
+      <title>design pattern(todo)</title>
+      <link>https://ryokki.github.io/posts/design-pattern/</link>
+      <pubDate>Wed, 15 May 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://ryokki.github.io/posts/git-internal-%E7%B2%97%E7%B3%99%E7%89%88/</guid>
-      <description>Git Doc: All commands Git Pro2 Understanding Git — Data Model. GIt is a great and powerful VCS but can… | by Zvonimir Spajic | Medium Deep Dive Into Git • Edward Thomson • GOTO 2015 - YouTube You searched for database internal - The GitHub Blog 这里有五篇git internal，看起来更deep，可以做完gitlet后看，或者瓶颈时看 从 Commit 到 Branch，一文明白 git 到底怎么回事 - 掘金 （写的巨好） 从 Commit 到 Branch，一文明白 git 到底怎么回事 - Chenyu&amp;rsquo;s Blog （原理 OR 实现 OR 提交 &amp;ldquo;commits-are-snapshots-not-diffs&amp;rdquo;） Commits are snapshots, not diffs - The GitHub Blog : r/programming git 工作原理与撤销操作图解 | Shall We Code?</description>
+      <guid>https://ryokki.github.io/posts/design-pattern/</guid>
+      <description>References:
+ GitHub - Jueee/design-patterns: 《设计模式:可复用面向对象软件的基础》学习笔记  GitHub - ukihsoroy/design-pattern: 🐱‍🏍你不能不学的设计模式合集。    </description>
+    </item>
+    
+    <item>
+      <title>jimmer</title>
+      <link>https://ryokki.github.io/posts/jimmer/</link>
+      <pubDate>Wed, 15 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/posts/jimmer/</guid>
+      <description>References  官方文档  初识 。。。 好多没看懂 先跳过
+快速预览 这里，列举三个实体类型，BookStore、Book、Author和TreeNode，作为当前章节所有讨论的前提假设。 @Entity public interface BookStore { @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id(); String name(); @Nullable String website(); @OneToMany(mappedBy = &amp;#34;store&amp;#34;) List&amp;lt;Book&amp;gt; books(); } @Entity public interface Book { @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id(); @Key String name(); @Key int edition(); BigDecimal price(); @Nullable @ManyToOne BookStore store(); @ManyToMany List&amp;lt;Author&amp;gt; authors(); } @Entity public interface Author { @Id @GeneratedValue(strategy = GenerationType.IDENTITY) UUID id(); @Key String firstName(); @Key String lastName(); Gender gender(); @ManyToMany(mappedBy = &amp;#34;authors&amp;#34;) List&amp;lt;Book&amp;gt; books(); } 任意动态查询 BookTable table = Tables.</description>
     </item>
     
     <item>
       <title>jpa entity lifecycle</title>
       <link>https://ryokki.github.io/posts/jpa-entity-lifecycle/</link>
-      <pubDate>Fri, 10 May 2024 11:28:47 +0800</pubDate>
+      <pubDate>Sun, 12 May 2024 00:00:00 +0000</pubDate>
       
       <guid>https://ryokki.github.io/posts/jpa-entity-lifecycle/</guid>
-      <description>#todo
- Entity Lifecycle Model in JPA &amp;amp; Hibernate Spring Data JPA: Entity Lifecycle Model | by Suraj Mishra | Javarevisited | Medium、 Hibernate Persistence Context and Object’s LifeCycle | MyArchiBook language agnostic - Using an ORM or plain SQL? - Stack Overflow  关键词：jpa persistence context &amp;quot;dirty check&amp;quot; JPA: Persistence Context And Dirty Check Mechanism | Thameena | Developer Journal 目标：理解entity如何状态变化，以及为什么这么设计，解决了什么问题。【看起来就是ORM的普遍问题？】
-  延迟写入（Write-Behind）：更改到托管实体的更新不是立即执行，而是在事务提交时一次性进行，这样可以整合多个更新操作，减少数据库操作的次数。 减少数据库访问次数：由于一级缓存的存在，同一个事务中对同一个实体的多次读取不需要每次都访问数据库。这大大减少了数据库访问次数，提高了应用的性能。   写这篇文章的起因是我发现下面代码跑完后不会把setStatus自动同步到数据库
-@Transactional public Commission distributeCommission( long orderId, long commissionRuleId, BigDecimal commissionAmount) { Commission commission = self.</description>
+      <description>Entity Lifecycle Model in JPA &amp;amp; Hibernate Spring Data JPA: Entity Lifecycle Model | by Suraj Mishra | Javarevisited | Medium、 Hibernate Persistence Context and Object’s LifeCycle | MyArchiBook language agnostic - Using an ORM or plain SQL? - Stack Overflow Hibernate Proxies - Why they&amp;rsquo;re used and how to unproxy them What is Object/Relational Mapping? - Hibernate ORM  关键词：jpa persistence context &amp;quot;dirty check&amp;quot; JPA: Persistence Context And Dirty Check Mechanism | Thameena | Developer Journal 目标：理解entity如何状态变化，以及为什么这么设计，解决了什么问题。【看起来就是ORM的普遍问题？】</description>
+    </item>
+    
+    <item>
+      <title>Git Internal（施工中）</title>
+      <link>https://ryokki.github.io/posts/git-internal/</link>
+      <pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/posts/git-internal/</guid>
+      <description>Reference
+ Git Doc: All commands Git Pro2 Understanding Git — Data Model. GIt is a great and powerful VCS but can… | by Zvonimir Spajic | Medium Deep Dive Into Git • Edward Thomson • GOTO 2015 - YouTube You searched for database internal - The GitHub Blog 这里有五篇git internal，看起来更deep，可以做完gitlet后看，或者瓶颈时看 从 Commit 到 Branch，一文明白 git 到底怎么回事 - 掘金 （写的巨好） 从 Commit 到 Branch，一文明白 git 到底怎么回事 - Chenyu&amp;rsquo;s Blog （原理 OR 实现 OR 提交 &amp;ldquo;commits-are-snapshots-not-diffs&amp;rdquo;） Commits are snapshots, not diffs - The GitHub Blog : r/programming git 工作原理与撤销操作图解 | Shall We Code?</description>
+    </item>
+    
+    <item>
+      <title>git学习</title>
+      <link>https://ryokki.github.io/posts/git%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Thu, 25 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/posts/git%E5%AD%A6%E4%B9%A0/</guid>
+      <description>All entity
+ working area/ staging area: 工作区和暂存区，这里是所有这次改动的信息（基于branch latest commit {snapshot}） commit: commit 是 tree + parents + log  root tree id: snapshot of file system commit info: commit message，author, time parent commit id: commit list   tree: snapshot of file system under the dir, blob: snapshot of file branch:a pointer to latest commit, it&amp;rsquo;s the base of working area  Point
+ all object(commit, tree, blob) 都是不可变的，因为只要内容变了，id sha就会变。  New learning from blog</description>
     </item>
     
     <item>
