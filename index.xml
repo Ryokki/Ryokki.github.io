@@ -18,26 +18,16 @@
     </item>
     
     <item>
-      <title>设计优惠券系统(更新中)</title>
+      <title>设计优惠券系统</title>
       <link>https://ryokki.github.io/posts/%E8%AE%BE%E8%AE%A1%E4%BC%98%E6%83%A0%E5%88%B8%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Thu, 16 May 2024 00:00:00 +0000</pubDate>
       
       <guid>https://ryokki.github.io/posts/%E8%AE%BE%E8%AE%A1%E4%BC%98%E6%83%A0%E5%88%B8%E7%B3%BB%E7%BB%9F/</guid>
-      <description>References:
- 不会敲代码了 https://www.processon.com/diagraming/664472aaffdb264e78b5e231 谷粒商城 表结构可以参考 https://zhuanlan.zhihu.com/p/520220966 优惠券系统应该如何设计？ vivo优惠券设计 优惠卷 | EhFCptePcp - Xmind 电商系统：优惠券介绍(一) | 人人都是产品经理  vivo优惠券设计 目前，优惠券系统覆盖了优惠券的4个核心要点：创、发、用、计。
- **“创”**指优惠券的创建，包含各种券规则和使用门槛的配置。 **“发”**指优惠券的发放，优惠券系统提供了多种发放优惠券的方式，满足针对不同人群的主动发放和被动发放。 **“用”**指优惠券的使用，包括正向购买商品及反向退款后的优惠券回退。 **“计”**指优惠券的统计，包括优惠券的发放数量、使用数量、使用商品等数据汇总。  提供通用的优惠券服务，独立后的系统架构如下：
-为满足各种不同场景的发券需求，优惠券系统提供三种发券方式：统一领券接口、后台定向发券、券码兑换发放。
-券和商品之间的关系 优惠券的使用需要和商品关联，可关联所有商品，也可以关联部分商品。为了灵活性地满足运营对于券关联商品的配置，优惠券系统有两种关联方式：
- a. 黑名单。
-可用商品 = 全部商品 - 黑名单商品。
-黑名单适用于券的可使用商品范围比较广这种情况，全部商品排除掉黑名单商品就是券的可使用范围。
-b. 白名单。
-可用商品 = 白名单商品。
-白名单适用于券的可使用商品范围比较小这种情况，直接配置券的可使用商品。
- 除此以外，还有超级黑名单的配置，黑名单和白名单只对单个券有效，超级黑名单对所有券有效。当前优惠券系统提供商品级的关联，后续优惠券会支持商品分类维度的关联，分类维度 + 商品维度可以更灵活地关联优惠券和商品。
-思维导图 我们这个优惠券和电商的优惠券有很大的不同
- 我们的使用范围一般是指定某些商品，但是电商是指定单品的 我们现在只支持事件触发吧（绑定promoCode后、新用户注册后、我们应该没有主动领券的流程吧，电商是去店铺或者什么地方主动领一些券，是这个店铺给的优惠。但我们是主动给）   需要产品确认下优惠券名字 显示 productType 如何和优惠券关联  表结构 Coupon
- id coupon_type (enum: DISCOUNT折扣券, DIRECT_REDUCTION立减券) value 优惠券价值（百分比或减免金额） effective_duration（领取后持续多久可用） rootProducts (适用的root商品类型，有四种可选 项目版本、算力包、加油包、多客户端)   其中 applicable_product_rule 要支持的粒度如下，所有项目版本、年付项目版本、基于某个模版买啥东西（不确定）</description>
+      <description>目标 设计一个通用的优惠券系统，供以后使用。目前想到的场景如下
+ 绑定邀请码后自动给用户发放一些优惠券（项目版本、算力包、加油包 各一张，折扣10%，有效期一个月 ） 后续会把pro版买算力包9折、服务商版算力包7折变成优惠券（这个不搞成优惠券，这个算另一种折扣？） 后续可能有一些发优惠券的活动  系统设计 优惠券
+ 优惠券名称 覆盖范围：商品/组合/行业/全平台 优惠形式：折扣/固定金额 使用限制：订单（满足金额）/用户（版本、注册时间超过X）/项目（版本） 使用次数：1次/多次 使用时间：固定有效期/推移量  优惠券逻辑主要是两部分
+ 发放券阶段：什么时候，发给谁，什么券 领券后：什么用户，什么时间，什么订单可用优惠券。能优惠多少。  数据模型 Coupon  id 优惠规则  discount_type (enum: PERCENTAGE_DISCOUNT 折扣券, FIXED_AMOUNT_DISCOUNT立减券) discount_amount 优惠券价值（百分比或减免金额）   订单门槛金额：minimum_order_amount 用户限制：List&amp;lt;PlanType&amp;gt; applicable_plans 项目限制：List&amp;lt;ProjectPlanType&amp;gt; applicable_project_plans 商品限制: List&amp;lt;ProductTypeDetail&amp;gt; applicable_project_type_details 可用时间  expired_at validity_period    这里比较麻烦的是商品范围限制字段如何设计
+ 最简单的是productIds，但是这个有个问题，后面加产品类型的时候，得去改以前的一堆优惠券 为了解决1的问题，可以再搞个product_group表，coupon里存List&amp;lt;product_group_id&amp;gt;。这样后续加产品类型的时候，就不需要改优惠券，只需要改product_group。这还是很麻烦 🌟 其实不需要product_group表，就可以做到给一批商品分类：通过productType + productDetail来确定一批商品，定义为ProductTypeDetail 例如： 适用于所有项目版本：(null, null, null) 适用于所有PRO版：(PRO, null, null) 适用于所有年付PRO版，就是(PRO, YEARLY, null)  项目版本  projectPlanType paymentCycle Long templateId   多客户端  paymentCycle   算力包  computingPowerKitType period   加油包  computingPowerAddonType period      CouponIssuanceEvent  Id event_type event_detail created_at expired_at  CouponIssuanceEventMapping  Id coupon_id event_id amount  AccountHasCoupon  id accountId couponId couponIssuanceEventId totalQuantity usedQuantity receivedAt expiredAt  CouponUsageRecord 优惠券的记录，需要知道谁 在什么时候 用了什么券 作用于什么订单（需要知道作用于哪个子订单，这样才能知道这个子订单优惠后的价格，在退子订单的时候根据优惠后价格退）</description>
     </item>
     
     <item>
