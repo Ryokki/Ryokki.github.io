@@ -137,7 +137,7 @@
   <span style="color:#66d9ef">public</span> Commission <span style="color:#a6e22e">distributeCommission</span><span style="color:#f92672">(</span>
       <span style="color:#66d9ef">long</span> orderId<span style="color:#f92672">,</span> <span style="color:#66d9ef">long</span> commissionRuleId<span style="color:#f92672">,</span> BigDecimal commissionAmount<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
     Commission commission <span style="color:#f92672">=</span>
-        self<span style="color:#f92672">.</span><span style="color:#a6e22e">createCommissionInNewTransaction</span><span style="color:#f92672">(</span>orderId<span style="color:#f92672">,</span> commissionRuleId<span style="color:#f92672">,</span> commissionAmount<span style="color:#f92672">);</span>
+        self<span style="color:#f92672">.</span><span style="color:#a6e22e">createCommission1InNewTransaction</span><span style="color:#f92672">(</span>orderId<span style="color:#f92672">,</span> commissionRuleId<span style="color:#f92672">,</span> commissionAmount<span style="color:#f92672">);</span>
     <span style="color:#75715e">// do something
 </span><span style="color:#75715e"></span>    commission<span style="color:#f92672">.</span><span style="color:#a6e22e">setStatus</span><span style="color:#f92672">(</span>status<span style="color:#f92672">);</span>
   <span style="color:#f92672">}</span>

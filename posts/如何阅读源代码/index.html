@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="" />
-  <meta property="og:url" content="https://ryokki.github.io/posts/" />
-  <link rel="canonical" href="https://ryokki.github.io/posts/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="Blog">
+  <meta property="og:url" content="https://ryokki.github.io/posts/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%BA%90%E4%BB%A3%E7%A0%81/" />
+  <link rel="canonical" href="https://ryokki.github.io/posts/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%BA%90%E4%BB%A3%E7%A0%81/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="Blog">
 
   <script type="application/ld+json">
   {
@@ -19,9 +19,9 @@
            "@id": "https:\/\/ryokki.github.io\/"
       },
       "articleSection" : "posts",
-      "name" : "Posts",
-      "headline" : "Posts",
-      "description" : "",
+      "name" : "如何阅读源代码——以一个tiny git实现为例",
+      "headline" : "如何阅读源代码——以一个tiny git实现为例",
+      "description" : "References  如何阅读一份代码？ 我是怎么读代码的 如何阅读一份源代码？（2020年版）  先通过文档了解全景，再逐步深入代码 多问自己几个问题。为什么选择这个数据结构来描述这个问题？类似的场景下，其他项目是怎么设计的？都有哪些数据结构做这样的事情？ 一边读一边记录，还要复盘 最后要总结输出\n记一个读tiny git实现的例子 流程\n git init git status echo hello \u0026gt; hello; git add . git commit -m \u0026ldquo;create hello file\u0026rdquo;  init后文件如下\nkkbabe in ~\/myproject\/rezero_git\/.zit on main ● λ cat HEAD ref: refs\/heads\/main% kkbabe in ~\/myproject\/rezero_git\/.zit on main ● λ ls HEAD index objects status测试\n 添加hello 更新hello 删掉hello 添加world  ",
       "inLanguage" : "en-US",
       "author" : "",
       "creator" : "",
@@ -29,17 +29,25 @@
       "accountablePerson" : "",
       "copyrightHolder" : "",
       "copyrightYear" : "2024",
-      "datePublished": "2024-05-22 00:00:00 \u002b0000 UTC",
-      "dateModified" : "2024-05-22 00:00:00 \u002b0000 UTC",
-      "url" : "https:\/\/ryokki.github.io\/posts\/",
+      "datePublished": "2024-05-19 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2024-05-19 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/ryokki.github.io\/posts\/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%BA%90%E4%BB%A3%E7%A0%81\/",
       "keywords" : [  ]
   }
 </script>
-<title>Posts</title>
-  <meta property="og:title" content="Posts" />
+<title>如何阅读源代码——以一个tiny git实现为例</title>
+  <meta property="og:title" content="如何阅读源代码——以一个tiny git实现为例" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="" />
-  <meta name="description" content="" />
+  <meta property="og:description" content="References  如何阅读一份代码？ 我是怎么读代码的 如何阅读一份源代码？（2020年版）  先通过文档了解全景，再逐步深入代码 多问自己几个问题。为什么选择这个数据结构来描述这个问题？类似的场景下，其他项目是怎么设计的？都有哪些数据结构做这样的事情？ 一边读一边记录，还要复盘 最后要总结输出
+记一个读tiny git实现的例子 流程
+ git init git status echo hello &amp;gt; hello; git add . git commit -m &amp;ldquo;create hello file&amp;rdquo;  init后文件如下
+kkbabe in ~/myproject/rezero_git/.zit on main ● λ cat HEAD ref: refs/heads/main% kkbabe in ~/myproject/rezero_git/.zit on main ● λ ls HEAD index objects status测试
+ 添加hello 更新hello 删掉hello 添加world  " />
+  <meta name="description" content="References  如何阅读一份代码？ 我是怎么读代码的 如何阅读一份源代码？（2020年版）  先通过文档了解全景，再逐步深入代码 多问自己几个问题。为什么选择这个数据结构来描述这个问题？类似的场景下，其他项目是怎么设计的？都有哪些数据结构做这样的事情？ 一边读一边记录，还要复盘 最后要总结输出
+记一个读tiny git实现的例子 流程
+ git init git status echo hello &amp;gt; hello; git add . git commit -m &amp;ldquo;create hello file&amp;rdquo;  init后文件如下
+kkbabe in ~/myproject/rezero_git/.zit on main ● λ cat HEAD ref: refs/heads/main% kkbabe in ~/myproject/rezero_git/.zit on main ● λ ls HEAD index objects status测试
+ 添加hello 更新hello 删掉hello 添加world  " />
   <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
 
@@ -66,10 +74,11 @@
 
 
 <body>
-  <article class="posts">
+  <article class="post " id="article">
     <div class="row">
       <div class="col-xs-12">
-        
+        <div class="site-header">
+          
 <header>
   <div class="header-title">
     <a href="/"
@@ -94,133 +103,78 @@
 </div>
 <div class="header-line"></div>
 
-
-        <h1 class="taxonomy-term"></h1>
-        <div id="posts-list">
-          <section>
-            <h1 class="site-date-catalog">2024</h1>
-
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-22 00:00:00 UTC">May 22</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0a-philosophy-of-software-design/">【读书笔记】A Philosophy of Software Design</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-19 00:00:00 UTC">May 19</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%BA%90%E4%BB%A3%E7%A0%81/">如何阅读源代码——以一个tiny git实现为例</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-16 00:00:00 UTC">May 16</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/%E8%AE%BE%E8%AE%A1%E4%BC%98%E6%83%A0%E5%88%B8%E7%B3%BB%E7%BB%9F/">设计优惠券系统</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-15 00:00:00 UTC">May 15</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/jimmer/">jimmer</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-15 00:00:00 UTC">May 15</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/design-pattern/">design pattern(todo)</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-12 00:00:00 UTC">May 12</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/jpa-entity-lifecycle/">jpa entity lifecycle</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-09 00:00:00 UTC">May 09</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/%E6%8B%96%E5%BB%B6-%E4%B9%A0%E6%83%AF/">改善拖延和习惯</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-01 00:00:00 UTC">May 01</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/git-internal/">Git Internal（施工中）</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-04-25 00:00:00 UTC">Apr 25</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/git%E5%AD%A6%E4%B9%A0/">git学习</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </section>
-          
         </div>
+        <header class="post-header">
+          <h1 class="post-title">如何阅读源代码——以一个tiny git实现为例</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2024-05-19 00:00:00 UTC">
+                19 May 2024
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+          <h1 id="references">References</h1>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/26222486">如何阅读一份代码？</a></li>
+<li><a href="https://lenshood.github.io/2022/05/22/how-i-read-code/">我是怎么读代码的</a></li>
+<li><a href="https://www.codedump.info/post/20200605-how-to-read-code-v2020/">如何阅读一份源代码？（2020年版）</a></li>
+</ul>
+<p>先通过文档了解全景，再逐步深入代码
+多问自己几个问题。为什么选择这个数据结构来描述这个问题？类似的场景下，其他项目是怎么设计的？都有哪些数据结构做这样的事情？
+一边读一边记录，还要复盘
+最后要总结输出</p>
+<h1 id="记一个读tiny-git实现的例子">记一个读tiny git实现的例子</h1>
+<p>流程</p>
+<ol>
+<li>git init</li>
+<li>git status</li>
+<li>echo hello &gt; hello; git add .</li>
+<li>git commit -m &ldquo;create hello file&rdquo;</li>
+</ol>
+<p>init后文件如下</p>
+<pre tabindex="0"><code>kkbabe in ~/myproject/rezero_git/.zit on main ● λ cat HEAD                  
+ref: refs/heads/main%                                                                                                                                                                                                         kkbabe in ~/myproject/rezero_git/.zit on main ● λ ls
+HEAD    index   objects
+</code></pre><p>status测试</p>
+<ol>
+<li>添加hello</li>
+<li>更新hello 删掉hello 添加world</li>
+</ol>
+
+        </div>
+
+        <div class="row middle-xs">
+          <div class="col-xs-12">
+            
+          </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-xs-12">
+              
+            </div>
+          </div>
+
+          
+
+
+
+          
+          
+          <div style="height: 50px;"></div>
+          
+        
 
         <div class="site-footer">
   
@@ -240,6 +194,8 @@
     
   
 </script>
+
+  
 
 </body>
 

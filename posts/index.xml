@@ -6,7 +6,33 @@
     <description>Recent content in Posts on Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 16 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ryokki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ryokki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【读书笔记】A Philosophy of Software Design</title>
+      <link>https://ryokki.github.io/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0a-philosophy-of-software-design/</link>
+      <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0a-philosophy-of-software-design/</guid>
+      <description>为什么读这本书？这本书主要关于设计软件系统以最小化其复杂性，而控制复杂度是程序员的关键能力之一。
+Reference  软件设计的哲学 A Philosophy of Software Design | John Ousterhout | Talks at Google - YouTube A Philosophy of Software Design  读书笔记：
+ Massive Technical Interviews Tips: A Philosophy of Software Design A Philosophy of SoftwareDesign - 知乎 [[02. naughty 读书笔记：A Philosophy of Software Design]] 降低软件复杂性一般原则和方法 - 美团技术团队 Site Unreachable  1-3 复杂度 模块的复杂度 = 模块内部复杂度 + 模块外部复杂度
+ 模块内部的复杂度：改模块内部逻辑的复杂度 模块外部的复杂度：调这个模块的地方需要多少理解成本，使用起来会不会麻烦  书中给了两种解决复杂度的办法
+ 使代码更简单和更明显来消除复杂性，例如消除特殊情况（对应上1） 封装/模块化设计（例如类），这些模块被设计为彼此相对独立（低耦合），以便程序员可以在一个模块上工作而不必了解其他模块的细节。  </description>
+    </item>
+    
+    <item>
+      <title>如何阅读源代码——以一个tiny git实现为例</title>
+      <link>https://ryokki.github.io/posts/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%BA%90%E4%BB%A3%E7%A0%81/</link>
+      <pubDate>Sun, 19 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/posts/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%BA%90%E4%BB%A3%E7%A0%81/</guid>
+      <description>References  如何阅读一份代码？ 我是怎么读代码的 如何阅读一份源代码？（2020年版）  先通过文档了解全景，再逐步深入代码 多问自己几个问题。为什么选择这个数据结构来描述这个问题？类似的场景下，其他项目是怎么设计的？都有哪些数据结构做这样的事情？ 一边读一边记录，还要复盘 最后要总结输出
+记一个读tiny git实现的例子 流程
+ git init git status echo hello &amp;gt; hello; git add . git commit -m &amp;ldquo;create hello file&amp;rdquo;  init后文件如下
+kkbabe in ~/myproject/rezero_git/.zit on main ● λ cat HEAD ref: refs/heads/main% kkbabe in ~/myproject/rezero_git/.zit on main ● λ ls HEAD index objects status测试
+ 添加hello 更新hello 删掉hello 添加world  </description>
+    </item>
+    
     <item>
       <title>设计优惠券系统</title>
       <link>https://ryokki.github.io/posts/%E8%AE%BE%E8%AE%A1%E4%BC%98%E6%83%A0%E5%88%B8%E7%B3%BB%E7%BB%9F/</link>
@@ -17,7 +43,7 @@
  绑定邀请码后自动给用户发放一些优惠券（项目版本、算力包、加油包 各一张，折扣10%，有效期一个月 ） 后续会把pro版买算力包9折、服务商版算力包7折变成优惠券（这个不搞成优惠券，这个算另一种折扣？） 后续可能有一些发优惠券的活动  系统设计 优惠券
  优惠券名称 覆盖范围：商品/组合/行业/全平台 优惠形式：折扣/固定金额 使用限制：订单（满足金额）/用户（版本、注册时间超过X）/项目（版本） 使用次数：1次/多次 使用时间：固定有效期/推移量  优惠券逻辑主要是两阶段
  发放券阶段：什么时候，发给谁，什么券 领券后：什么用户，什么时间，什么订单可用优惠券。能优惠多少。  数据模型 Coupon  id 优惠规则  discount_type (enum: PERCENTAGE_DISCOUNT 折扣券, FIXED_AMOUNT_DISCOUNT立减券) discount_amount 优惠券价值（百分比或减免金额）   订单门槛金额：minimum_order_amount 用户限制：List&amp;lt;PlanType&amp;gt; applicable_plans 项目限制：List&amp;lt;ProjectPlanType&amp;gt; applicable_project_plans 商品限制: List&amp;lt;ProductTypeDetail&amp;gt; applicable_project_type_details 可用时间  expired_at validity_period    这里比较麻烦的是商品范围限制字段如何设计
- 最简单的是productIds，但是这个有个问题，后面加产品类型的时候，得去改以前的一堆优惠券 为了解决1的问题，可以再搞个product_group表，coupon里存List&amp;lt;product_group_id&amp;gt;。这样后续加产品类型的时候，就不需要改优惠券，只需要改product_group。这还是很麻烦 🌟 其实不需要product_group表，就可以做到给一批商品分类：通过productType + productDetail来确定一批商品，定义为ProductTypeDetail 例如： 适用于所有项目版本：(null, null, null) 适用于所有PRO版：(PRO, null, null) 适用于所有年付PRO版，就是(PRO, YEARLY, null)  项目版本  projectPlanType paymentCycle Long templateId   多客户端  paymentCycle   算力包  computingPowerKitType period   加油包  computingPowerAddonType period      CouponIssuanceEvent  Id event_type event_detail created_at expired_at  CouponIssuanceEventMapping  Id coupon_id event_id amount  AccountHasCoupon  id accountId couponId couponIssuanceEventId totalQuantity usedQuantity receivedAt expiredAt  CouponUsageRecord 优惠券的记录，需要知道谁 在什么时候 用了什么券 作用于什么订单（需要知道作用于哪个子订单，这样才能知道这个子订单优惠后的价格，在退子订单的时候根据优惠后价格退）</description>
+ 最简单的是productIds，但是这个有个问题，后面加产品类型的时候，得去改以前的一堆优惠券 为了解决1的问题，可以再搞个product_group表，coupon里存List&amp;lt;product_group_id&amp;gt;。这样后续加产品类型的时候，就不需要改优惠券，只需要改product_group。这还是很麻烦 🌟 其实不需要product_group表，就可以做到给一批商品分类：通过productType + productDetail来确定一批商品，定义为ProductTypeDetail  项目版本  projectPlanType paymentCycle Long templateId   多客户端  paymentCycle   算力包  computingPowerKitType period   加油包  computingPowerAddonType period      例如：</description>
     </item>
     
     <item>
@@ -27,7 +53,7 @@
       
       <guid>https://ryokki.github.io/posts/design-pattern/</guid>
       <description>References:
- GitHub - Jueee/design-patterns: 《设计模式:可复用面向对象软件的基础》学习笔记  GitHub - ukihsoroy/design-pattern: 🐱‍🏍你不能不学的设计模式合集。    </description>
+ GitHub - Jueee/design-patterns: 《设计模式:可复用面向对象软件的基础》学习笔记 GitHub - ukihsoroy/design-pattern: 🐱‍🏍你不能不学的设计模式合集。 GitHub - fuzhengwei/itstack-demo-design: :art: 《重学Java设计模式》是一本互联网真实案例实践书籍。以落地解决方案为核心，从实际业务中抽离出，交易、营销、秒杀、中间件、源码等22个真实场景，来学习设计模式的运用。欢迎关注小傅哥，微信(fustack)，公众号：bugstack虫洞栈，博客：https://bugstack.cn design-pattern 装饰设计（装饰者模式 / 装饰器模式） Design Pattern Catalog | Java Design Patterns GitHub - iluwatar/java-design-patterns: Design patterns implemented in Java GitHub - kshitijmishra23/low-level-design-concepts: Code Samples to understand SOLID design principles and Design Patterns in JAVA. 设计模式之美不错 因为王争的那个回答不错 图解设计模式 短评  </description>
     </item>
     
     <item>
@@ -71,7 +97,7 @@
       
       <guid>https://ryokki.github.io/posts/git-internal/</guid>
       <description>Reference
- Git Doc: All commands Git Pro2 Understanding Git — Data Model. GIt is a great and powerful VCS but can… | by Zvonimir Spajic | Medium Deep Dive Into Git • Edward Thomson • GOTO 2015 - YouTube You searched for database internal - The GitHub Blog 这里有五篇git internal，看起来更deep，可以做完gitlet后看，或者瓶颈时看 从 Commit 到 Branch，一文明白 git 到底怎么回事 - 掘金 （写的巨好） 从 Commit 到 Branch，一文明白 git 到底怎么回事 - Chenyu&amp;rsquo;s Blog （原理 OR 实现 OR 提交 &amp;ldquo;commits-are-snapshots-not-diffs&amp;rdquo;） Commits are snapshots, not diffs - The GitHub Blog : r/programming git 工作原理与撤销操作图解 | Shall We Code?</description>
+ Git Doc: All commands Git Pro2 Understanding Git — Data Model. GIt is a great and powerful VCS but can… | by Zvonimir Spajic | Medium Deep Dive Into Git • Edward Thomson • GOTO 2015 - YouTube You searched for database internal - The GitHub Blog 这里有五篇git internal，看起来更deep，可以做完gitlet后看 从 Commit 到 Branch，一文明白 git 到底怎么回事 - 掘金 （写的巨好） 从 Commit 到 Branch，一文明白 git 到底怎么回事 - Chenyu&amp;rsquo;s Blog （原理 OR 实现 OR 提交 &amp;ldquo;commits-are-snapshots-not-diffs&amp;rdquo;） Commits are snapshots, not diffs - The GitHub Blog : r/programming git 工作原理与撤销操作图解 | Shall We Code?</description>
     </item>
     
     <item>
