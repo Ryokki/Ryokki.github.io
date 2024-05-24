@@ -261,7 +261,53 @@
 <li>优惠券只能在手动发起订单的时候能用，订阅续费时用不了</li>
 <li>进支付页时锁优惠券。需要做订单页，支付超时（多久超时）或者取消支付或者全款退款的话，归还优惠券</li>
 </ol>
+<h1 id="优惠券模块提供的功能">优惠券模块提供的功能</h1>
+<p>accountHasCoupon中去掉expireAt. 不应该有任何coupon自身属性～～～ 只能有数量信息.
+Order中也加一个originalPrice.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// immutable for orderProducts
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isApplicableToOrder</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>OrderProduct<span style="color:#f92672">&gt;,</span> AccountHasCoupon<span style="color:#f92672">);</span>
 
+<span style="color:#75715e">// same immutable
+</span><span style="color:#75715e"></span>List<span style="color:#f92672">&lt;</span>OrderProduct<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">applyCouponToOrderProducts</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>OrderProduct<span style="color:#f92672">&gt;,</span> AccountHasCoupon<span style="color:#f92672">);</span>
+
+<span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isCouponUsedUp</span><span style="color:#f92672">();</span>
+
+<span style="color:#75715e">// concurernt issue
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">redeemCoupon</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>usedUp<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">throw</span><span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+	coupon<span style="color:#f92672">.</span><span style="color:#a6e22e">usedAmount</span> <span style="color:#f92672">++;</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">returnCoupon</span><span style="color:#f92672">(</span>AccountHasCoupon coupon<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+	coupon<span style="color:#f92672">.</span><span style="color:#a6e22e">usedAmount</span> <span style="color:#f92672">--;</span>
+<span style="color:#f92672">}</span>
+
+AccountHasCoupon <span style="color:#a6e22e">verifyCouponOwnerAndGetCoupon</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> couponId<span style="color:#f92672">,</span> <span style="color:#66d9ef">long</span> accountId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+	<span style="color:#75715e">// check coupon owner AND get coupon object
+</span><span style="color:#75715e"></span>	
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// some query list..
+</span><span style="color:#75715e"></span>
+</code></pre></div><p>OrderService.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">PurchaseOrder <span style="color:#a6e22e">createOrder</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>OrderProduct<span style="color:#f92672">&gt;,</span> AccountHasCoupon<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+	order <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PurchaseOrder<span style="color:#f92672">().</span><span style="color:#a6e22e">setxxx</span><span style="color:#f92672">.</span><span style="color:#a6e22e">setpromoCode</span><span style="color:#f92672">().</span><span style="color:#a6e22e">except</span><span style="color:#f92672">(</span>price<span style="color:#f92672">);</span>
+	newOrderProducts <span style="color:#f92672">=</span> getOrderProductsByCoupon<span style="color:#f92672">(</span>orderProducts<span style="color:#f92672">,</span> coupon<span style="color:#f92672">);</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>newOrderProducts<span style="color:#f92672">.</span><span style="color:#a6e22e">all</span><span style="color:#f92672">().</span><span style="color:#a6e22e">noCoupon</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+		error<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;coupon does not work for this order&#34;</span><span style="color:#f92672">);</span>
+	<span style="color:#f92672">}</span>
+	useCoupon<span style="color:#f92672">();</span>
+	order<span style="color:#f92672">.</span><span style="color:#a6e22e">setCouponId</span><span style="color:#f92672">(</span>couponId<span style="color:#f92672">);</span>
+	<span style="color:#66d9ef">return</span> order<span style="color:#f92672">;</span>	
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">cancelOrder</span><span style="color:#f92672">(</span>order<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+	order<span style="color:#f92672">.</span><span style="color:#a6e22e">setStatus</span><span style="color:#f92672">(</span>CANCELLED<span style="color:#f92672">);</span>
+	returnCoupon<span style="color:#f92672">(</span>order<span style="color:#f92672">.</span><span style="color:#a6e22e">getCoupon</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div>
         </div>
 
         <div class="row middle-xs">

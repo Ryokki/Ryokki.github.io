@@ -14,10 +14,10 @@
       
       <guid>https://ryokki.github.io/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0a-philosophy-of-software-design/</guid>
       <description>为什么读这本书？这本书主要关于设计软件系统以最小化其复杂性，而控制复杂度是程序员的关键能力之一。
-Reference  软件设计的哲学 A Philosophy of Software Design | John Ousterhout | Talks at Google - YouTube A Philosophy of Software Design  读书笔记：
- Massive Technical Interviews Tips: A Philosophy of Software Design A Philosophy of SoftwareDesign - 知乎 [[02. naughty 读书笔记：A Philosophy of Software Design]] 降低软件复杂性一般原则和方法 - 美团技术团队 Site Unreachable  1-3 复杂度 模块的复杂度 = 模块内部复杂度 + 模块外部复杂度
- 模块内部的复杂度：改模块内部逻辑的复杂度 模块外部的复杂度：调这个模块的地方需要多少理解成本，使用起来会不会麻烦  书中给了两种解决复杂度的办法
- 使代码更简单和更明显来消除复杂性，例如消除特殊情况（对应上1） 封装/模块化设计（例如类），这些模块被设计为彼此相对独立（低耦合），以便程序员可以在一个模块上工作而不必了解其他模块的细节。  </description>
+Reference 资料：
+ 软件设计的哲学第二版中文翻译 By Yingang A Philosophy of Software Design | John Ousterhout | Talks at Google - YouTube A Philosophy of Software Design  读书笔记(great)：
+ https://blog.pragmaticengineer.com/a-philosophy-of-software-design-review/ Philosophy of Software Design 第九章 - 合并还是拆分 《A Philosophy of Software Design》心得 2 — 透过模组设计降低软件复杂度，从介面开始｜ExplainThis  读书笔记(normal)
+ Massive Technical Interviews Tips: A Philosophy of Software Design A Philosophy of SoftwareDesign - 知乎 [[02. naughty 读书笔记：A Philosophy of Software Design]] 降低软件复杂性一般原则和方法 - 美团技术团队  1-3 复杂度 模块的复杂度 = 模块内部复杂度 + 模块外部复杂度</description>
     </item>
     
     <item>

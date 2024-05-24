@@ -14,10 +14,10 @@
       
       <guid>https://ryokki.github.io/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0a-philosophy-of-software-design/</guid>
       <description>为什么读这本书？这本书主要关于设计软件系统以最小化其复杂性，而控制复杂度是程序员的关键能力之一。
-Reference  软件设计的哲学 A Philosophy of Software Design | John Ousterhout | Talks at Google - YouTube A Philosophy of Software Design  读书笔记：
- Massive Technical Interviews Tips: A Philosophy of Software Design A Philosophy of SoftwareDesign - 知乎 [[02. naughty 读书笔记：A Philosophy of Software Design]] 降低软件复杂性一般原则和方法 - 美团技术团队 Site Unreachable  1-3 复杂度 模块的复杂度 = 模块内部复杂度 + 模块外部复杂度
- 模块内部的复杂度：改模块内部逻辑的复杂度 模块外部的复杂度：调这个模块的地方需要多少理解成本，使用起来会不会麻烦  书中给了两种解决复杂度的办法
- 使代码更简单和更明显来消除复杂性，例如消除特殊情况（对应上1） 封装/模块化设计（例如类），这些模块被设计为彼此相对独立（低耦合），以便程序员可以在一个模块上工作而不必了解其他模块的细节。  </description>
+Reference 资料：
+ 软件设计的哲学第二版中文翻译 By Yingang A Philosophy of Software Design | John Ousterhout | Talks at Google - YouTube A Philosophy of Software Design  读书笔记(great)：
+ https://blog.pragmaticengineer.com/a-philosophy-of-software-design-review/ Philosophy of Software Design 第九章 - 合并还是拆分 《A Philosophy of Software Design》心得 2 — 透过模组设计降低软件复杂度，从介面开始｜ExplainThis  读书笔记(normal)
+ Massive Technical Interviews Tips: A Philosophy of Software Design A Philosophy of SoftwareDesign - 知乎 [[02. naughty 读书笔记：A Philosophy of Software Design]] 降低软件复杂性一般原则和方法 - 美团技术团队  1-3 复杂度 模块的复杂度 = 模块内部复杂度 + 模块外部复杂度</description>
     </item>
     
     <item>
@@ -40,7 +40,18 @@ kkbabe in ~/myproject/rezero_git/.zit on main ● λ cat HEAD ref: refs/heads/ma
       
       <guid>https://ryokki.github.io/now/</guid>
       <description>Now 页面会随着时间和当下生活的优先级而更新，用来让别人看见这个人现在生活的重点是什么，和提醒自己专注于当下最重要的事。
- 闷骚的程序员 - 知乎 重新启动游泳～ 拓扑排序 how gradle/maven works Signals. I spent 2 years to understand this part. - YouTube Sending and Handling Signals in C (kill, signal, sigaction) - YouTube 研究学习的整个workflow（包括信息接收，信息存储，项目/时间管理），以及学习方法[[workflow and method]] git learn  学习(预计10h): (看一些blog &amp;amp;&amp;amp; 调试rezero的代码)  学习workflow中看代码的方法，结合实践，写一篇blog   输出: git internal blog 知识应用(预计20h): gitlet   优惠券系统设计 &amp;amp; 分销系统设计 总结 java &amp;amp; 并发  effective-java 【单例模式】猛男因不懂单例模式，被面试官无情嘲讽_哔哩哔哩_bilibili 这个视频及相关的并发知识、以及其他的视频都挺适合我的   jimmer原理 jimmer/project/jimmer-sql/src/main/java/org/babyfish/jimmer/sql/ast/impl/table/MergedNode.java at main · babyfish-ct/jimmer · GitHub nop-orm GitHub1s pg_graphql  </description>
+学习优先级：（gitlet没动力了写了～～ 感觉没啥用 鸽了 还是想回归基础）
+  软件设计原则/设计模式/clean architecture
+  mysql是怎样运行的
+  csapp
+  闷骚的程序员 - 知乎
+  重新启动游泳～
+  拓扑排序
+  how gradle/maven works
+  Signals. I spent 2 years to understand this part. - YouTube Sending and Handling Signals in C (kill, signal, sigaction) - YouTube
+  研究学习的整个workflow（包括信息接收，信息存储，项目/时间管理），以及学习方法[[workflow and method]]
+  git learn
+ 学习(预计10h): (看一些blog &amp;amp;&amp;amp; 调试rezero的代码)  学习workflow中看代码的方法，结合实践，写一篇blog   输出: git internal blog 知识应用(预计20h): gitlet    优惠券系统设计 &amp;amp; 分销系统设计 总结</description>
     </item>
     
     <item>
