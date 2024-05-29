@@ -6,9 +6,9 @@
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="author" content="" />
+  <meta name="author" content="Kaijian Xu" />
   <meta property="og:url" content="https://ryokki.github.io/posts/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%BA%90%E4%BB%A3%E7%A0%81/" />
-  <link rel="canonical" href="https://ryokki.github.io/posts/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%BA%90%E4%BB%A3%E7%A0%81/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="Blog">
+  <link rel="canonical" href="https://ryokki.github.io/posts/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%BA%90%E4%BB%A3%E7%A0%81/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.ioindex.xml" title="XKJ Blog">
 
   <script type="application/ld+json">
   {
@@ -16,18 +16,18 @@
       "@type" : "BlogPosting",
       "mainEntityOfPage": {
            "@type": "WebPage",
-           "@id": "https:\/\/ryokki.github.io\/"
+           "@id": "https:\/\/ryokki.github.io"
       },
       "articleSection" : "posts",
       "name" : "如何阅读源代码——以一个tiny git实现为例",
       "headline" : "如何阅读源代码——以一个tiny git实现为例",
       "description" : "References  如何阅读一份代码？ 我是怎么读代码的 如何阅读一份源代码？（2020年版）  先通过文档了解全景，再逐步深入代码 多问自己几个问题。为什么选择这个数据结构来描述这个问题？类似的场景下，其他项目是怎么设计的？都有哪些数据结构做这样的事情？ 一边读一边记录，还要复盘 最后要总结输出\n记一个读tiny git实现的例子 流程\n git init git status echo hello \u0026gt; hello; git add . git commit -m \u0026ldquo;create hello file\u0026rdquo;  init后文件如下\nkkbabe in ~\/myproject\/rezero_git\/.zit on main ● λ cat HEAD ref: refs\/heads\/main% kkbabe in ~\/myproject\/rezero_git\/.zit on main ● λ ls HEAD index objects status测试\n 添加hello 更新hello 删掉hello 添加world  ",
       "inLanguage" : "en-US",
-      "author" : "",
-      "creator" : "",
-      "publisher": "",
-      "accountablePerson" : "",
-      "copyrightHolder" : "",
+      "author" : "Kaijian Xu",
+      "creator" : "Kaijian Xu",
+      "publisher": "Kaijian Xu",
+      "accountablePerson" : "Kaijian Xu",
+      "copyrightHolder" : "Kaijian Xu",
       "copyrightYear" : "2024",
       "datePublished": "2024-05-19 00:00:00 \u002b0000 UTC",
       "dateModified" : "2024-05-19 00:00:00 \u002b0000 UTC",
@@ -61,7 +61,7 @@ kkbabe in ~/myproject/rezero_git/.zit on main ● λ cat HEAD ref: refs/heads/ma
   
 
   <link href="/index.xml" rel="alternate" type="application/rss+xml"
-    title="Blog">
+    title="XKJ Blog">
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Bungee+Shade" rel="stylesheet">
@@ -82,20 +82,12 @@ kkbabe in ~/myproject/rezero_git/.zit on main ● λ cat HEAD ref: refs/heads/ma
 <header>
   <div class="header-title">
     <a href="/"
-      ></a
+      >Kaijian Xu</a
     >
   </div>
   <div class="header-subtitle"></div>
 </header>
 <div class="row end-md center-xs header-items">
-  
-  <div class="header-item">
-    <a href="https://ryokki.github.io/about" target="_blank">About Me</a>
-  </div>
-  
-  <div class="header-item">
-    <a href="https://ryokki.github.io/now" target="_blank">Now</a>
-  </div>
   
 </div>
 <div class="row end-xs">
@@ -116,6 +108,10 @@ kkbabe in ~/myproject/rezero_git/.zit on main ● λ cat HEAD ref: refs/heads/ma
               
             </div>
             <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="">@Kaijian Xu</a>
+              </div>
               
             </div>
           </div>
@@ -173,6 +169,29 @@ HEAD    index   objects
           
           
           <div style="height: 50px;"></div>
+          
+          <div class="post-comments">
+            <div id="disqus_thread"></div>
+<script>
+  window.addEventListener("load", () => {
+    (function() {
+      
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://joway.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  });
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+
+          </div>
           
         
 

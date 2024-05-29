@@ -6,9 +6,9 @@
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="author" content="" />
+  <meta name="author" content="Kaijian Xu" />
   <meta property="og:url" content="https://ryokki.github.io/posts/%E8%AE%BE%E8%AE%A1%E4%BC%98%E6%83%A0%E5%88%B8%E7%B3%BB%E7%BB%9F/" />
-  <link rel="canonical" href="https://ryokki.github.io/posts/%E8%AE%BE%E8%AE%A1%E4%BC%98%E6%83%A0%E5%88%B8%E7%B3%BB%E7%BB%9F/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="Blog">
+  <link rel="canonical" href="https://ryokki.github.io/posts/%E8%AE%BE%E8%AE%A1%E4%BC%98%E6%83%A0%E5%88%B8%E7%B3%BB%E7%BB%9F/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.ioindex.xml" title="XKJ Blog">
 
   <script type="application/ld+json">
   {
@@ -16,18 +16,18 @@
       "@type" : "BlogPosting",
       "mainEntityOfPage": {
            "@type": "WebPage",
-           "@id": "https:\/\/ryokki.github.io\/"
+           "@id": "https:\/\/ryokki.github.io"
       },
       "articleSection" : "posts",
       "name" : "设计优惠券系统",
       "headline" : "设计优惠券系统",
       "description" : "目标 设计一个通用的优惠券系统，供以后使用。目前想到的场景如下\n 绑定邀请码后自动给用户发放一些优惠券（项目版本、算力包、加油包 各一张，折扣10%，有效期一个月 ） 后续会把pro版买算力包9折、服务商版算力包7折变成优惠券（这个不搞成优惠券，这个算另一种折扣？） 后续可能有一些发优惠券的活动  系统设计 优惠券\n 优惠券名称 覆盖范围：商品\/组合\/行业\/全平台 优惠形式：折扣\/固定金额 使用限制：订单（满足金额）\/用户（版本、注册时间超过X）\/项目（版本） 使用次数：1次\/多次 使用时间：固定有效期\/推移量  优惠券逻辑主要是两阶段\n 发放券阶段：什么时候，发给谁，什么券 领券后：什么用户，什么时间，什么订单可用优惠券。能优惠多少。  数据模型 Coupon  id 优惠规则  discount_type (enum: PERCENTAGE_DISCOUNT 折扣券, FIXED_AMOUNT_DISCOUNT立减券) discount_amount 优惠券价值（百分比或减免金额）   订单门槛金额：minimum_order_amount 用户限制：List\u0026lt;PlanType\u0026gt; applicable_plans 项目限制：List\u0026lt;ProjectPlanType\u0026gt; applicable_project_plans 商品限制: List\u0026lt;ProductTypeDetail\u0026gt; applicable_project_type_details 可用时间  expired_at validity_period    这里比较麻烦的是商品范围限制字段如何设计\n 最简单的是productIds，但是这个有个问题，后面加产品类型的时候，得去改以前的一堆优惠券 为了解决1的问题，可以再搞个product_group表，coupon里存List\u0026lt;product_group_id\u0026gt;。这样后续加产品类型的时候，就不需要改优惠券，只需要改product_group。这还是很麻烦 🌟 其实不需要product_group表，就可以做到给一批商品分类：通过productType \u002b productDetail来确定一批商品，定义为ProductTypeDetail  项目版本  projectPlanType paymentCycle Long templateId   多客户端  paymentCycle   算力包  computingPowerKitType period   加油包  computingPowerAddonType period      例如：",
       "inLanguage" : "en-US",
-      "author" : "",
-      "creator" : "",
-      "publisher": "",
-      "accountablePerson" : "",
-      "copyrightHolder" : "",
+      "author" : "Kaijian Xu",
+      "creator" : "Kaijian Xu",
+      "publisher": "Kaijian Xu",
+      "accountablePerson" : "Kaijian Xu",
+      "copyrightHolder" : "Kaijian Xu",
       "copyrightYear" : "2024",
       "datePublished": "2024-05-16 00:00:00 \u002b0000 UTC",
       "dateModified" : "2024-05-16 00:00:00 \u002b0000 UTC",
@@ -61,7 +61,7 @@
   
 
   <link href="/index.xml" rel="alternate" type="application/rss+xml"
-    title="Blog">
+    title="XKJ Blog">
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Bungee+Shade" rel="stylesheet">
@@ -82,20 +82,12 @@
 <header>
   <div class="header-title">
     <a href="/"
-      ></a
+      >Kaijian Xu</a
     >
   </div>
   <div class="header-subtitle"></div>
 </header>
 <div class="row end-md center-xs header-items">
-  
-  <div class="header-item">
-    <a href="https://ryokki.github.io/about" target="_blank">About Me</a>
-  </div>
-  
-  <div class="header-item">
-    <a href="https://ryokki.github.io/now" target="_blank">Now</a>
-  </div>
   
 </div>
 <div class="row end-xs">
@@ -116,6 +108,10 @@
               
             </div>
             <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="">@Kaijian Xu</a>
+              </div>
               
             </div>
           </div>
@@ -265,10 +261,24 @@
 <p>accountHasCoupon中去掉expireAt. 不应该有任何coupon自身属性～～～ 只能有数量信息.
 Order中也加一个originalPrice.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// immutable for orderProducts
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isApplicableToOrder</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>OrderProduct<span style="color:#f92672">&gt;,</span> AccountHasCoupon<span style="color:#f92672">);</span>
+</span><span style="color:#75715e">// 1. 查可用券列表
+</span><span style="color:#75715e">// 2. 查询券后价格
+</span><span style="color:#75715e">// 这里肯定不是OrderProduct
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isApplicableForOrder</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>ProductIdAndPurchaseDetail<span style="color:#f92672">&gt;,</span> AccountHasCoupon<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+	applyCouponToOrderProducts
+<span style="color:#f92672">}</span>
 
+<span style="color:#75715e">// coupon template 这层
+</span><span style="color:#75715e"></span>
 <span style="color:#75715e">// same immutable
-</span><span style="color:#75715e"></span>List<span style="color:#f92672">&lt;</span>OrderProduct<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">applyCouponToOrderProducts</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>OrderProduct<span style="color:#f92672">&gt;,</span> AccountHasCoupon<span style="color:#f92672">);</span>
+</span><span style="color:#75715e">// 发起订单. (完全可以用ProductIdAndPurchaseDetail)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">applyCouponToOrderProducts</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>ProductIdAndPurchaseDetail<span style="color:#f92672">&gt;</span> pairs<span style="color:#f92672">,</span> AccountHasCoupon<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+	
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">applyCoupon</span><span style="color:#f92672">(</span>orderProducts<span style="color:#f92672">,</span> coupon<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+	applyCouponToOrderProducts<span style="color:#f92672">(</span>List<span style="color:#f92672">.</span><span style="color:#a6e22e">concat</span><span style="color:#f92672">(</span>Pair<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span>productId<span style="color:#f92672">,</span> deepCopy<span style="color:#f92672">(</span>detail<span style="color:#f92672">)),</span> coupon<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
 
 <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isCouponUsedUp</span><span style="color:#f92672">();</span>
 
@@ -307,7 +317,22 @@ AccountHasCoupon <span style="color:#a6e22e">verifyCouponOwnerAndGetCoupon</span
 	order<span style="color:#f92672">.</span><span style="color:#a6e22e">setStatus</span><span style="color:#f92672">(</span>CANCELLED<span style="color:#f92672">);</span>
 	returnCoupon<span style="color:#f92672">(</span>order<span style="color:#f92672">.</span><span style="color:#a6e22e">getCoupon</span><span style="color:#f92672">);</span>
 <span style="color:#f92672">}</span>
-</code></pre></div>
+</code></pre></div><p>所有创建OrderProduct的地方</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+</code></pre></div><p>todo</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 改purchaseDetail函数</li>
+<li><input disabled="" type="checkbox"> 通过测试</li>
+<li><input disabled="" type="checkbox"> 查券后价格接口(一个接口，四个List, 一个coupon。好处是如果搞购物车，加入购物车这步就是用这一个接口)</li>
+<li><input disabled="" type="checkbox"> 创建订单传优惠券</li>
+<li><input disabled="" type="checkbox"> 飞书消息显示邀请人 userName.</li>
+<li><input disabled="" type="checkbox"> 给zyx momen改注册登录</li>
+<li><input disabled="" type="checkbox"> 修大数据库copyschema</li>
+<li><input disabled="" type="checkbox"> 改分佣逻辑：模版id 空指针 + 如果多笔支付的话，一个订单会多次distribute，所以要保证不会重复分. 每笔payment来分一次？</li>
+<li><input disabled="" type="checkbox"> 新问卷系统</li>
+<li><input disabled="" type="checkbox"> </li>
+</ul>
+
         </div>
 
         <div class="row middle-xs">
@@ -329,6 +354,29 @@ AccountHasCoupon <span style="color:#a6e22e">verifyCouponOwnerAndGetCoupon</span
           
           
           <div style="height: 50px;"></div>
+          
+          <div class="post-comments">
+            <div id="disqus_thread"></div>
+<script>
+  window.addEventListener("load", () => {
+    (function() {
+      
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://joway.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  });
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+
+          </div>
           
         
 
