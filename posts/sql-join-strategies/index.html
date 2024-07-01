@@ -21,7 +21,7 @@
       "articleSection" : "posts",
       "name" : "sql join strategies",
       "headline" : "sql join strategies",
-      "description" : "#postgresql\nSELECT * FROM orders JOIN customers ON orders.customer_id = customers.id; https:\/\/blog.japinli.top\/2021\/07\/join-stragegies-and-performance-in-postgresql\/\n  Nested Loop Join\n A join B, select all A and iterate A, for each A row, get matched B rows, and insert into results. Obviously, if outer table A is too large, will select B too frequently.It\u0026rsquo;s better for small outer table. 由于按顺序扫描外部关系，因此外部关系上的任何索引都无济于事。但是内部关系的连接键上的索引可以大大加快嵌套循环连接的速度。 如果外部关系很小，嵌套循环连接就特别有效，因为这样内部循环就不会被频繁执行。这是在具有规范化数据模型的 OLTP 工作负载中使用的典型的连接策略，它的效率很高。如果外层关系很大，嵌套的循环连接通常是非常低效的，即使它们被内部关系的索引所支持。    Hash Join\n  查customer表，根据customer的id创建hash table(id -\u0026gt; customer).",
+      "description" : "#postgresql\nSELECT * FROM orders JOIN customers ON orders.customer_id = customers.id; https:\/\/blog.japinli.top\/2021\/07\/join-stragegies-and-performance-in-postgresql\/\n Nested Loop Join  A join B, select all A and iterate A, for each A row, get matched B rows, and insert into results. Obviously, if outer table A is too large, will select B too frequently.It\u0026rsquo;s better for small outer table. 由于按顺序扫描外部关系，因此外部关系上的任何索引都无济于事。但是内部关系的连接键上的索引可以大大加快嵌套循环连接的速度。 如果外部关系很小，嵌套循环连接就特别有效，因为这样内部循环就不会被频繁执行。这是在具有规范化数据模型的 OLTP 工作负载中使用的典型的连接策略，它的效率很高。如果外层关系很大，嵌套的循环连接通常是非常低效的，即使它们被内部关系的索引所支持.   Hash Join  查customer表，根据customer的id创建hash table(id -\u0026gt; customer). 查询一遍表orders，对于orders的每一行记录，去hash table找这个记录 首先，PostgreSQL 按顺序扫描内部关系并建立一个哈希表，其中哈希键由所有使用=操作符的连接键组成。然后，它按顺序扫描外部关系，并为找到的每一条记录探测哈希，以找到匹配的连接键。这有点类似于一个嵌套的循环连接。建立哈希表是一个额外的启动工作，但是探测哈希表要比扫描内部关系快得多。 如果涉及的关系都不小，但较小的表的哈希表在 work_mem 内，那么哈希连接是最好的。这是因为，否则 PostgreSQL 会分批建立哈希表，并将其存储在临时磁盘文件中，这将损害性能。在这种情况下，优化器通常会选择一个不同的连 接策略，比如合并(Merge)连接。   Merge Join  同时扫描orders和customers，都按照customer id升序搜索 在join比较的条件是有序的情况下，可以同时顺序扫描 如果涉及的关系对于适合 work_mem 的散列来说都太大了，优化器通常会选择合并连接。所以这是连接真正大表的最佳策略。   BitMap Scan  https:\/\/www.",
       "inLanguage" : "en-US",
       "author" : "Kaijian Xu",
       "creator" : "Kaijian Xu",
@@ -40,14 +40,10 @@
   <meta property="og:type" content="article" />
   <meta property="og:description" content="#postgresql
 SELECT * FROM orders JOIN customers ON orders.customer_id = customers.id; https://blog.japinli.top/2021/07/join-stragegies-and-performance-in-postgresql/
-  Nested Loop Join
- A join B, select all A and iterate A, for each A row, get matched B rows, and insert into results. Obviously, if outer table A is too large, will select B too frequently.It&amp;rsquo;s better for small outer table. 由于按顺序扫描外部关系，因此外部关系上的任何索引都无济于事。但是内部关系的连接键上的索引可以大大加快嵌套循环连接的速度。 如果外部关系很小，嵌套循环连接就特别有效，因为这样内部循环就不会被频繁执行。这是在具有规范化数据模型的 OLTP 工作负载中使用的典型的连接策略，它的效率很高。如果外层关系很大，嵌套的循环连接通常是非常低效的，即使它们被内部关系的索引所支持。    Hash Join
-  查customer表，根据customer的id创建hash table(id -&amp;gt; customer)." />
+ Nested Loop Join  A join B, select all A and iterate A, for each A row, get matched B rows, and insert into results. Obviously, if outer table A is too large, will select B too frequently.It&amp;rsquo;s better for small outer table. 由于按顺序扫描外部关系，因此外部关系上的任何索引都无济于事。但是内部关系的连接键上的索引可以大大加快嵌套循环连接的速度。 如果外部关系很小，嵌套循环连接就特别有效，因为这样内部循环就不会被频繁执行。这是在具有规范化数据模型的 OLTP 工作负载中使用的典型的连接策略，它的效率很高。如果外层关系很大，嵌套的循环连接通常是非常低效的，即使它们被内部关系的索引所支持.   Hash Join  查customer表，根据customer的id创建hash table(id -&amp;gt; customer). 查询一遍表orders，对于orders的每一行记录，去hash table找这个记录 首先，PostgreSQL 按顺序扫描内部关系并建立一个哈希表，其中哈希键由所有使用=操作符的连接键组成。然后，它按顺序扫描外部关系，并为找到的每一条记录探测哈希，以找到匹配的连接键。这有点类似于一个嵌套的循环连接。建立哈希表是一个额外的启动工作，但是探测哈希表要比扫描内部关系快得多。 如果涉及的关系都不小，但较小的表的哈希表在 work_mem 内，那么哈希连接是最好的。这是因为，否则 PostgreSQL 会分批建立哈希表，并将其存储在临时磁盘文件中，这将损害性能。在这种情况下，优化器通常会选择一个不同的连 接策略，比如合并(Merge)连接。   Merge Join  同时扫描orders和customers，都按照customer id升序搜索 在join比较的条件是有序的情况下，可以同时顺序扫描 如果涉及的关系对于适合 work_mem 的散列来说都太大了，优化器通常会选择合并连接。所以这是连接真正大表的最佳策略。   BitMap Scan  https://www." />
   <meta name="description" content="#postgresql
 SELECT * FROM orders JOIN customers ON orders.customer_id = customers.id; https://blog.japinli.top/2021/07/join-stragegies-and-performance-in-postgresql/
-  Nested Loop Join
- A join B, select all A and iterate A, for each A row, get matched B rows, and insert into results. Obviously, if outer table A is too large, will select B too frequently.It&amp;rsquo;s better for small outer table. 由于按顺序扫描外部关系，因此外部关系上的任何索引都无济于事。但是内部关系的连接键上的索引可以大大加快嵌套循环连接的速度。 如果外部关系很小，嵌套循环连接就特别有效，因为这样内部循环就不会被频繁执行。这是在具有规范化数据模型的 OLTP 工作负载中使用的典型的连接策略，它的效率很高。如果外层关系很大，嵌套的循环连接通常是非常低效的，即使它们被内部关系的索引所支持。    Hash Join
-  查customer表，根据customer的id创建hash table(id -&amp;gt; customer)." />
+ Nested Loop Join  A join B, select all A and iterate A, for each A row, get matched B rows, and insert into results. Obviously, if outer table A is too large, will select B too frequently.It&amp;rsquo;s better for small outer table. 由于按顺序扫描外部关系，因此外部关系上的任何索引都无济于事。但是内部关系的连接键上的索引可以大大加快嵌套循环连接的速度。 如果外部关系很小，嵌套循环连接就特别有效，因为这样内部循环就不会被频繁执行。这是在具有规范化数据模型的 OLTP 工作负载中使用的典型的连接策略，它的效率很高。如果外层关系很大，嵌套的循环连接通常是非常低效的，即使它们被内部关系的索引所支持.   Hash Join  查customer表，根据customer的id创建hash table(id -&amp;gt; customer). 查询一遍表orders，对于orders的每一行记录，去hash table找这个记录 首先，PostgreSQL 按顺序扫描内部关系并建立一个哈希表，其中哈希键由所有使用=操作符的连接键组成。然后，它按顺序扫描外部关系，并为找到的每一条记录探测哈希，以找到匹配的连接键。这有点类似于一个嵌套的循环连接。建立哈希表是一个额外的启动工作，但是探测哈希表要比扫描内部关系快得多。 如果涉及的关系都不小，但较小的表的哈希表在 work_mem 内，那么哈希连接是最好的。这是因为，否则 PostgreSQL 会分批建立哈希表，并将其存储在临时磁盘文件中，这将损害性能。在这种情况下，优化器通常会选择一个不同的连 接策略，比如合并(Merge)连接。   Merge Join  同时扫描orders和customers，都按照customer id升序搜索 在join比较的条件是有序的情况下，可以同时顺序扫描 如果涉及的关系对于适合 work_mem 的散列来说都太大了，优化器通常会选择合并连接。所以这是连接真正大表的最佳策略。   BitMap Scan  https://www." />
   <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
 
@@ -125,38 +121,29 @@ SELECT * FROM orders JOIN customers ON orders.customer_id = customers.id; https:
 <span style="color:#66d9ef">JOIN</span> customers <span style="color:#66d9ef">ON</span> orders.customer_id <span style="color:#f92672">=</span> customers.id;
 </code></pre></div><p><a href="https://blog.japinli.top/2021/07/join-stragegies-and-performance-in-postgresql/">https://blog.japinli.top/2021/07/join-stragegies-and-performance-in-postgresql/</a></p>
 <ul>
-<li>
-<p>Nested Loop Join</p>
+<li>Nested Loop Join
 <ul>
 <li>A join B, select all A and iterate A, for each A row, get matched B rows, and insert into results.</li>
 <li>Obviously, if outer table A is too large, will select B too frequently.It&rsquo;s better for small outer table.</li>
 <li>由于按顺序扫描外部关系，因此外部关系上的任何索引都无济于事。但是内部关系的连接键上的索引可以大大加快嵌套循环连接的速度。</li>
-<li>如果外部关系很小，嵌套循环连接就特别有效，因为这样内部循环就不会被频繁执行。这是在具有规范化数据模型的 OLTP 工作负载中使用的典型的连接策略，它的效率很高。如果外层关系很大，嵌套的循环连接通常是非常低效的，即使它们被内部关系的索引所支持。</li>
+<li>如果外部关系很小，嵌套循环连接就特别有效，因为这样内部循环就不会被频繁执行。这是在具有规范化数据模型的 OLTP 工作负载中使用的典型的连接策略，它的效率很高。如果外层关系很大，嵌套的循环连接通常是非常低效的，即使它们被内部关系的索引所支持.</li>
 </ul>
 </li>
-<li>
-<p>Hash Join</p>
+<li>Hash Join
+<ul>
+<li>查customer表，根据customer的id创建hash table(id -&gt; customer). 查询一遍表orders，对于orders的每一行记录，去hash table找这个记录</li>
+<li>首先，PostgreSQL 按顺序扫描内部关系并建立一个哈希表，其中哈希键由所有使用=操作符的连接键组成。然后，它按顺序扫描外部关系，并为找到的每一条记录探测哈希，以找到匹配的连接键。这有点类似于一个嵌套的循环连接。建立哈希表是一个额外的启动工作，但是探测哈希表要比扫描内部关系快得多。</li>
+<li>如果涉及的关系都不小，但较小的表的哈希表在 <a href="https://www.postgresql.org/docs/current/runtime-config-resource.html#GUC-WORK-MEM"><code>work_mem</code></a> 内，那么哈希连接是最好的。这是因为，否则 PostgreSQL 会分批建立哈希表，并将其存储在临时磁盘文件中，这将损害性能。在这种情况下，优化器通常会选择一个不同的连 接策略，比如合并(Merge)连接。</li>
+</ul>
 </li>
-<li>
-<p>查customer表，根据customer的id创建hash table(id -&gt; customer). 查询一遍表orders，对于orders的每一行记录，去hash table找这个记录</p>
-</li>
-<li>
-<p>首先，PostgreSQL 按顺序扫描内部关系并建立一个哈希表，其中哈希键由所有使用 <code>=</code> 操作符的连接键组成。然后，它按顺序扫描外部关系，并为找到的每一条记录探测哈希，以找到匹配的连接键。</p>
-<p>这有点类似于一个嵌套的循环连接。建立哈希表是一个额外的启动工作，但是探测哈希表要比扫描内部关系快得多。</p>
-</li>
-<li>
-<p>如果涉及的关系都不小，但较小的表的哈希表在 <a href="https://www.postgresql.org/docs/current/runtime-config-resource.html#GUC-WORK-MEM"><code>work_mem</code></a> 内，那么哈希连接是最好的。这是因为，否则 PostgreSQL 会分批建立哈希表，并将其存储在临时磁盘文件中，这将损害性能。在这种情况下，优化器通常会选择一个不同的连 接策略，比如合并(Merge)连接。</p>
-</li>
-<li>
-<p>Merge Join</p>
+<li>Merge Join
 <ul>
 <li>同时扫描orders和customers，都按照customer id升序搜索</li>
 <li>在join比较的条件是有序的情况下，可以同时顺序扫描</li>
 <li>如果涉及的关系对于适合 <code>work_mem</code> 的散列来说都太大了，优化器通常会选择合并连接。所以这是连接真正大表的最佳策略。</li>
 </ul>
 </li>
-<li>
-<p>BitMap Scan</p>
+<li>BitMap Scan
 <ul>
 <li><a href="https://www.modb.pro/db/611186">https://www.modb.pro/db/611186</a></li>
 <li>index scan and all matched record id，then heap scan to get matched heap data in batch。好处，可以顺序io去读heap file. (其实就是index scan并对recordId排序 + 批量回表)</li>
