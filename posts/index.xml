@@ -6,7 +6,37 @@
     <description>Recent content in Posts on XKJ Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 27 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ryokki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ryokki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>sql join strategies</title>
+      <link>https://ryokki.github.io/posts/sql-join-strategies/</link>
+      <pubDate>Mon, 01 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/posts/sql-join-strategies/</guid>
+      <description>#postgresql
+SELECT * FROM orders JOIN customers ON orders.customer_id = customers.id; https://blog.japinli.top/2021/07/join-stragegies-and-performance-in-postgresql/
+  Nested Loop Join
+ A join B, select all A and iterate A, for each A row, get matched B rows, and insert into results. Obviously, if outer table A is too large, will select B too frequently.It&amp;rsquo;s better for small outer table. 由于按顺序扫描外部关系，因此外部关系上的任何索引都无济于事。但是内部关系的连接键上的索引可以大大加快嵌套循环连接的速度。 如果外部关系很小，嵌套循环连接就特别有效，因为这样内部循环就不会被频繁执行。这是在具有规范化数据模型的 OLTP 工作负载中使用的典型的连接策略，它的效率很高。如果外层关系很大，嵌套的循环连接通常是非常低效的，即使它们被内部关系的索引所支持。    Hash Join
+  查customer表，根据customer的id创建hash table(id -&amp;gt; customer).</description>
+    </item>
+    
+    <item>
+      <title>游景德镇</title>
+      <link>https://ryokki.github.io/posts/%E6%B8%B8%E6%99%AF%E5%BE%B7%E9%95%87/</link>
+      <pubDate>Wed, 29 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/posts/%E6%B8%B8%E6%99%AF%E5%BE%B7%E9%95%87/</guid>
+      <description>攻略待办
+ 选定住宿地点 @sjk  必做事项
+ 捏陶瓷～ 给家人买点小陶艺 必去景点   中国陶瓷博物馆
+  御窑博物馆
+  三宝村（至少半天时间，三宝适合慢慢逛）
+      关于🏠：大多数都推荐住陶溪川。离三宝村、雕塑瓷厂都很近出行方便。 关于🚗：如果仅是在市区内玩，推荐租一辆小电驴🛵，一天仅需三十‼️
+行程规划 ———— 千呼万唤使出来。 这次我们终于有真正的行程规划了！！！（虽然宝宝说这次他来做攻略了 不想多说）
+DAY1
+ 🚄 07:55 - 10:44 —— 杭州东到景德镇北的高铁 🌶️ 小辣椒菜馆 味道一般吧，太辣了，还吃到虫子了 😨 🪞 12:30 回酒店 - 14:00 化妆 🏺 14:00 - 17:30 去雕塑瓷厂 🍚 17:30 - 18:30 回家吃饭（雕塑瓷厂逛的时候提前取票） 🏛️ 19:00 - 20:00 御窑博物馆 &amp;amp; 龙珠阁 🦶 20:30 - 22:00 陶溪川夜市 😴 23:00 晚安  DAY2</description>
+    </item>
+    
     <item>
       <title>简单过一遍ostep</title>
       <link>https://ryokki.github.io/posts/%E7%AE%80%E5%8D%95%E8%BF%87%E4%B8%80%E9%81%8Dostep/</link>
@@ -85,7 +115,7 @@ kkbabe in ~/myproject/rezero_git/.zit on main ● λ cat HEAD ref: refs/heads/ma
       
       <guid>https://ryokki.github.io/posts/design-pattern/</guid>
       <description>References:
- GitHub - Jueee/design-patterns: 《设计模式:可复用面向对象软件的基础》学习笔记 GitHub - ukihsoroy/design-pattern: 🐱‍🏍你不能不学的设计模式合集。 GitHub - fuzhengwei/itstack-demo-design: :art: 《重学Java设计模式》是一本互联网真实案例实践书籍。以落地解决方案为核心，从实际业务中抽离出，交易、营销、秒杀、中间件、源码等22个真实场景，来学习设计模式的运用。欢迎关注小傅哥，微信(fustack)，公众号：bugstack虫洞栈，博客：https://bugstack.cn design-pattern 装饰设计（装饰者模式 / 装饰器模式） Design Pattern Catalog | Java Design Patterns GitHub - iluwatar/java-design-patterns: Design patterns implemented in Java GitHub - kshitijmishra23/low-level-design-concepts: Code Samples to understand SOLID design principles and Design Patterns in JAVA. 设计模式之美不错 因为王争的那个回答不错 图解设计模式 短评  </description>
+ GitHub - Jueee/design-patterns: 《设计模式:可复用面向对象软件的基础》学习笔记 GitHub - ukihsoroy/design-pattern: 🐱‍🏍你不能不学的设计模式合集。 GitHub - fuzhengwei/itstack-demo-design: :art: 《重学Java设计模式》是一本互联网真实案例实践书籍。以落地解决方案为核心，从实际业务中抽离出，交易、营销、秒杀、中间件、源码等22个真实场景，来学习设计模式的运用。欢迎关注小傅哥，微信(fustack)，公众号：bugstack虫洞栈，博客：https://bugstack.cn design-pattern 装饰设计（装饰者模式 / 装饰器模式） Design Pattern Catalog | Java Design Patterns GitHub - iluwatar/java-design-patterns: Design patterns implemented in Java 很好 设计模式的艺术 我看是豆瓣评分最高的 (GitHub - quanke/design-pattern-java: 设计模式 Java版本) 设计模式概述  以工厂模式为例，看看上面refer哪些好一点</description>
     </item>
     
     <item>

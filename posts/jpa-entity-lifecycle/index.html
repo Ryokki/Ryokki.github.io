@@ -181,6 +181,27 @@ Hibernate 生成代理类作为实体类的子类，使用[[Byte Buddy]]在运�
 </ul>
 <p><a href="https://hibernate.org/orm/what-is-an-orm/">What is Object/Relational Mapping? - Hibernate ORM</a>
 对象/关系映射是一种编程技术，用于在面向对象的应用程序和关系数据库之间转换数据。这种技术允许开发人员在代码中使用对象的方式来操作数据库中的数据。</p>
+<hr>
+<p>发现跑完下面函数后，deploymentEnvConfig的domain没有更新，怀疑是没有事务就不会自动更新？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> String <span style="color:#a6e22e">createDomainIfNotExists</span><span style="color:#f92672">(</span>
+  String domain<span style="color:#f92672">,</span> <span style="color:#66d9ef">boolean</span> forBeta<span style="color:#f92672">,</span> Long webAppId<span style="color:#f92672">,</span> DeploymentEnvConfig deploymentEnvConfig<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>domain <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  String webDomain <span style="color:#f92672">=</span>
+	  deploymentEnvConfigService<span style="color:#f92672">.</span><span style="color:#a6e22e">createWebDomain</span><span style="color:#f92672">(</span>
+		  forBeta<span style="color:#f92672">,</span>
+		  deploymentEnvConfig<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">(),</span>
+		  deploymentEnvConfig<span style="color:#f92672">.</span><span style="color:#a6e22e">getCloudConfigurationId</span><span style="color:#f92672">(),</span>
+		  webAppId<span style="color:#f92672">);</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>forBeta<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+	deploymentEnvConfig<span style="color:#f92672">.</span><span style="color:#a6e22e">setWebBetaDomain</span><span style="color:#f92672">(</span>webDomain<span style="color:#f92672">);</span>
+  <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+	deploymentEnvConfig<span style="color:#f92672">.</span><span style="color:#a6e22e">setWebDomain</span><span style="color:#f92672">(</span>webDomain<span style="color:#f92672">);</span>
+  <span style="color:#f92672">}</span>
+  <span style="color:#66d9ef">return</span> webDomain<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><blockquote>
+<p>you cant save or persist object without transaction you have to commit the transaction after saving the object otherwise it won&rsquo;t save in database. <strong><em>Without transaction you can only retrieve object from database</em></strong></p>
+</blockquote>
 
         </div>
 
