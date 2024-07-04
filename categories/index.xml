@@ -5,34 +5,6 @@
     <link>https://ryokki.github.io/categories/</link>
     <description>Recent content in Categories on XKJ Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language>
-    <lastBuildDate>Mon, 04 Jun 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://ryokki.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Tech</title>
-      <link>https://ryokki.github.io/categories/tech/</link>
-      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://ryokki.github.io/categories/tech/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tips</title>
-      <link>https://ryokki.github.io/categories/tips/</link>
-      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://ryokki.github.io/categories/tips/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Life</title>
-      <link>https://ryokki.github.io/categories/life/</link>
-      <pubDate>Tue, 01 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://ryokki.github.io/categories/life/</guid>
-      <description></description>
-    </item>
-    
+    <language>zh</language><atom:link href="https://ryokki.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
