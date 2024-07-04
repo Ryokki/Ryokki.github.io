@@ -19,9 +19,9 @@
            "@id": "https:\/\/ryokki.github.io"
       },
       "articleSection" : "posts",
-      "name" : "Stream原理解析part1——介绍",
-      "headline" : "Stream原理解析part1——介绍",
-      "description" : "java8 Stream的实现原理 (从零开始实现一个stream流) - 小熊餐馆 - 博客园 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples\/example-misc\/src\/main\/java\/com\/youthlin\/example\/stream at master · youthlin\/examples · GitHub 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金  List\u0026lt;String\u0026gt; nameList = personList.stream() .filter(item-\u0026gt;item.age == 70) \/\/ 过滤条件 　.limit(10) \/\/ limit限制条件 　.map(item-\u0026gt;item.name) \/\/ 获得姓名 　.",
+      "name" : "深入理解Stream流-part1-介绍",
+      "headline" : "深入理解Stream流-part1-介绍",
+      "description" : "GitHub - CarpenterLee\/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 很多blog作者都推荐看这篇，表示从这篇得到了启发，我也先看这篇 java8 Stream的实现原理 (从零开始实现一个stream流) - 小熊餐馆 - 博客园 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples\/example-misc\/src\/main\/java\/com\/youthlin\/example\/stream at master · youthlin\/examples · GitHub 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金  List\u0026lt;String\u0026gt; nameList = personList.stream() .filter(item-\u0026gt;item.age == 70) \/\/ 过滤条件 　.",
       "inLanguage" : "en-US",
       "author" : "Kaijian Xu",
       "creator" : "Kaijian Xu",
@@ -35,11 +35,11 @@
       "keywords" : [  ]
   }
 </script>
-<title>Stream原理解析part1——介绍</title>
-  <meta property="og:title" content="Stream原理解析part1——介绍" />
+<title>深入理解Stream流-part1-介绍</title>
+  <meta property="og:title" content="深入理解Stream流-part1-介绍" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="java8 Stream的实现原理 (从零开始实现一个stream流) - 小熊餐馆 - 博客园 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples/example-misc/src/main/java/com/youthlin/example/stream at master · youthlin/examples · GitHub 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金  List&amp;lt;String&amp;gt; nameList = personList.stream() .filter(item-&amp;gt;item.age == 70) // 过滤条件 　.limit(10) // limit限制条件 　.map(item-&amp;gt;item.name) // 获得姓名 　." />
-  <meta name="description" content="java8 Stream的实现原理 (从零开始实现一个stream流) - 小熊餐馆 - 博客园 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples/example-misc/src/main/java/com/youthlin/example/stream at master · youthlin/examples · GitHub 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金  List&amp;lt;String&amp;gt; nameList = personList.stream() .filter(item-&amp;gt;item.age == 70) // 过滤条件 　.limit(10) // limit限制条件 　.map(item-&amp;gt;item.name) // 获得姓名 　." />
+  <meta property="og:description" content="GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 很多blog作者都推荐看这篇，表示从这篇得到了启发，我也先看这篇 java8 Stream的实现原理 (从零开始实现一个stream流) - 小熊餐馆 - 博客园 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples/example-misc/src/main/java/com/youthlin/example/stream at master · youthlin/examples · GitHub 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金  List&amp;lt;String&amp;gt; nameList = personList.stream() .filter(item-&amp;gt;item.age == 70) // 过滤条件 　." />
+  <meta name="description" content="GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 很多blog作者都推荐看这篇，表示从这篇得到了启发，我也先看这篇 java8 Stream的实现原理 (从零开始实现一个stream流) - 小熊餐馆 - 博客园 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples/example-misc/src/main/java/com/youthlin/example/stream at master · youthlin/examples · GitHub 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金  List&amp;lt;String&amp;gt; nameList = personList.stream() .filter(item-&amp;gt;item.age == 70) // 过滤条件 　." />
   <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
 
@@ -89,7 +89,7 @@
 
         </div>
         <header class="post-header">
-          <h1 class="post-title">Stream原理解析part1——介绍</h1>
+          <h1 class="post-title">深入理解Stream流-part1-介绍</h1>
           
           <div class="row post-desc">
             <div class="col-xs-6">
@@ -113,6 +113,7 @@
         <div class="post-content markdown-body">
           
           <ul>
+<li><a href="https://github.com/CarpenterLee/JavaLambdaInternals">GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API</a> 很多blog作者都推荐看这篇，表示从这篇得到了启发，我也先看这篇</li>
 <li><a href="https://www.cnblogs.com/xiaoxiongcanguan/p/10511233.html">java8 Stream的实现原理 (从零开始实现一个stream流) - 小熊餐馆 - 博客园</a></li>
 <li><a href="https://xie.infoq.cn/article/a0e6dc7ed0735da5128b6825b">Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区</a></li>
 <li><a href="https://www.cnblogs.com/vivotech/p/14077729.html">Java 8 Stream原理解析 - vivo互联网技术 - 博客园</a></li>
