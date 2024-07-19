@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on XKJ Blog</title>
+    <title>Posts on Stay Foolish</title>
     <link>https://ryokki.github.io/posts/</link>
-    <description>Recent content in Posts on XKJ Blog</description>
+    <description>Recent content in Posts on Stay Foolish</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language>
+    <language>en-us</language>
     <lastBuildDate>Thu, 04 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ryokki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>深入理解Stream流-part1-介绍</title>
@@ -22,6 +22,24 @@
       <pubDate>Thu, 04 Jul 2024 00:00:00 +0000</pubDate>
       
       <guid>https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part2%E6%BA%90%E7%A0%81/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>深入理解Stream流-part3-总结</title>
+      <link>https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part3%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Thu, 04 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part3%E6%80%BB%E7%BB%93/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>深入理解Stream流-part4-实现</title>
+      <link>https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Thu, 04 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0/</guid>
       <description></description>
     </item>
     

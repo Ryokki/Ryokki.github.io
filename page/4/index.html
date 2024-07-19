@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Archie | Home </title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta property="og:image" content=""/>
+	<link rel="alternate" type="application/rss+xml" href="https://athul.github.io/archie/index.xml" title="Archie" />
+	<meta property="og:title" content="Archie" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://athul.github.io/archie/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Archie"/>
+<meta name="twitter:description" content=""/>
+<script src="https://athul.github.io/archie/js/feather.min.js"></script>
+	
+	
+        <link href="https://athul.github.io/archie/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/archie/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://athul.github.io/archie/css/dark.726cd11ca6eb7c4f7d48eb420354f814e5c1b94281aaf8fd0511c1319f7f78a4.css" media="(prefers-color-scheme: dark)"  />
+	
+
+	
+	
+		<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+	
+		
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$'], ['\\(','\\)']],
+				displayMath: [['$$','$$'], ['\[','\]']],
+				processEscapes: true,
+				processEnvironments: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+				TeX: { equationNumbers: { autoNumber: "AMS" },
+						 extensions: ["AMSmath.js", "AMSsymbols.js"] }
+			}
+		});
+		</script>
+	
+
+	
+	
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css">
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+		
+		
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+					renderMathInElement(document.body, {
+							delimiters: [
+									{left: "$$", right: "$$", display: true},
+									{left: "$", right: "$", display: false}
+							]
+					});
+			});
+			</script>
+	
+	
+	
+</head>
+
+	<body>
+		<div class="content">
+			<header>
+	<div class="main">
+		<a href="https://athul.github.io/archie/">Archie</a>
+	</div>
+	<nav>
+		
+		<a href="/archie/">Home</a>
+		
+		<a href="/archie/posts">All posts</a>
+		
+		<a href="/archie/about">About</a>
+		
+		<a href="/archie/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+			
+			<main class="list">
+				<div class="site-description"><p>Minimal and Clean <a href="https://github.com/athul/archie">blog theme for Hugo</a></p></div>
+				
+				
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/archie/posts/%E8%AE%BE%E8%AE%A1%E4%BC%98%E6%83%A0%E5%88%B8%E7%B3%BB%E7%BB%9F/">设计优惠券系统</a></h1>
+					<time>May 16, 2024</time>
+					<br><div class="description">
+	
+	目标 设计一个通用的优惠券系统，供以后使用。目前想到的场景如下
+ 绑定邀请码后自动给用户发放一些优惠券（项目版本、算力包、加油包 各一张，折扣10%，有效期一个月 ） 后续会把pro版买算力包9折、服务商版算力包7折变成优惠券（这个不搞成优惠券，这个算另一种折扣？） 后续可能有一些发优惠券的活动  系统设计 优惠券
+ 优惠券名称 覆盖范围：商品/组合/行业/全平台 优惠形式：折扣/固定金额 使用限制：订单（满足金额）/用户（版本、注册时间超过X）/项目（版本） 使用次数：1次/多次 使用时间：固定有效期/推移量  优惠券逻辑主要是两阶段
+ 发放券阶段：什么时候，发给谁，什么券 领券后：什么用户，什么时间，什么订单可用优惠券。能优惠多少。  数据模型 Coupon  id 优惠规则  discount_type (enum: PERCENTAGE_DISCOUNT 折扣券, FIXED_AMOUNT_DISCOUNT立减券) discount_amount 优惠券价值（百分比或减免金额）   订单门槛金额：minimum_order_amount 用户限制：List&lt;PlanType&gt; applicable_plans 项目限制：List&lt;ProjectPlanType&gt; applicable_project_plans 商品限制: List&lt;ProductTypeDetail&gt; applicable_project_type_details 可用时间  expired_at validity_period    这里比较麻烦的是商品范围限制字段如何设计
+ 最简单的是productIds，但是这个有个问题，后面加产品类型的时候，得去改以前的一堆优惠券 为了解决1的问题，可以再搞个product_group表，coupon里存List&lt;product_group_id&gt;。这样后续加产品类型的时候，就不需要改优惠券，只需要改product_group。这还是很麻烦 🌟 其实不需要product_group表，就可以做到给一批商品分类：通过productType + productDetail来确定一批商品，定义为ProductTypeDetail  项目版本  projectPlanType paymentCycle Long templateId   多客户端  paymentCycle   算力包  computingPowerKitType period   加油包  computingPowerAddonType period      例如：&hellip;
+	
+</div>
+					<a class="readmore" href="/archie/posts/%E8%AE%BE%E8%AE%A1%E4%BC%98%E6%83%A0%E5%88%B8%E7%B3%BB%E7%BB%9F/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/archie/posts/design-pattern/">design pattern(todo)</a></h1>
+					<time>May 15, 2024</time>
+					<br><div class="description">
+	
+	References:
+ GitHub - Jueee/design-patterns: 《设计模式:可复用面向对象软件的基础》学习笔记 GitHub - ukihsoroy/design-pattern: 🐱‍🏍你不能不学的设计模式合集。 GitHub - fuzhengwei/itstack-demo-design: :art: 《重学Java设计模式》是一本互联网真实案例实践书籍。以落地解决方案为核心，从实际业务中抽离出，交易、营销、秒杀、中间件、源码等22个真实场景，来学习设计模式的运用。欢迎关注小傅哥，微信(fustack)，公众号：bugstack虫洞栈，博客：https://bugstack.cn design-pattern 装饰设计（装饰者模式 / 装饰器模式） Design Pattern Catalog | Java Design Patterns GitHub - iluwatar/java-design-patterns: Design patterns implemented in Java 很好 设计模式的艺术 我看是豆瓣评分最高的 (GitHub - quanke/design-pattern-java: 设计模式 Java版本) 设计模式概述  以工厂模式为例，看看上面refer哪些好一点&hellip;
+	
+</div>
+					<a class="readmore" href="/archie/posts/design-pattern/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/archie/posts/%E6%8B%96%E5%BB%B6-%E4%B9%A0%E6%83%AF/">改善拖延和习惯</a></h1>
+					<time>May 9, 2024</time>
+					<br><div class="description">
+	
+	 每個人都是拖延症患者,怎麼克服拖延症？ - 全职妈妈爱生活 早睡 我是如何改掉熬夜這個習慣的？睡的好才能學的好。 - 全职妈妈爱生活（后面看）  什么是拖延 - learn from Inside the mind of a master procrastinator。 脑子里： 即时满足的猴子 + 理性决策的思考者。这个猴子眼中没有任何未来的规划，only for easy and fun. 这种即时满足在原始时代没有问题。
+拖延症就是即时满足的猴子占据了大部分时间。在不该即时满足的即时满足的时候得到的快乐不是快乐，因为会带来内疚和自我憎恨。
+只有恐慌panic monster会驱逐这个猴子（DDL..),
+而且DDL快来的时候，这个猴子还会开始做无意义的事情，明明没有乐趣的事情，也不愿意开始做那个重要的事情
+(太真实)
+因为拖延严重影响了生活，带来了强烈的挫败感
+ with deadline: 拖延是有限的 no deadline: 往往是没有下文了，因为panic monster不会出现。这些往往不被发现，但是大量长期不快乐、内疚的来源。活的像一个旁观者（真实  改善拖延的做法  番茄钟 為什麼番茄鐘工作法這麼強大？Coursera Learning How To Learn《學習如何學習》心得1 - 全职妈妈爱生活 先做最困难最重要的事。 避免掉入僵尸模式（例如起床后刷b站，一下就是一个小时），要意识到这些trigger、形成新习惯（例如规定一起床要做什么事）、改变地点（比如去图书馆） 不要使用意志力。意志力是一项宝贵的资源，也是需要耗费大脑非常多的能量。应该把意志力用在更有价值的地方，比如专注于对我们重要但是很有难度的任务上面。【所以我应该尽可能远离诱惑】 让自己有好的状态-运动/睡眠的重要性，状态好更容易正向思考以及主动 保有信念，I can do it.我们拖延主要是我们大脑会觉得很难，所以我们会主动逃避，避免痛苦。如果我们改变信念，觉得自己可以做到，就可以欺骗大脑，避免大脑主动逃避拖延。【或者降低目标，不要求做的多好，目标是做个破烂出来就行】 设定截止时间。设定每天工作或任务的截止时间一方面是奖励一些时间给自己，这个时间就是可以随意享受的时间，另一方面是让自己大脑充电，让第二天更有效率。现在我每天都会设定9:30后就关掉电脑关掉手机，敷面膜、泡澡或者看电影，然后睡前在看一会书。 奖励自己。当我们真的改掉一个坏习惯，养成一个好习惯的时候，要好好奖励自己。比如我现在每天都会写作2个番茄钟，如果我这一个月都可以做到，我就排除万难去看一部电影。  &hellip;
+	
+</div>
+					<a class="readmore" href="/archie/posts/%E6%8B%96%E5%BB%B6-%E4%B9%A0%E6%83%AF/">Read more ⟶</a>
+				</section>
+				
+				
+
+<ul class="pagination">
+	<span class="page-item page-prev">
+	
+    <a href="/archie/page/3/" class="page-link" aria-label="Previous"><span aria-hidden="true">← Prev</span></a>
+	
+	</span>
+	<span class="page-item page-next">
+	
+    <a href="/archie/page/5/" class="page-link" aria-label="Next"><span aria-hidden="true">Next →</span></a>
+	
+	</span>
+</ul>
+
+
+			</main>
+			<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/athul/archie" rel="me" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://twitter.com/athulcajay/" rel="me" title="Twitter"><i data-feather="twitter"></i></a>
+    <a class="border"></a><a class="soc" href="https://gitlab.com/athul/" rel="me" title="GitLab"><i data-feather="gitlab"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2024  © Athul |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script>
+		</div>
+		
+	</body>
+</html>
