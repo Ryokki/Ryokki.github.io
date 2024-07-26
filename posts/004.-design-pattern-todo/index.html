@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="Kaijian Xu" />
-  <meta property="og:url" content="https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0/" />
-  <link rel="canonical" href="https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
+  <meta property="og:url" content="https://ryokki.github.io/posts/004.-design-pattern-todo/" />
+  <link rel="canonical" href="https://ryokki.github.io/posts/004.-design-pattern-todo/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
 
   <script type="application/ld+json">
   {
@@ -19,9 +19,9 @@
            "@id": "https:\/\/ryokki.github.io\/"
       },
       "articleSection" : "posts",
-      "name" : "深入理解Stream流-part4-实现",
-      "headline" : "深入理解Stream流-part4-实现",
-      "description" : "",
+      "name" : "design pattern(todo)",
+      "headline" : "design pattern(todo)",
+      "description" : "References:\nGitHub - Jueee\/design-patterns: 《设计模式:可复用面向对象软件的基础》学习笔记 GitHub - ukihsoroy\/design-pattern: 🐱‍🏍你不能不学的设计模式合集。 GitHub - fuzhengwei\/itstack-demo-design: :art: 《重学Java设计模式》是一本互联网真实案例实践书籍。以落地解决方案为核心，从实际业务中抽离出，交易、营销、秒杀、中间件、源码等22个真实场景，来学习设计模式的运用。欢迎关注小傅哥，微信(fustack)，公众号：bugstack虫洞栈，博客：https:\/\/bugstack.cn design-pattern 装饰设计（装饰者模式 \/ 装饰器模式） Design Pattern Catalog | Java Design Patterns GitHub - iluwatar\/java-design-patterns: Design patterns implemented in Java 很好 设计模式的艺术 我看是豆瓣评分最高的 (GitHub - quanke\/design-pattern-java: 设计模式 Java版本) 设计模式概述 以工厂模式为例，看看上面refer哪些好一点",
       "inLanguage" : "en-US",
       "author" : "Kaijian Xu",
       "creator" : "Kaijian Xu",
@@ -29,17 +29,19 @@
       "accountablePerson" : "Kaijian Xu",
       "copyrightHolder" : "Kaijian Xu",
       "copyrightYear" : "2024",
-      "datePublished": "2024-07-04 00:00:00 \u002b0000 UTC",
-      "dateModified" : "2024-07-04 00:00:00 \u002b0000 UTC",
-      "url" : "https:\/\/ryokki.github.io\/posts\/stream\/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0\/",
+      "datePublished": "2024-05-15 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2024-05-15 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/ryokki.github.io\/posts\/004.-design-pattern-todo\/",
       "keywords" : [  ]
   }
 </script>
-<title>深入理解Stream流-part4-实现</title>
-  <meta property="og:title" content="深入理解Stream流-part4-实现" />
+<title>design pattern(todo)</title>
+  <meta property="og:title" content="design pattern(todo)" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="" />
-  <meta name="description" content="" />
+  <meta property="og:description" content="References:
+GitHub - Jueee/design-patterns: 《设计模式:可复用面向对象软件的基础》学习笔记 GitHub - ukihsoroy/design-pattern: 🐱‍🏍你不能不学的设计模式合集。 GitHub - fuzhengwei/itstack-demo-design: :art: 《重学Java设计模式》是一本互联网真实案例实践书籍。以落地解决方案为核心，从实际业务中抽离出，交易、营销、秒杀、中间件、源码等22个真实场景，来学习设计模式的运用。欢迎关注小傅哥，微信(fustack)，公众号：bugstack虫洞栈，博客：https://bugstack.cn design-pattern 装饰设计（装饰者模式 / 装饰器模式） Design Pattern Catalog | Java Design Patterns GitHub - iluwatar/java-design-patterns: Design patterns implemented in Java 很好 设计模式的艺术 我看是豆瓣评分最高的 (GitHub - quanke/design-pattern-java: 设计模式 Java版本) 设计模式概述 以工厂模式为例，看看上面refer哪些好一点" />
+  <meta name="description" content="References:
+GitHub - Jueee/design-patterns: 《设计模式:可复用面向对象软件的基础》学习笔记 GitHub - ukihsoroy/design-pattern: 🐱‍🏍你不能不学的设计模式合集。 GitHub - fuzhengwei/itstack-demo-design: :art: 《重学Java设计模式》是一本互联网真实案例实践书籍。以落地解决方案为核心，从实际业务中抽离出，交易、营销、秒杀、中间件、源码等22个真实场景，来学习设计模式的运用。欢迎关注小傅哥，微信(fustack)，公众号：bugstack虫洞栈，博客：https://bugstack.cn design-pattern 装饰设计（装饰者模式 / 装饰器模式） Design Pattern Catalog | Java Design Patterns GitHub - iluwatar/java-design-patterns: Design patterns implemented in Java 很好 设计模式的艺术 我看是豆瓣评分最高的 (GitHub - quanke/design-pattern-java: 设计模式 Java版本) 设计模式概述 以工厂模式为例，看看上面refer哪些好一点" />
   <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
 
@@ -89,13 +91,13 @@
 
         </div>
         <header class="post-header">
-          <h1 class="post-title">深入理解Stream流-part4-实现</h1>
+          <h1 class="post-title">design pattern(todo)</h1>
           
           <div class="row post-desc">
             <div class="col-xs-6">
               
-              <time class="post-date" datetime="2024-07-04 00:00:00 UTC">
-                04 Jul 2024
+              <time class="post-date" datetime="2024-05-15 00:00:00 UTC">
+                15 May 2024
               </time>
               
             </div>
@@ -112,7 +114,18 @@
 
         <div class="post-content markdown-body">
           
-          
+          <p>References:</p>
+<ul>
+<li><a href="https://github.com/Jueee/design-patterns/tree/master">GitHub - Jueee/design-patterns: 《设计模式:可复用面向对象软件的基础》学习笔记</a></li>
+<li><a href="https://github.com/ukihsoroy/design-pattern?tab=readme-ov-file">GitHub - ukihsoroy/design-pattern: 🐱‍🏍你不能不学的设计模式合集。</a></li>
+<li><a href="https://github.com/fuzhengwei/itstack-demo-design?tab=readme-ov-file">GitHub - fuzhengwei/itstack-demo-design: :art: 《重学Java设计模式》是一本互联网真实案例实践书籍。以落地解决方案为核心，从实际业务中抽离出，交易、营销、秒杀、中间件、源码等22个真实场景，来学习设计模式的运用。欢迎关注小傅哥，微信(fustack)，公众号：bugstack虫洞栈，博客：https://bugstack.cn</a></li>
+<li><a href="https://nicky-chin.cn/categories/design-pattern/">design-pattern</a></li>
+<li><a href="https://refactoringguru.cn/design-patterns/decorator">装饰设计（装饰者模式 / 装饰器模式）</a></li>
+<li><a href="https://java-design-patterns.com/patterns/">Design Pattern Catalog | Java Design Patterns</a> <a href="https://github.com/iluwatar/java-design-patterns">GitHub - iluwatar/java-design-patterns: Design patterns implemented in Java</a> 很好</li>
+<li>设计模式的艺术 我看是豆瓣评分最高的 (<a href="https://github.com/quanke/design-pattern-java/tree/master">GitHub - quanke/design-pattern-java: 设计模式 Java版本</a>) <a href="https://bytesfly.github.io/island/#/design-pattern/overview">设计模式概述</a></li>
+</ul>
+<p>以工厂模式为例，看看上面refer哪些好一点</p>
+
         </div>
 
         <div class="row middle-xs">

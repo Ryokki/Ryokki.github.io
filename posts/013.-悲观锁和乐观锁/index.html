@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="Kaijian Xu" />
-  <meta property="og:url" content="https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0/" />
-  <link rel="canonical" href="https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
+  <meta property="og:url" content="https://ryokki.github.io/posts/013.-%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" />
+  <link rel="canonical" href="https://ryokki.github.io/posts/013.-%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
 
   <script type="application/ld+json">
   {
@@ -19,9 +19,9 @@
            "@id": "https:\/\/ryokki.github.io\/"
       },
       "articleSection" : "posts",
-      "name" : "深入理解Stream流-part4-实现",
-      "headline" : "深入理解Stream流-part4-实现",
-      "description" : "",
+      "name" : "悲观锁和乐观锁",
+      "headline" : "悲观锁和乐观锁",
+      "description" : "这两个都写的很好，看看他们写的其他的\n复盘笔记 [10 CAS与原子操作 | 深入浅出Java多线程](https:\/\/redspider.gitbook.io\/concurrent\/di-er-pian-yuan-li-pian\/10 疑问：\n悲观锁和乐观锁的本质区别是啥，啥时候用哪个？ TODO 性能测试？ 悲观锁平时用的很多了，主要看看乐观锁。\n悲观锁和乐观锁其实不是一种特定的锁，而是一种并发写的流程。 悲观锁如下：\npubliv void process(resource) { \/\/ step1. fetch and lock someThing = getSomeThingLocked(resource); \/\/ step2. calculate new newSomeThing = getNewSomeTing(someThing); \/\/ step3. update updateSomeThing(resource); } 乐观锁其实不是一种锁，而是一种并发写的流程。如下\npubliv void process(resource) { \/\/ step1. fetch someThing = getSomeThing(resource); \/\/ step2. calculate new newSomeThing = getNewSomeTing(someThing); \/\/ step3. update (check nothing changed) updateSomeThingIfNothingChanged(resource); } 他们的核心区别在于上锁时机。悲观锁在查数据的时候就上锁，计算和更新操作都是被锁住的状态。如果计算相比更新很耗时的话，就会有大量的锁的时间浪费在计算上了。而乐观锁只在更新时上一个用户态的锁，检查是否已经被更新过了。\ncase1. AtomicLong public final long getAndIncrement() { return U.",
       "inLanguage" : "en-US",
       "author" : "Kaijian Xu",
       "creator" : "Kaijian Xu",
@@ -29,17 +29,29 @@
       "accountablePerson" : "Kaijian Xu",
       "copyrightHolder" : "Kaijian Xu",
       "copyrightYear" : "2024",
-      "datePublished": "2024-07-04 00:00:00 \u002b0000 UTC",
-      "dateModified" : "2024-07-04 00:00:00 \u002b0000 UTC",
-      "url" : "https:\/\/ryokki.github.io\/posts\/stream\/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0\/",
+      "datePublished": "2024-07-26 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2024-07-26 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/ryokki.github.io\/posts\/013.-%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81\/",
       "keywords" : [  ]
   }
 </script>
-<title>深入理解Stream流-part4-实现</title>
-  <meta property="og:title" content="深入理解Stream流-part4-实现" />
+<title>悲观锁和乐观锁</title>
+  <meta property="og:title" content="悲观锁和乐观锁" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="" />
-  <meta name="description" content="" />
+  <meta property="og:description" content="这两个都写的很好，看看他们写的其他的
+复盘笔记 [10 CAS与原子操作 | 深入浅出Java多线程](https://redspider.gitbook.io/concurrent/di-er-pian-yuan-li-pian/10 疑问：
+悲观锁和乐观锁的本质区别是啥，啥时候用哪个？ TODO 性能测试？ 悲观锁平时用的很多了，主要看看乐观锁。
+悲观锁和乐观锁其实不是一种特定的锁，而是一种并发写的流程。 悲观锁如下：
+publiv void process(resource) { // step1. fetch and lock someThing = getSomeThingLocked(resource); // step2. calculate new newSomeThing = getNewSomeTing(someThing); // step3. update updateSomeThing(resource); } 乐观锁其实不是一种锁，而是一种并发写的流程。如下
+publiv void process(resource) { // step1. fetch someThing = getSomeThing(resource); // step2. calculate new newSomeThing = getNewSomeTing(someThing); // step3. update (check nothing changed) updateSomeThingIfNothingChanged(resource); } 他们的核心区别在于上锁时机。悲观锁在查数据的时候就上锁，计算和更新操作都是被锁住的状态。如果计算相比更新很耗时的话，就会有大量的锁的时间浪费在计算上了。而乐观锁只在更新时上一个用户态的锁，检查是否已经被更新过了。
+case1. AtomicLong public final long getAndIncrement() { return U." />
+  <meta name="description" content="这两个都写的很好，看看他们写的其他的
+复盘笔记 [10 CAS与原子操作 | 深入浅出Java多线程](https://redspider.gitbook.io/concurrent/di-er-pian-yuan-li-pian/10 疑问：
+悲观锁和乐观锁的本质区别是啥，啥时候用哪个？ TODO 性能测试？ 悲观锁平时用的很多了，主要看看乐观锁。
+悲观锁和乐观锁其实不是一种特定的锁，而是一种并发写的流程。 悲观锁如下：
+publiv void process(resource) { // step1. fetch and lock someThing = getSomeThingLocked(resource); // step2. calculate new newSomeThing = getNewSomeTing(someThing); // step3. update updateSomeThing(resource); } 乐观锁其实不是一种锁，而是一种并发写的流程。如下
+publiv void process(resource) { // step1. fetch someThing = getSomeThing(resource); // step2. calculate new newSomeThing = getNewSomeTing(someThing); // step3. update (check nothing changed) updateSomeThingIfNothingChanged(resource); } 他们的核心区别在于上锁时机。悲观锁在查数据的时候就上锁，计算和更新操作都是被锁住的状态。如果计算相比更新很耗时的话，就会有大量的锁的时间浪费在计算上了。而乐观锁只在更新时上一个用户态的锁，检查是否已经被更新过了。
+case1. AtomicLong public final long getAndIncrement() { return U." />
   <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
 
@@ -89,13 +101,13 @@
 
         </div>
         <header class="post-header">
-          <h1 class="post-title">深入理解Stream流-part4-实现</h1>
+          <h1 class="post-title">悲观锁和乐观锁</h1>
           
           <div class="row post-desc">
             <div class="col-xs-6">
               
-              <time class="post-date" datetime="2024-07-04 00:00:00 UTC">
-                04 Jul 2024
+              <time class="post-date" datetime="2024-07-26 00:00:00 UTC">
+                26 Jul 2024
               </time>
               
             </div>
@@ -112,7 +124,90 @@
 
         <div class="post-content markdown-body">
           
-          
+          <p>这两个都写的很好，看看他们写的其他的</p>
+<ul>
+<li><a href="https://review-notes.top/language/java-concurrency/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-CAS%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.html">复盘笔记</a></li>
+<li>[10 CAS与原子操作 | 深入浅出Java多线程](<a href="https://redspider.gitbook.io/concurrent/di-er-pian-yuan-li-pian/10">https://redspider.gitbook.io/concurrent/di-er-pian-yuan-li-pian/10</a></li>
+</ul>
+<p>疑问：</p>
+<ul>
+<li>悲观锁和乐观锁的本质区别是啥，啥时候用哪个？</li>
+<li>TODO 性能测试？</li>
+</ul>
+<p>悲观锁平时用的很多了，主要看看乐观锁。</p>
+<p>悲观锁和乐观锁其实不是一种特定的锁，而是一种并发写的流程。
+悲观锁如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>publiv <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">process</span>(resource) {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// step1. fetch and lock</span>
+</span></span><span style="display:flex;"><span>	someThing <span style="color:#f92672">=</span> getSomeThingLocked(resource);
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// step2. calculate new</span>
+</span></span><span style="display:flex;"><span>	newSomeThing <span style="color:#f92672">=</span> getNewSomeTing(someThing);
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// step3. update</span>
+</span></span><span style="display:flex;"><span>	updateSomeThing(resource);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>乐观锁其实不是一种锁，而是一种并发写的流程。如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>publiv <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">process</span>(resource) {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// step1. fetch</span>
+</span></span><span style="display:flex;"><span>	someThing <span style="color:#f92672">=</span> getSomeThing(resource);
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// step2. calculate new</span>
+</span></span><span style="display:flex;"><span>	newSomeThing <span style="color:#f92672">=</span> getNewSomeTing(someThing);
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// step3. update (check nothing changed)</span>
+</span></span><span style="display:flex;"><span>	updateSomeThingIfNothingChanged(resource);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>他们的核心区别在于上锁时机。悲观锁在查数据的时候就上锁，计算和更新操作都是被锁住的状态。如果计算相比更新很耗时的话，就会有大量的锁的时间浪费在计算上了。而乐观锁只在更新时上一个用户态的锁，检查是否已经被更新过了。</p>
+<h2 id="case1-atomiclong">case1. AtomicLong</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getAndIncrement</span>() {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> U.<span style="color:#a6e22e">getAndAddLong</span>(<span style="color:#66d9ef">this</span>, VALUE, 1L);  
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Atomically adds the given value to the current value of a field
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * or array element within the given object {@code o}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * at the given {@code offset}.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param o object/array to update the field/element in
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param offset field/element offset
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param delta the value to add
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @return the previous value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @since 1.8
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 如果检查到value为oldValue, 则更新value=newValue, 返回true; 反之返回false</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@IntrinsicCandidate</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getAndAddLong</span>(Object o, <span style="color:#66d9ef">long</span> offset, <span style="color:#66d9ef">long</span> delta) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">long</span> v;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 每次都是查当前value，试图去更新。如果更新失败就重新查.</span>
+</span></span><span style="display:flex;"><span>		v <span style="color:#f92672">=</span> getLongVolatile(o, offset);
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>weakCompareAndSetLong(o, offset, v, v <span style="color:#f92672">+</span> delta)); <span style="color:#75715e">// 如果检查到value为oldValue, 则更新value=newValue, 返回true; 反之返回false</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 其中o是这个AtomicLong对象的地址，offset是value的偏移量 (VALUE  = U.objectFieldOffset(AtomicLong.class, &#34;value&#34;);)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> v;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这就是一个很典型的乐观锁，并且是带重试的。很明显这是符合上面模版的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>publiv <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">process</span>(resource) {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// step1. fetch</span>
+</span></span><span style="display:flex;"><span>	someThing <span style="color:#f92672">=</span> getSomeThing(resource); <span style="color:#75715e">// get oldValue</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// step2. calculate new</span>
+</span></span><span style="display:flex;"><span>	newSomeThing <span style="color:#f92672">=</span> getNewSomeTing(someThing); <span style="color:#75715e">// newValue = oldValue + delta </span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// step3. update (check nothing changed)</span>
+</span></span><span style="display:flex;"><span>	updateSomeThingIfNothingChanged(resource); <span style="color:#75715e">// if (value == oldValue), update successfully. else, try again.</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="aba问题">ABA问题</h3>
+<p><a href="https://xie.infoq.cn/article/ef6528937025e72362beaca1c">什么是CAS和ABA问题？如何解决？_javacn.site_InfoQ写作社区</a>
+所谓的 ABA 问题是指在并发编程中，如果一个变量初次读取的时候是 A 值，它的值被改成了 B，然后又其他线程把 B 值改成了 A，而另一个早期线程在对比值时会误以为此值没有发生改变，但其实已经发生变化了，这就是 ABA 问题。</p>
+<p>比如：
+张三去银行取钱，余额有 200 元，张三取 100 元，但因为程序的问题，启动了两个线程，线程一和线程二进行比对扣款，</p>
+<ul>
+<li>线程一获取原本有 200 元，扣除 100 元，余额等于 100 元，</li>
+<li>此时李四给张三转账 100 元，于是启动了线程三抢先在线程二之前执行了转账操作，把 100 元又变成了 200 元，</li>
+<li>而此时线程二对比自己事先拿到的 200 元和此时经过改动的 200 元值一样，就进行了减法操作，把余额又变成了 100 元。这显然不是我们要的正确结果，我们想要的结果是余额减少了 100 元，又增加了 100 元，余额还是 200 元，而此时余额变成了 100 元，显然有悖常理，这就是著名的 ABA 的问题。</li>
+</ul>
+<blockquote>
+<p>明白了.. 这种情况就算value和查到的一样也不行，要保证没有改变过。</p>
+</blockquote>
+<h3 id="扩展-compare-and-swap">扩展. compare and swap</h3>
+<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240726135723.png" alt="image.png"></p>
+<h2 id="case2-update-db">case2. update db</h2>
+
         </div>
 
         <div class="row middle-xs">

@@ -1,129 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
   <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.129.0">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content=""
-  />
+  <meta name="author" content="Kaijian Xu" />
+  <meta property="og:url" content="https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part1%E4%BB%8B%E7%BB%8D/" />
+  <link rel="canonical" href="https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part1%E4%BB%8B%E7%BB%8D/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
+
+  <script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "https:\/\/ryokki.github.io\/"
+      },
+      "articleSection" : "posts",
+      "name" : "深入理解Stream流-part1-介绍",
+      "headline" : "深入理解Stream流-part1-介绍",
+      "description" : "References GitHub - CarpenterLee\/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 浅谈 jdk 中的 Stream 流使用及原理 - 掘金 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples\/example-misc\/src\/main\/java\/com\/youthlin\/example\/stream at master · youthlin\/examples · GitHub 类图 sink和AbstrackPipeline什么区别\nStream\u0026lt;Integer\u0026gt; sourceStream = List.of(8, 1, 1, 2, 2, 3, 4, 5, 6).",
+      "inLanguage" : "en-US",
+      "author" : "Kaijian Xu",
+      "creator" : "Kaijian Xu",
+      "publisher": "Kaijian Xu",
+      "accountablePerson" : "Kaijian Xu",
+      "copyrightHolder" : "Kaijian Xu",
+      "copyrightYear" : "2024",
+      "datePublished": "2024-07-04 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2024-07-04 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/ryokki.github.io\/posts\/stream\/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part1%E4%BB%8B%E7%BB%8D\/",
+      "keywords" : [ "java-stream", ]
+  }
+</script>
+<title>深入理解Stream流-part1-介绍</title>
+  <meta property="og:title" content="深入理解Stream流-part1-介绍" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="References GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 浅谈 jdk 中的 Stream 流使用及原理 - 掘金 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples/example-misc/src/main/java/com/youthlin/example/stream at master · youthlin/examples · GitHub 类图 sink和AbstrackPipeline什么区别
+Stream&amp;lt;Integer&amp;gt; sourceStream = List.of(8, 1, 1, 2, 2, 3, 4, 5, 6)." />
+  <meta name="description" content="References GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 浅谈 jdk 中的 Stream 流使用及原理 - 掘金 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples/example-misc/src/main/java/com/youthlin/example/stream at master · youthlin/examples · GitHub 类图 sink和AbstrackPipeline什么区别
+Stream&amp;lt;Integer&amp;gt; sourceStream = List.of(8, 1, 1, 2, 2, 3, 4, 5, 6)." />
+  <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
-    
-      <title>深入理解Stream流-part1-介绍 | Stay Foolish</title>
-    
+
   
-  <link rel="stylesheet" href="/css/reset.css"/>
-  <link rel="stylesheet" href="/css/font.css"/>
-  <link rel="stylesheet" href="/css/smigle.css"/>
+    <style>body{font-family:bree serif,sans-serif;-webkit-font-smoothing:antialiased;margin:0 20px}article{max-width:800px;margin-left:auto;margin-right:auto}a{color:#000;text-decoration:none}a:hover{font-weight:600;text-decoration:underline}.post-ads{margin:50px 0}.markdown-body{font-size:18px;max-width:100%}.markdown-body a{text-decoration:underline;text-decoration-color:#000}.markdown-body blockquote{margin:0;padding:0 1em;color:#57606a;border-left:.25em solid #d0d7de}.markdown-body pre{padding:16px;overflow:auto;border-radius:10px}.markdown-body code{padding:.2em .4em;font-size:85%;background-color:#f6f8fa;border-radius:6px}.markdown-body pre>code{padding:0;font-size:100%;background-color:inherit;border:0}.Chinese .markdown-body{line-height:200%}.site-date-catalog{font-size:2rem}.header-title{font-size:2rem;font-weight:700;margin-top:32px;font-family:bungee shade,sans-serif}.header-title a{text-decoration:none}.header-subtitle{color:#666}.header-items{margin:10px 0}.header-item{margin:0 5px}.header-line{width:100%;border-width:2px;border-color:#482936;border-style:solid none none none}.lang-switch{font-weight:600}#posts-list{min-height:600px}.posts-line{font-size:1.2rem;margin:12px 0}.posts-categories{font-size:.8rem;margin:auto;text-align:center}.posts-category{padding:3px 0;border:#000 2px solid;border-radius:5px}.site-footer{margin-top:50px}.site-footer-item{margin-right:12px}.post-content img{max-width:100%;display:block;margin-right:auto;margin-top:12px}.post-header{margin-bottom:50px}.post-title{font-size:2rem;font-weight:600}.post-tags{display:inline;font-weight:600;padding:2px 5px;margin-right:6px;border:#000 2px solid;border-radius:5px}.post-date{font-weight:800;font-style:italic}.post-author{float:right;font-weight:600}.page-content{min-height:60%}.post-content{margin-bottom:50px}.post-content p{hyphens:auto;line-height:1.8;text-justify:ideographic;margin-bottom:1em}.related-content{border-width:3px;border-style:solid;border-color:#000;padding:0 10px;margin-bottom:50px;margin-top:100px}.related-content li{margin:5px 0}.taxonomy-term{font-size:3rem}.gallery-img{text-align:center}.gallery-img span{text-align:center}.gallery-img-desc{font-size:.8em;font-weight:800}#disqus_thread{position:relative}#disqus_thread:after{content:"";display:block;height:55px;width:100%;position:absolute;bottom:0;background:#fff}@media screen and (max-width:600px){.header-title,.header-subtitle,.header-items{text-align:center}.posts-line{font-size:16px}.markdown-body{font-size:16px}.post-title{font-size:2rem}.post-content p{letter-spacing:.05em}}@media screen and (max-width:48em){.posts-category{display:none}}</style>
   
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
+  
+    <style>.container,.container-fluid{margin-right:auto;margin-left:auto}.container-fluid{padding-right:2rem;padding-left:2rem}.row{box-sizing:border-box;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:0;-ms-flex:0 1 auto;flex:initial;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-.5rem;margin-left:-.5rem}.row.reverse{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.col.reverse{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.col-xs,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-offset-0,.col-xs-offset-1,.col-xs-offset-10,.col-xs-offset-11,.col-xs-offset-12,.col-xs-offset-2,.col-xs-offset-3,.col-xs-offset-4,.col-xs-offset-5,.col-xs-offset-6,.col-xs-offset-7,.col-xs-offset-8,.col-xs-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-xs{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-xs-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-xs-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-xs-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-xs-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-xs-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-xs-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-xs-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-xs-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-xs-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-xs-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-xs-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-xs-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-xs-offset-0{margin-left:0}.col-xs-offset-1{margin-left:8.33333333%}.col-xs-offset-2{margin-left:16.66666667%}.col-xs-offset-3{margin-left:25%}.col-xs-offset-4{margin-left:33.33333333%}.col-xs-offset-5{margin-left:41.66666667%}.col-xs-offset-6{margin-left:50%}.col-xs-offset-7{margin-left:58.33333333%}.col-xs-offset-8{margin-left:66.66666667%}.col-xs-offset-9{margin-left:75%}.col-xs-offset-10{margin-left:83.33333333%}.col-xs-offset-11{margin-left:91.66666667%}.start-xs{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-xs{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-xs{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-xs{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-xs{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-xs{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-xs{-ms-flex-pack:distribute;justify-content:space-around}.between-xs{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-xs{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-xs{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}@media only screen and (min-width:48em){.container{width:49rem}.col-sm,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-offset-0,.col-sm-offset-1,.col-sm-offset-10,.col-sm-offset-11,.col-sm-offset-12,.col-sm-offset-2,.col-sm-offset-3,.col-sm-offset-4,.col-sm-offset-5,.col-sm-offset-6,.col-sm-offset-7,.col-sm-offset-8,.col-sm-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-sm{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-sm-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-sm-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-sm-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-sm-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-sm-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-sm-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-sm-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-sm-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-sm-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-sm-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-sm-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-sm-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-sm-offset-0{margin-left:0}.col-sm-offset-1{margin-left:8.33333333%}.col-sm-offset-2{margin-left:16.66666667%}.col-sm-offset-3{margin-left:25%}.col-sm-offset-4{margin-left:33.33333333%}.col-sm-offset-5{margin-left:41.66666667%}.col-sm-offset-6{margin-left:50%}.col-sm-offset-7{margin-left:58.33333333%}.col-sm-offset-8{margin-left:66.66666667%}.col-sm-offset-9{margin-left:75%}.col-sm-offset-10{margin-left:83.33333333%}.col-sm-offset-11{margin-left:91.66666667%}.start-sm{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-sm{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-sm{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-sm{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-sm{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-sm{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-sm{-ms-flex-pack:distribute;justify-content:space-around}.between-sm{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-sm{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-sm{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:64em){.container{width:65rem}.col-md,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-offset-0,.col-md-offset-1,.col-md-offset-10,.col-md-offset-11,.col-md-offset-12,.col-md-offset-2,.col-md-offset-3,.col-md-offset-4,.col-md-offset-5,.col-md-offset-6,.col-md-offset-7,.col-md-offset-8,.col-md-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-md{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-md-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-md-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-md-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-md-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-md-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-md-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-md-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-md-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-md-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-md-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-md-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-md-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-md-offset-0{margin-left:0}.col-md-offset-1{margin-left:8.33333333%}.col-md-offset-2{margin-left:16.66666667%}.col-md-offset-3{margin-left:25%}.col-md-offset-4{margin-left:33.33333333%}.col-md-offset-5{margin-left:41.66666667%}.col-md-offset-6{margin-left:50%}.col-md-offset-7{margin-left:58.33333333%}.col-md-offset-8{margin-left:66.66666667%}.col-md-offset-9{margin-left:75%}.col-md-offset-10{margin-left:83.33333333%}.col-md-offset-11{margin-left:91.66666667%}.start-md{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-md{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-md{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-md{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-md{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-md{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-md{-ms-flex-pack:distribute;justify-content:space-around}.between-md{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-md{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-md{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:75em){.container{width:76rem}.col-lg,.col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-offset-0,.col-lg-offset-1,.col-lg-offset-10,.col-lg-offset-11,.col-lg-offset-12,.col-lg-offset-2,.col-lg-offset-3,.col-lg-offset-4,.col-lg-offset-5,.col-lg-offset-6,.col-lg-offset-7,.col-lg-offset-8,.col-lg-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-lg{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-lg-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-lg-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-lg-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-lg-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-lg-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-lg-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-lg-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-lg-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-lg-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-lg-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-lg-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-lg-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-lg-offset-0{margin-left:0}.col-lg-offset-1{margin-left:8.33333333%}.col-lg-offset-2{margin-left:16.66666667%}.col-lg-offset-3{margin-left:25%}.col-lg-offset-4{margin-left:33.33333333%}.col-lg-offset-5{margin-left:41.66666667%}.col-lg-offset-6{margin-left:50%}.col-lg-offset-7{margin-left:58.33333333%}.col-lg-offset-8{margin-left:66.66666667%}.col-lg-offset-9{margin-left:75%}.col-lg-offset-10{margin-left:83.33333333%}.col-lg-offset-11{margin-left:91.66666667%}.start-lg{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-lg{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-lg{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-lg{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-lg{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-lg{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-lg{-ms-flex-pack:distribute;justify-content:space-around}.between-lg{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-lg{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-lg{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}</style>
+  
+
+  
+
+  <link href="/index.xml" rel="alternate" type="application/rss+xml"
+    title="XKJ Blog">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Bungee+Shade" rel="stylesheet">
+  
+  
+
+  
+  
 </head>
 
-  <body>
-    <div id="root">
-      <header>
-  <div id="brand">
-    <a class="icon-link" href="https://ryokki.github.io/">
-      <img
-        class="icon"
-        src="/images/brandIcon.svg"
-      />
-    </a>
-    <div class="text">
-      <a href="https://ryokki.github.io/"><h1>Stay Foolish</h1></a>
-      <h3>/</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
 
-      <div id="content">
-        
-  <main>
-    <article>
-      <h1 class="title">深入理解Stream流-part1-介绍</h1>
-      
-      <div class="post-meta">
-  <strong>
-    <span>Posted on</span>
-    <time>2024-07-04</time>
-    
-    
-  </strong>
-  <span> • 972 words</span>
-  <span> • 5 minute read</span>
-  
+<body>
+  <article class="post " id="article">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="site-header">
+          
+<header>
+  <div class="header-title">
+    <a href="/"
+      >Kaijian Xu</a
+    >
+  </div>
+  <div class="header-subtitle"></div>
+</header>
+<div class="row end-md center-xs header-items">
   
 </div>
+<div class="row end-xs">
+   
+</div>
+<div class="header-line"></div>
 
-      <div class="content"><ul>
-<li><a href="https://github.com/CarpenterLee/JavaLambdaInternals">GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API</a> 很多blog作者都推荐看这篇，表示从这篇得到了启发，我也先看这篇</li>
-<li><a href="https://www.cnblogs.com/xiaoxiongcanguan/p/10511233.html">java8 Stream的实现原理 (从零开始实现一个stream流) - 小熊餐馆 - 博客园</a></li>
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">深入理解Stream流-part1-介绍</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2024-07-04 00:00:00 UTC">
+                04 Jul 2024
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="">@Kaijian Xu</a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+          <h1 id="references">References</h1>
+<ul>
+<li><a href="https://github.com/CarpenterLee/JavaLambdaInternals">GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API</a></li>
+<li><a href="https://juejin.cn/post/6911940595850313736">浅谈 jdk 中的 Stream 流使用及原理 - 掘金</a></li>
 <li><a href="https://xie.infoq.cn/article/a0e6dc7ed0735da5128b6825b">Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区</a></li>
 <li><a href="https://www.cnblogs.com/vivotech/p/14077729.html">Java 8 Stream原理解析 - vivo互联网技术 - 博客园</a></li>
+<li><a href="https://juejin.cn/post/7022611600821469220">《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金</a></li>
 <li><a href="https://developer.ibm.com/articles/j-java-streams-3-brian-goetz/">Streams under the hood - IBM Developer</a></li>
 <li><a href="https://theboreddev.com/understanding-java-streams/">Understanding Java Streams » The Bored Dev</a></li>
 <li><a href="https://basicsstrong.com/java-streams-parallel-and-declarative/">Java Streams – Parallel and Declarative – Basics Strong</a></li>
 <li><a href="https://github.com/YouthLin/examples/tree/master/example-misc/src/main/java/com/youthlin/example/stream">examples/example-misc/src/main/java/com/youthlin/example/stream at master · youthlin/examples · GitHub</a></li>
-<li><a href="https://juejin.cn/post/7022611600821469220">《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金</a></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> nameList <span style="color:#f92672">=</span> personList<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
-　　　　　　<span style="color:#f92672">.</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>item<span style="color:#f92672">-&gt;</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">==</span> 70<span style="color:#f92672">)</span> <span style="color:#75715e">// 过滤条件
-</span><span style="color:#75715e"></span>　　　　　　<span style="color:#f92672">.</span><span style="color:#a6e22e">limit</span><span style="color:#f92672">(</span>10<span style="color:#f92672">)</span>    <span style="color:#75715e">// limit限制条件
-</span><span style="color:#75715e"></span>　　　　　　<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>item<span style="color:#f92672">-&gt;</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">)</span> <span style="color:#75715e">// 获得姓名
-</span><span style="color:#75715e"></span>　　　　　　<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span> <span style="color:#75715e">// 转化为list
-</span></code></pre></div><p>在看这个blog前，先自己想想：</p>
-<p>本质上，stream这个东西是用于对原collection数据进行处理，可能是map、flatMap、filter、sort、limit，得到一个新的collection stream，最后进行终结操作，变成一个数据结构，或者求得某个值。</p>
+<h1 id="类图">类图</h1>
+<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240703191211.png" alt="image.png">
+sink和AbstrackPipeline什么区别</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Stream<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> sourceStream <span style="color:#f92672">=</span> List.<span style="color:#a6e22e">of</span>(8, 1, 1, 2, 2, 3, 4, 5, 6).<span style="color:#a6e22e">parallelStream</span>()  
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">filter</span>(a <span style="color:#f92672">-&gt;</span> filter(a))  
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">map</span>(a <span style="color:#f92672">-&gt;</span> map(a))  
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">distinct</span>()  
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">sorted</span>();  
+</span></span><span style="display:flex;"><span>sourceStream.<span style="color:#a6e22e">count</span>();
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">final</span> <span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> Sink<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">wrapSink</span>(Sink<span style="color:#f92672">&lt;</span>E_OUT<span style="color:#f92672">&gt;</span> sink) {  
+</span></span><span style="display:flex;"><span>    Objects.<span style="color:#a6e22e">requireNonNull</span>(sink);  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ( <span style="color:#a6e22e">@SuppressWarnings</span>(<span style="color:#e6db74">&#34;rawtypes&#34;</span>) AbstractPipeline p<span style="color:#f92672">=</span>AbstractPipeline.<span style="color:#a6e22e">this</span>; p.<span style="color:#a6e22e">depth</span> <span style="color:#f92672">&gt;</span> 0; p<span style="color:#f92672">=</span>p.<span style="color:#a6e22e">previousStage</span>) {  
+</span></span><span style="display:flex;"><span>        sink <span style="color:#f92672">=</span> p.<span style="color:#a6e22e">opWrapSink</span>(p.<span style="color:#a6e22e">previousStage</span>.<span style="color:#a6e22e">combinedFlags</span>, sink);  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (Sink<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span>) sink;  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704111405.png" alt="image.png"></p>
+<p>这个wrapSink如何工作的？</p>
 <ol>
-<li>中间操作（每一步操作后都返回一个新的stream）</li>
-<li>结束操作（真正执行中间操作，得到结果）
-可以看到惰性求值的性质</li>
+<li>一开始是在ReferencePipeline中，<code>evaluate(ReduceOps.makeRefCounting())</code>，参数是terminalOp</li>
+<li>跑<code> terminalOp.evaluateSequential(this, sourceSpliterator(terminalOp.getOpFlags()))</code>，参数是PipelineHelper和Spliterator</li>
+<li>helper.wrapAndCopyInto：参数是count转成的sink和sourceSpliterator
+<ol>
+<li>wrapSink：传进来的sink是最后一个countSink。
+<ol>
+<li>此时的pipeline最后一个元素不是count，而是最后一个操作sorted.（这是合理的，只在返回流的地方，连list中塞sink），此时p如下（head -&gt; filter -&gt; map -&gt; distcint -&gt; sorted），指向sorted。sink是countSink</li>
+<li>跑第一个p.opWrapSink(sink)，以filter为例，传进来的是downstream。所以第一个跑完，sorted的downstream指向count，返回这个sorted sink</li>
+<li>此时p指向distinct，distinct的下一层纸箱刚才的sorted sink</li>
+<li>。。。</li>
+<li>最终形成了一条HEAD到最终countSink的sinkList，这个不是一个真的list，只不过每个里面会存downStream（例如ChainedReference</li>
 </ol>
-<p>以上面例子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> nameList <span style="color:#f92672">=</span> personList<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>  <span style="color:#75715e">// stream with collection，可以遍历得到一个个element。这是data source
-</span><span style="color:#75715e"></span>　　　　　　<span style="color:#f92672">.</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>item<span style="color:#f92672">-&gt;</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">==</span> 70<span style="color:#f92672">)</span> <span style="color:#75715e">// stream with filter operation
-</span><span style="color:#75715e"></span>　　　　　　<span style="color:#f92672">.</span><span style="color:#a6e22e">limit</span><span style="color:#f92672">(</span>10<span style="color:#f92672">)</span>    <span style="color:#75715e">// stream with filter and limit operation
-</span><span style="color:#75715e"></span>　　　　　　<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>item<span style="color:#f92672">-&gt;</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">)</span> <span style="color:#75715e">// with ... and map operation
-</span><span style="color:#75715e"></span>　　　　　　<span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span> <span style="color:#75715e">// get result
-</span></code></pre></div><p>当执行filter的时候，本质上是组合原来的stream和这个filter操作，结构可能是:</p>
-<pre tabindex="0"><code>Stream preStream;
-Operation operation; // 这就是那个filter，这是一个Interface，在这里是FilterOperation，里面放了一个Predicate.
-</code></pre><p>后面的limit和map也是一样.</p>
-<p>感觉还是很简单的..</p>
-<hr>
-<p>　　简单介绍了API接口定义之后，我们开始深入探讨流的内部实现。</p>
-<p>　　流由两个重要的部分所组成，<strong>&ldquo;当前数据项(head)&quot;<strong>和</strong>&ldquo;下一数据项的求值函数(nextItemEvalProcess)&quot;</strong>。</p>
-<p>　　其中，<strong>nextItemEvalProcess是流能够实现&quot;惰性求值&quot;的关键</strong>。</p>
-<p>。。。这个看不懂了 换一个 我先在就像弄懂stream上面那个java代码是如何跑的</p>
-<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240703191211.png" alt="image.png"></p>
+</li>
+<li>copyInto(headSink, spliterator)</li>
+</ol>
+</li>
+</ol>
+<p>StatefulOp继承了ReferencePipeline，因为中间过程其实返回的是流</p>
+<h1 id="概念">概念</h1>
+<h2 id="pipeline和stage">Pipeline和Stage</h2>
 <p>Pipline 是流水线，表示一整个流程。Stage 表示流水线的其中一个阶段。是一个比较抽象层面的描述，因为 stage 主要表示一种逻辑上的顺序关系，而具体每一个阶段要干嘛、怎么干，使用 Sink 来进行描述。</p>
 <pre tabindex="0"><code>new stream          //stage 0
     .filter()       //stage 1
     .sort()         //stage 2
-</code></pre><p>Sink：直译为水槽</p>
+</code></pre><h2 id="sink">Sink</h2>
+<p>Sink：直译为水槽</p>
 <ul>
 <li>
 <p>打开水龙头，知道有水要来</p>
@@ -144,281 +192,273 @@ Operation operation; // 这就是那个filter，这是一个Interface，在这�
 <p>end()：通知水流全部处理完了。看一个 sort()的示例,sort 这个 stage 的目的就是对所有水流进行排序，然后再流到下游。</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SizedRefSortingSink</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">extends</span> AbstractRefSortingSink<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">private</span> T<span style="color:#f92672">[]</span> array<span style="color:#f92672">;</span>  <span style="color:#75715e">//要进行排序，需要一个数组进行缓存
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> offset<span style="color:#f92672">;</span> 
-
-        SizedRefSortingSink<span style="color:#f92672">(</span>Sink<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">&gt;</span> sink<span style="color:#f92672">,</span> Comparator<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">&gt;</span> comparator<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span>sink<span style="color:#f92672">,</span> comparator<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span>
-
-        <span style="color:#a6e22e">@Override</span>
-        <span style="color:#a6e22e">@SuppressWarnings</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;unchecked&#34;</span><span style="color:#f92672">)</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> size<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>size <span style="color:#f92672">&gt;=</span> Nodes<span style="color:#f92672">.</span><span style="color:#a6e22e">MAX_ARRAY_SIZE</span><span style="color:#f92672">)</span>
-                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalArgumentException<span style="color:#f92672">(</span>Nodes<span style="color:#f92672">.</span><span style="color:#a6e22e">BAD_SIZE</span><span style="color:#f92672">);</span>
-            <span style="color:#75715e">//上游调用begin(),通知sort进行初始化操作，生产一个数组
-</span><span style="color:#75715e"></span>            array <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>T<span style="color:#f92672">[])</span> <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> size<span style="color:#f92672">];</span>
-        <span style="color:#f92672">}</span>
-
-      <span style="color:#75715e">//上游调用end()方法，告诉sort水已经全部流过来了。sort开始执行操作
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">@Override</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">end</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-            <span style="color:#75715e">//操作
-</span><span style="color:#75715e"></span>            Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>array<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> offset<span style="color:#f92672">,</span> comparator<span style="color:#f92672">);</span>
-            <span style="color:#75715e">//告诉sort的下游准备接受水流
-</span><span style="color:#75715e"></span>            downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span>offset<span style="color:#f92672">);</span>
-            <span style="color:#75715e">//一个个元素的传递给下游
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>cancellationWasRequested<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> offset<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span>
-                    downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>array<span style="color:#f92672">[</span>i<span style="color:#f92672">]);</span>
-            <span style="color:#f92672">}</span>
-            <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
-                <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> offset <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">cancellationRequested</span><span style="color:#f92672">();</span> i<span style="color:#f92672">++)</span>
-                    downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>array<span style="color:#f92672">[</span>i<span style="color:#f92672">]);</span>
-            <span style="color:#f92672">}</span>
-            <span style="color:#75715e">//告诉下游水流传递结束
-</span><span style="color:#75715e"></span>            downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">end</span><span style="color:#f92672">();</span>
-            <span style="color:#75715e">//缓存清空
-</span><span style="color:#75715e"></span>            array <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-
-      <span style="color:#75715e">//上游调用accept()方法，将水流存储到到sort的缓存数组中
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">@Override</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>T t<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            array<span style="color:#f92672">[</span>offset<span style="color:#f92672">++]</span> <span style="color:#f92672">=</span> t<span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">}</span>
-</code></pre></div><p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240703192712.png" alt="image.png"></p>
+<p>以sort为例，水要来的时候，提前准备一个数组。每个水来的时候，就在数组中存下。上游水结束的时候，做排序，然后再把这批水同步给下游。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SizedRefSortingSink</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">extends</span> AbstractRefSortingSink<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> T<span style="color:#f92672">[]</span> array;  <span style="color:#75715e">//要进行排序，需要一个数组进行缓存</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> offset; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SizedRefSortingSink(Sink<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">&gt;</span> sink, Comparator<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">&gt;</span> comparator) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">super</span>(sink, comparator);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@SuppressWarnings</span>(<span style="color:#e6db74">&#34;unchecked&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">begin</span>(<span style="color:#66d9ef">long</span> size) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (size <span style="color:#f92672">&gt;=</span> Nodes.<span style="color:#a6e22e">MAX_ARRAY_SIZE</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalArgumentException(Nodes.<span style="color:#a6e22e">BAD_SIZE</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//上游调用begin(),通知sort进行初始化操作，生产一个数组</span>
+</span></span><span style="display:flex;"><span>            array <span style="color:#f92672">=</span> (T<span style="color:#f92672">[]</span>) <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[</span>(<span style="color:#66d9ef">int</span>) size<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//上游调用end()方法，告诉sort水已经全部流过来了。sort开始执行操作</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">end</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//操作</span>
+</span></span><span style="display:flex;"><span>            Arrays.<span style="color:#a6e22e">sort</span>(array, 0, offset, comparator);
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//告诉sort的下游准备接受水流</span>
+</span></span><span style="display:flex;"><span>            downstream.<span style="color:#a6e22e">begin</span>(offset);
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//一个个元素的传递给下游</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>cancellationWasRequested) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> offset; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>                    downstream.<span style="color:#a6e22e">accept</span>(array<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> offset <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>downstream.<span style="color:#a6e22e">cancellationRequested</span>(); i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>                    downstream.<span style="color:#a6e22e">accept</span>(array<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//告诉下游水流传递结束</span>
+</span></span><span style="display:flex;"><span>            downstream.<span style="color:#a6e22e">end</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//缓存清空</span>
+</span></span><span style="display:flex;"><span>            array <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//上游调用accept()方法，将水流存储到到sort的缓存数组中</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span>(T t) {
+</span></span><span style="display:flex;"><span>            array<span style="color:#f92672">[</span>offset<span style="color:#f92672">++]</span> <span style="color:#f92672">=</span> t;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h1 id="中间操作">中间操作</h1>
+<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240711104424.png" alt="image.png"></p>
+<h2 id="filter">filter</h2>
 <p>执行 filter(op)会发生什么？
 <img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240703194159.png" alt="image.png"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//ReferencePipeline.class
-</span><span style="color:#75715e"></span>
-<span style="color:#a6e22e">@Override</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> Stream<span style="color:#f92672">&lt;</span>P_OUT<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>Predicate<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> P_OUT<span style="color:#f92672">&gt;</span> predicate<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-    Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">requireNonNull</span><span style="color:#f92672">(</span>predicate<span style="color:#f92672">);</span>
-
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> StatelessOp<span style="color:#f92672">&lt;</span>P_OUT<span style="color:#f92672">,</span> P_OUT<span style="color:#f92672">&gt;(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">,</span> StreamShape<span style="color:#f92672">.</span><span style="color:#a6e22e">REFERENCE</span><span style="color:#f92672">,</span>
-                                         StreamOpFlag<span style="color:#f92672">.</span><span style="color:#a6e22e">NOT_SIZED</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#a6e22e">@Override</span>
-        Sink<span style="color:#f92672">&lt;</span>P_OUT<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">opWrapSink</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> flags<span style="color:#f92672">,</span> Sink<span style="color:#f92672">&lt;</span>P_OUT<span style="color:#f92672">&gt;</span> sink<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Sink<span style="color:#f92672">.</span><span style="color:#a6e22e">ChainedReference</span><span style="color:#f92672">&lt;</span>P_OUT<span style="color:#f92672">,</span> P_OUT<span style="color:#f92672">&gt;(</span>sink<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                <span style="color:#a6e22e">@Override</span>
-                <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> size<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                    downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(-</span>1<span style="color:#f92672">);</span>
-                <span style="color:#f92672">}</span>
-
-                <span style="color:#a6e22e">@Override</span>
-                <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>P_OUT u<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>predicate<span style="color:#f92672">.</span><span style="color:#a6e22e">test</span><span style="color:#f92672">(</span>u<span style="color:#f92672">))</span>
-                        downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>u<span style="color:#f92672">);</span>
-                <span style="color:#f92672">}</span>
-            <span style="color:#f92672">};</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">};</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>就只是创建一个StatelessOp，看看创建逻辑:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//AbstractPipeline.class 核心结构
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">/**
-</span><span style="color:#75715e"> * Constructor for appending an intermediate operation stage onto an
-</span><span style="color:#75715e"> * existing pipeline.
-</span><span style="color:#75715e"> *
-</span><span style="color:#75715e"> * @param previousStage the upstream pipeline stage
-</span><span style="color:#75715e"> * @param opFlags the operation flags for the new stage, described in
-</span><span style="color:#75715e"> * {@link StreamOpFlag}
-</span><span style="color:#75715e"> */</span>
-AbstractPipeline<span style="color:#f92672">(</span>AbstractPipeline<span style="color:#f92672">&lt;?,</span> E_IN<span style="color:#f92672">,</span> <span style="color:#f92672">?&gt;</span> previousStage<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> opFlags<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-	<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>previousStage<span style="color:#f92672">.</span><span style="color:#a6e22e">linkedOrConsumed</span><span style="color:#f92672">)</span>
-		<span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalStateException<span style="color:#f92672">(</span>MSG_STREAM_LINKED<span style="color:#f92672">);</span>
-	previousStage<span style="color:#f92672">.</span><span style="color:#a6e22e">linkedOrConsumed</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
-	previousStage<span style="color:#f92672">.</span><span style="color:#a6e22e">nextStage</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">;</span> <span style="color:#75715e">// 前指向后
-</span><span style="color:#75715e"></span>
-	<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">previousStage</span> <span style="color:#f92672">=</span> previousStage<span style="color:#f92672">;</span> <span style="color:#75715e">// 后指向前
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">sourceOrOpFlags</span> <span style="color:#f92672">=</span> opFlags <span style="color:#f92672">&amp;</span> StreamOpFlag<span style="color:#f92672">.</span><span style="color:#a6e22e">OP_MASK</span><span style="color:#f92672">;</span>
-	<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">combinedFlags</span> <span style="color:#f92672">=</span> StreamOpFlag<span style="color:#f92672">.</span><span style="color:#a6e22e">combineOpFlags</span><span style="color:#f92672">(</span>opFlags<span style="color:#f92672">,</span> previousStage<span style="color:#f92672">.</span><span style="color:#a6e22e">combinedFlags</span><span style="color:#f92672">);</span>
-	<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">sourceStage</span> <span style="color:#f92672">=</span> previousStage<span style="color:#f92672">.</span><span style="color:#a6e22e">sourceStage</span><span style="color:#f92672">;</span>
-	<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>opIsStateful<span style="color:#f92672">())</span>
-		sourceStage<span style="color:#f92672">.</span><span style="color:#a6e22e">sourceAnyStateful</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
-	<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">depth</span> <span style="color:#f92672">=</span> previousStage<span style="color:#f92672">.</span><span style="color:#a6e22e">depth</span> <span style="color:#f92672">+</span> 1<span style="color:#f92672">;</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>再研究下distinct.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Override</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> Stream<span style="color:#f92672">&lt;</span>P_OUT<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">distinct</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">return</span> DistinctOps<span style="color:#f92672">.</span><span style="color:#a6e22e">makeRef</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">);</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>调用 DistinctOps 类的 makeRef()方法，返回一个 StatefulOp 类，并重写了 4 个方法，实现逻辑在 opWrapSink()中:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
-</span><span style="color:#75715e"> * Appends a &#34;distinct&#34; operation to the provided stream, and returns the
-</span><span style="color:#75715e"> * new stream.
-</span><span style="color:#75715e"> *
-</span><span style="color:#75715e"> * @param &lt;T&gt; the type of both input and output elements
-</span><span style="color:#75715e"> * @param upstream a reference stream with element type T
-</span><span style="color:#75715e"> * @return the new stream
-</span><span style="color:#75715e"> */</span>
-<span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> ReferencePipeline<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">,</span> T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">makeRef</span><span style="color:#f92672">(</span>AbstractPipeline<span style="color:#f92672">&lt;?,</span> T<span style="color:#f92672">,</span> <span style="color:#f92672">?&gt;</span> upstream<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-	<span style="color:#75715e">// 返回一个StatefulOp类
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> ReferencePipeline<span style="color:#f92672">.</span><span style="color:#a6e22e">StatefulOp</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">,</span> T<span style="color:#f92672">&gt;(</span>upstream<span style="color:#f92672">,</span> StreamShape<span style="color:#f92672">.</span><span style="color:#a6e22e">REFERENCE</span><span style="color:#f92672">,</span>
-												  StreamOpFlag<span style="color:#f92672">.</span><span style="color:#a6e22e">IS_DISTINCT</span> <span style="color:#f92672">|</span> StreamOpFlag<span style="color:#f92672">.</span><span style="color:#a6e22e">NOT_SIZED</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-
-		<span style="color:#75715e">// 重写了以下几个方法，内容省略...
-</span><span style="color:#75715e"></span>		<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">reduce</span><span style="color:#f92672">(</span>PipelineHelper<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> helper<span style="color:#f92672">,</span> Spliterator<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> spliterator<span style="color:#f92672">)</span> <span style="color:#f92672">{...}</span>
-
-		<span style="color:#a6e22e">@Override</span>
-		<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">opEvaluateParallel</span><span style="color:#f92672">(</span>PipelineHelper<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> helper<span style="color:#f92672">,</span>
-										  Spliterator<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> spliterator<span style="color:#f92672">,</span>
-										  IntFunction<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">[]&gt;</span> generator<span style="color:#f92672">)</span> <span style="color:#f92672">{...}</span>
-
-		<span style="color:#a6e22e">@Override</span>
-		<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> Spliterator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">opEvaluateParallelLazy</span><span style="color:#f92672">(</span>PipelineHelper<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> helper<span style="color:#f92672">,</span> Spliterator<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> spliterator<span style="color:#f92672">)</span> <span style="color:#f92672">{...}</span>
-
-		<span style="color:#a6e22e">@Override</span>
-		Sink<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">opWrapSink</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> flags<span style="color:#f92672">,</span> Sink<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> sink<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-			Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">requireNonNull</span><span style="color:#f92672">(</span>sink<span style="color:#f92672">);</span>
-
-			<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>StreamOpFlag<span style="color:#f92672">.</span><span style="color:#a6e22e">DISTINCT</span><span style="color:#f92672">.</span><span style="color:#a6e22e">isKnown</span><span style="color:#f92672">(</span>flags<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
-				<span style="color:#f92672">...</span>
-			<span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>StreamOpFlag<span style="color:#f92672">.</span><span style="color:#a6e22e">SORTED</span><span style="color:#f92672">.</span><span style="color:#a6e22e">isKnown</span><span style="color:#f92672">(</span>flags<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
-				<span style="color:#f92672">...</span>
-			<span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
-				<span style="color:#75715e">// 返回一个SinkChainedReference类
-</span><span style="color:#75715e"></span>				<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Sink<span style="color:#f92672">.</span><span style="color:#a6e22e">ChainedReference</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">,</span> T<span style="color:#f92672">&gt;(</span>sink<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-					<span style="color:#75715e">//使用一个Set缓存数据，进行去重
-</span><span style="color:#75715e"></span>					Set<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> seen<span style="color:#f92672">;</span>
-
-					<span style="color:#75715e">//当上游通知begin的时候，初始化Set
-</span><span style="color:#75715e"></span>					<span style="color:#a6e22e">@Override</span>
-					<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> size<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-						seen <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashSet<span style="color:#f92672">&lt;&gt;();</span>
-						downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(-</span>1<span style="color:#f92672">);</span>
-					<span style="color:#f92672">}</span>
-
-					<span style="color:#75715e">//略
-</span><span style="color:#75715e"></span>					<span style="color:#a6e22e">@Override</span>
-					<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">end</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-						seen <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-						downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">end</span><span style="color:#f92672">();</span>
-					<span style="color:#f92672">}</span>
-
-					<span style="color:#75715e">//如果已经存在，之间抛弃
-</span><span style="color:#75715e"></span>					<span style="color:#a6e22e">@Override</span>
-					<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>T t<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-						<span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>seen<span style="color:#f92672">.</span><span style="color:#a6e22e">contains</span><span style="color:#f92672">(</span>t<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
-							seen<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>t<span style="color:#f92672">);</span>
-							downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>t<span style="color:#f92672">);</span>
-						<span style="color:#f92672">}</span>
-					<span style="color:#f92672">}</span>
-				<span style="color:#f92672">};</span>
-			<span style="color:#f92672">}</span>
-		<span style="color:#f92672">}</span>
-	<span style="color:#f92672">};</span>
-<span style="color:#f92672">}</span>
-
-</code></pre></div><p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704104359.png" alt="image.png"></p>
-<p>问题解答</p>
-<ol>
-<li><strong>各个中间操作是如何进行关联的？</strong> 一个个的操作封装成了一个个的<code>statelessOp</code>或<code>stateFulOp</code>对象，以双向链表的方法串起来。</li>
-<li><strong>如何执行完一个中间操作，然后执行下一个？</strong> Sink 类负责流水线操作的承接上下游和执行操作的任务，核心方法为 begain()、accept()、end()。 <code>这是我的主要问题，为啥每一层可以控制下一层，我想的就是每一层都得到一个新的head即可呀，然后把这层Op扔掉</code></li>
-<li><strong>有状态的中间操作是怎么保存状态的？</strong> 有状态的中间操作封装成<code>stateFulOp</code>对象，各自都有独立的逻辑，具体的参考<code>sort()</code>的实现逻辑。</li>
-<li><strong>懒加载如何实现的</strong> 每个中间操作调用后，只是 append 在流程的尾部，保存了关联关系而已。流水线操作的启动，要交给<code>wrapAndCopyInto</code>()方法调用 Head 的 Sink()操作，而 wrapAndCopyInto()方法都需要由终结操作进行触发。</li>
-</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">//ReferencePipeline.class</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> Stream<span style="color:#f92672">&lt;</span>P_OUT<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">filter</span>(Predicate<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> P_OUT<span style="color:#f92672">&gt;</span> predicate) {
+</span></span><span style="display:flex;"><span>    Objects.<span style="color:#a6e22e">requireNonNull</span>(predicate);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> StatelessOp<span style="color:#f92672">&lt;</span>P_OUT, P_OUT<span style="color:#f92672">&gt;</span>(<span style="color:#66d9ef">this</span>, StreamShape.<span style="color:#a6e22e">REFERENCE</span>,
+</span></span><span style="display:flex;"><span>                                         StreamOpFlag.<span style="color:#a6e22e">NOT_SIZED</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        Sink<span style="color:#f92672">&lt;</span>P_OUT<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">opWrapSink</span>(<span style="color:#66d9ef">int</span> flags, Sink<span style="color:#f92672">&lt;</span>P_OUT<span style="color:#f92672">&gt;</span> sink) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Sink.<span style="color:#a6e22e">ChainedReference</span><span style="color:#f92672">&lt;</span>P_OUT, P_OUT<span style="color:#f92672">&gt;</span>(sink) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">begin</span>(<span style="color:#66d9ef">long</span> size) {
+</span></span><span style="display:flex;"><span>                    downstream.<span style="color:#a6e22e">begin</span>(<span style="color:#f92672">-</span>1);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span>(P_OUT u) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (predicate.<span style="color:#a6e22e">test</span>(u))
+</span></span><span style="display:flex;"><span>                        downstream.<span style="color:#a6e22e">accept</span>(u);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            };
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>就只是创建一个StatelessOp，看看创建逻辑:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">//AbstractPipeline.class 核心结构</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Constructor for appending an intermediate operation stage onto an
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * existing pipeline.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param previousStage the upstream pipeline stage
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param opFlags the operation flags for the new stage, described in
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * {@link StreamOpFlag}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>AbstractPipeline(AbstractPipeline<span style="color:#f92672">&lt;?</span>, E_IN, <span style="color:#f92672">?&gt;</span> previousStage, <span style="color:#66d9ef">int</span> opFlags) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (previousStage.<span style="color:#a6e22e">linkedOrConsumed</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalStateException(MSG_STREAM_LINKED);
+</span></span><span style="display:flex;"><span>	previousStage.<span style="color:#a6e22e">linkedOrConsumed</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>	previousStage.<span style="color:#a6e22e">nextStage</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>; <span style="color:#75715e">// 前指向后</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">previousStage</span> <span style="color:#f92672">=</span> previousStage; <span style="color:#75715e">// 后指向前</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">sourceOrOpFlags</span> <span style="color:#f92672">=</span> opFlags <span style="color:#f92672">&amp;</span> StreamOpFlag.<span style="color:#a6e22e">OP_MASK</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">combinedFlags</span> <span style="color:#f92672">=</span> StreamOpFlag.<span style="color:#a6e22e">combineOpFlags</span>(opFlags, previousStage.<span style="color:#a6e22e">combinedFlags</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">sourceStage</span> <span style="color:#f92672">=</span> previousStage.<span style="color:#a6e22e">sourceStage</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (opIsStateful())
+</span></span><span style="display:flex;"><span>		sourceStage.<span style="color:#a6e22e">sourceAnyStateful</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">depth</span> <span style="color:#f92672">=</span> previousStage.<span style="color:#a6e22e">depth</span> <span style="color:#f92672">+</span> 1;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="distinct">distinct</h2>
+<p>再研究下distinct.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> Stream<span style="color:#f92672">&lt;</span>P_OUT<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">distinct</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> DistinctOps.<span style="color:#a6e22e">makeRef</span>(<span style="color:#66d9ef">this</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>调用 DistinctOps 类的 makeRef()方法，返回一个 StatefulOp 类，并重写了 4 个方法，实现逻辑在 opWrapSink()中:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Appends a &#34;distinct&#34; operation to the provided stream, and returns the
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * new stream.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param &lt;T&gt; the type of both input and output elements
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param upstream a reference stream with element type T
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @return the new stream
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> ReferencePipeline<span style="color:#f92672">&lt;</span>T, T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">makeRef</span>(AbstractPipeline<span style="color:#f92672">&lt;?</span>, T, <span style="color:#f92672">?&gt;</span> upstream) {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 返回一个StatefulOp类</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> ReferencePipeline.<span style="color:#a6e22e">StatefulOp</span><span style="color:#f92672">&lt;</span>T, T<span style="color:#f92672">&gt;</span>(upstream, StreamShape.<span style="color:#a6e22e">REFERENCE</span>,
+</span></span><span style="display:flex;"><span>												  StreamOpFlag.<span style="color:#a6e22e">IS_DISTINCT</span> <span style="color:#f92672">|</span> StreamOpFlag.<span style="color:#a6e22e">NOT_SIZED</span>) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 重写了以下几个方法，内容省略...</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">reduce</span>(PipelineHelper<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> helper, Spliterator<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> spliterator) {...}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">opEvaluateParallel</span>(PipelineHelper<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> helper,
+</span></span><span style="display:flex;"><span>										  Spliterator<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> spliterator,
+</span></span><span style="display:flex;"><span>										  IntFunction<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">[]&gt;</span> generator) {...}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> Spliterator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">opEvaluateParallelLazy</span>(PipelineHelper<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> helper, Spliterator<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> spliterator) {...}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>		Sink<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">opWrapSink</span>(<span style="color:#66d9ef">int</span> flags, Sink<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> sink) {
+</span></span><span style="display:flex;"><span>			Objects.<span style="color:#a6e22e">requireNonNull</span>(sink);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> (StreamOpFlag.<span style="color:#a6e22e">DISTINCT</span>.<span style="color:#a6e22e">isKnown</span>(flags)) {
+</span></span><span style="display:flex;"><span>				...
+</span></span><span style="display:flex;"><span>			} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (StreamOpFlag.<span style="color:#a6e22e">SORTED</span>.<span style="color:#a6e22e">isKnown</span>(flags)) {
+</span></span><span style="display:flex;"><span>				...
+</span></span><span style="display:flex;"><span>			} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#75715e">// 返回一个SinkChainedReference类</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Sink.<span style="color:#a6e22e">ChainedReference</span><span style="color:#f92672">&lt;</span>T, T<span style="color:#f92672">&gt;</span>(sink) {
+</span></span><span style="display:flex;"><span>					<span style="color:#75715e">//使用一个Set缓存数据，进行去重</span>
+</span></span><span style="display:flex;"><span>					Set<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> seen;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>					<span style="color:#75715e">//当上游通知begin的时候，初始化Set</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">begin</span>(<span style="color:#66d9ef">long</span> size) {
+</span></span><span style="display:flex;"><span>						seen <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashSet<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>						downstream.<span style="color:#a6e22e">begin</span>(<span style="color:#f92672">-</span>1);
+</span></span><span style="display:flex;"><span>					}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>					<span style="color:#75715e">//略</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">end</span>() {
+</span></span><span style="display:flex;"><span>						seen <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>						downstream.<span style="color:#a6e22e">end</span>();
+</span></span><span style="display:flex;"><span>					}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>					<span style="color:#75715e">//如果已经存在，之间抛弃</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span>(T t) {
+</span></span><span style="display:flex;"><span>						<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>seen.<span style="color:#a6e22e">contains</span>(t)) {
+</span></span><span style="display:flex;"><span>							seen.<span style="color:#a6e22e">add</span>(t);
+</span></span><span style="display:flex;"><span>							downstream.<span style="color:#a6e22e">accept</span>(t);
+</span></span><span style="display:flex;"><span>						}
+</span></span><span style="display:flex;"><span>					}
+</span></span><span style="display:flex;"><span>				};
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	};
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704104359.png" alt="image.png"></p>
+<h1 id="终结操作">终结操作</h1>
 <p>下面进入终结操作.
 列举四种终结操作，在 Stream 提供的 API 中，也是四类：
 <img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704104513.png" alt="image.png"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 计算流中元素数量，FindOP
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">long</span> count <span style="color:#f92672">=</span> afterLimit<span style="color:#f92672">.</span><span style="color:#a6e22e">count</span><span style="color:#f92672">();</span>
-
-<span style="color:#75715e">// 遍历所有元素,ForEachOp
-</span><span style="color:#75715e"></span>afterLimit<span style="color:#f92672">.</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>printl<span style="color:#f92672">);</span>
-
-<span style="color:#75715e">// 获取第一个元素,MatchOp
-</span><span style="color:#75715e"></span>Optional<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> any <span style="color:#f92672">=</span> afterLimit<span style="color:#f92672">.</span><span style="color:#a6e22e">findFirst</span><span style="color:#f92672">();</span>
-
-<span style="color:#75715e">// 判断是否,ReduceOp
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">boolean</span> flag <span style="color:#f92672">=</span> afterLimit<span style="color:#f92672">.</span><span style="color:#a6e22e">anyMatch</span><span style="color:#f92672">(</span>i <span style="color:#f92672">-&gt;</span> i <span style="color:#f92672">==</span> 1<span style="color:#f92672">);</span>
-</code></pre></div><p>wrapAndCopyInto()：保证所有 stage -&gt; sink 链表，然后执行 copyInto()方法</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#a6e22e">@Override</span>
-    <span style="color:#66d9ef">final</span> <span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">,</span> S <span style="color:#66d9ef">extends</span> Sink<span style="color:#f92672">&lt;</span>E_OUT<span style="color:#f92672">&gt;&gt;</span> S <span style="color:#a6e22e">wrapAndCopyInto</span><span style="color:#f92672">(</span>S sink<span style="color:#f92672">,</span> Spliterator<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> spliterator<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        copyInto<span style="color:#f92672">(</span>wrapSink<span style="color:#f92672">(</span>Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">requireNonNull</span><span style="color:#f92672">(</span>sink<span style="color:#f92672">)),</span> spliterator<span style="color:#f92672">);</span>
-        <span style="color:#66d9ef">return</span> sink<span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-</code></pre></div><p>wrapSink：就是在这里，从后向前，包装所有的 stage 阶段，形成一条 sink 链表。这样将之前一个个 stage 的链表结构包装成一个个 Sink。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Override</span>  
-<span style="color:#a6e22e">@SuppressWarnings</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;unchecked&#34;</span><span style="color:#f92672">)</span>  
-<span style="color:#66d9ef">final</span> <span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> Sink<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">wrapSink</span><span style="color:#f92672">(</span>Sink<span style="color:#f92672">&lt;</span>E_OUT<span style="color:#f92672">&gt;</span> sink<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>  
-    Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">requireNonNull</span><span style="color:#f92672">(</span>sink<span style="color:#f92672">);</span>  
-  
-    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span> <span style="color:#a6e22e">@SuppressWarnings</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;rawtypes&#34;</span><span style="color:#f92672">)</span> AbstractPipeline p<span style="color:#f92672">=</span>AbstractPipeline<span style="color:#f92672">.</span><span style="color:#a6e22e">this</span><span style="color:#f92672">;</span> p<span style="color:#f92672">.</span><span style="color:#a6e22e">depth</span> <span style="color:#f92672">&gt;</span> 0<span style="color:#f92672">;</span> p<span style="color:#f92672">=</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">previousStage</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>  
-        sink <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span><span style="color:#a6e22e">opWrapSink</span><span style="color:#f92672">(</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">previousStage</span><span style="color:#f92672">.</span><span style="color:#a6e22e">combinedFlags</span><span style="color:#f92672">,</span> sink<span style="color:#f92672">);</span>  
-    <span style="color:#f92672">}</span>  
-    <span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span>Sink<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;)</span> sink<span style="color:#f92672">;</span>  
-<span style="color:#f92672">}</span>
-</code></pre></div><p>copyinto:
-这个方法是整个流水线的启动开关，流程如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 计算流中元素数量，FindOP</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> count <span style="color:#f92672">=</span> afterLimit.<span style="color:#a6e22e">count</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 遍历所有元素,ForEachOp</span>
+</span></span><span style="display:flex;"><span>afterLimit.<span style="color:#a6e22e">forEach</span>(System.<span style="color:#a6e22e">out</span>::printl);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 获取第一个元素,MatchOp</span>
+</span></span><span style="display:flex;"><span>Optional<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> any <span style="color:#f92672">=</span> afterLimit.<span style="color:#a6e22e">findFirst</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 判断是否,ReduceOp</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">boolean</span> flag <span style="color:#f92672">=</span> afterLimit.<span style="color:#a6e22e">anyMatch</span>(i <span style="color:#f92672">-&gt;</span> i <span style="color:#f92672">==</span> 1);
+</span></span></code></pre></div><p>下面看终结的执行流程</p>
+<h2 id="wrapandcopyinto保证所有-stage---sink-链表然后执行-copyinto方法">wrapAndCopyInto——保证所有 stage -&gt; sink 链表，然后执行 copyInto()方法</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>  <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> <span style="color:#f92672">&lt;</span>P_IN, S <span style="color:#66d9ef">extends</span> Sink<span style="color:#f92672">&lt;</span>E_OUT<span style="color:#f92672">&gt;&gt;</span> S <span style="color:#a6e22e">wrapAndCopyInto</span>(S sink, Spliterator<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> spliterator) {
+</span></span><span style="display:flex;"><span>        copyInto(wrapSink(Objects.<span style="color:#a6e22e">requireNonNull</span>(sink)), spliterator);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> sink;
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>wrapSink：就是在这里，从后向前，包装所有的 stage 阶段，形成一条 sink 链表。这样将之前一个个 stage 的链表结构包装成一个个 Sink。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>  
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@SuppressWarnings</span>(<span style="color:#e6db74">&#34;unchecked&#34;</span>)  
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">final</span> <span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> Sink<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">wrapSink</span>(Sink<span style="color:#f92672">&lt;</span>E_OUT<span style="color:#f92672">&gt;</span> sink) {  
+</span></span><span style="display:flex;"><span>    Objects.<span style="color:#a6e22e">requireNonNull</span>(sink);  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ( <span style="color:#a6e22e">@SuppressWarnings</span>(<span style="color:#e6db74">&#34;rawtypes&#34;</span>) AbstractPipeline p<span style="color:#f92672">=</span>AbstractPipeline.<span style="color:#a6e22e">this</span>; p.<span style="color:#a6e22e">depth</span> <span style="color:#f92672">&gt;</span> 0; p<span style="color:#f92672">=</span>p.<span style="color:#a6e22e">previousStage</span>) {  
+</span></span><span style="display:flex;"><span>        sink <span style="color:#f92672">=</span> p.<span style="color:#a6e22e">opWrapSink</span>(p.<span style="color:#a6e22e">previousStage</span>.<span style="color:#a6e22e">combinedFlags</span>, sink);  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (Sink<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span>) sink;  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="copyinto流水线启动">copyinto——流水线，启动！</h2>
+<p>这个方法是整个流水线的启动开关，流程如下：</p>
 <ol>
 <li>调用第一个 sink 的 begin()方法</li>
 <li>执行数据源的 spliterator.forEachRemaining(wrappendSink)方法遍历调用 accept()方法</li>
 <li>end() 通知结束</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#a6e22e">@Override</span>
-    <span style="color:#66d9ef">final</span> <span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">copyInto</span><span style="color:#f92672">(</span>Sink<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> wrappedSink<span style="color:#f92672">,</span> Spliterator<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> spliterator<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        Objects<span style="color:#f92672">.</span><span style="color:#a6e22e">requireNonNull</span><span style="color:#f92672">(</span>wrappedSink<span style="color:#f92672">);</span>
-
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>StreamOpFlag<span style="color:#f92672">.</span><span style="color:#a6e22e">SHORT_CIRCUIT</span><span style="color:#f92672">.</span><span style="color:#a6e22e">isKnown</span><span style="color:#f92672">(</span>getStreamAndOpFlags<span style="color:#f92672">()))</span> <span style="color:#f92672">{</span>
-            <span style="color:#75715e">//通知第一个sink，做好准备接受流
-</span><span style="color:#75715e"></span>            wrappedSink<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span>spliterator<span style="color:#f92672">.</span><span style="color:#a6e22e">getExactSizeIfKnown</span><span style="color:#f92672">());</span>
-            <span style="color:#75715e">//执行
-</span><span style="color:#75715e"></span>            spliterator<span style="color:#f92672">.</span><span style="color:#a6e22e">forEachRemaining</span><span style="color:#f92672">(</span>wrappedSink<span style="color:#f92672">);</span>
-            wrappedSink<span style="color:#f92672">.</span><span style="color:#a6e22e">end</span><span style="color:#f92672">();</span>
-        <span style="color:#f92672">}</span>
-        <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
-            copyIntoWithCancel<span style="color:#f92672">(</span>wrappedSink<span style="color:#f92672">,</span> spliterator<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">}</span>
-</code></pre></div><p>forEachRemaining()</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">tryAdvance</span><span style="color:#f92672">(</span>Consumer<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> E<span style="color:#f92672">&gt;</span> action<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>action <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span>
-        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NullPointerException<span style="color:#f92672">();</span>
-    <span style="color:#66d9ef">int</span> hi <span style="color:#f92672">=</span> getFence<span style="color:#f92672">(),</span> i <span style="color:#f92672">=</span> index<span style="color:#f92672">;</span>
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>i <span style="color:#f92672">&lt;</span> hi<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        index <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> 1<span style="color:#f92672">;</span>
-        <span style="color:#a6e22e">@SuppressWarnings</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;unchecked&#34;</span><span style="color:#f92672">)</span> E e <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>E<span style="color:#f92672">)</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">elementData</span><span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
-        <span style="color:#75715e">//执行accept()方法
-</span><span style="color:#75715e"></span>        action<span style="color:#f92672">.</span><span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>e<span style="color:#f92672">);</span>
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">modCount</span> <span style="color:#f92672">!=</span> expectedModCount<span style="color:#f92672">)</span>
-            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ConcurrentModificationException<span style="color:#f92672">();</span>
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704110024.png" alt="image.png"></p>
-<p>step1: <code>evaluateSequential</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> Long <span style="color:#a6e22e">evaluateSequential</span><span style="color:#f92672">(</span>PipelineHelper<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> helper<span style="color:#f92672">,</span>  
-                                      Spliterator<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> spliterator<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>  
-    <span style="color:#66d9ef">long</span> size <span style="color:#f92672">=</span> helper<span style="color:#f92672">.</span><span style="color:#a6e22e">exactOutputSizeIfKnown</span><span style="color:#f92672">(</span>spliterator<span style="color:#f92672">);</span>  
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>size <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">)</span>  <span style="color:#75715e">// -1表示不知道
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> size<span style="color:#f92672">;</span>  
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">evaluateSequential</span><span style="color:#f92672">(</span>helper<span style="color:#f92672">,</span> spliterator<span style="color:#f92672">);</span>  <span style="color:#75715e">// 真的执行
-</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
-</code></pre></div><p>step2: <code>evaluateSequential</code></p>
-<p>step3: <code>copyInto</code></p>
-<p>step3.1 begin
-filter: （由于filter会把size变掉，所以-1表示不知道）
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>  <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> <span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">copyInto</span>(Sink<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> wrappedSink, Spliterator<span style="color:#f92672">&lt;</span>P_IN<span style="color:#f92672">&gt;</span> spliterator) {
+</span></span><span style="display:flex;"><span>        Objects.<span style="color:#a6e22e">requireNonNull</span>(wrappedSink);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>StreamOpFlag.<span style="color:#a6e22e">SHORT_CIRCUIT</span>.<span style="color:#a6e22e">isKnown</span>(getStreamAndOpFlags())) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//通知第一个sink，做好准备接受流</span>
+</span></span><span style="display:flex;"><span>            wrappedSink.<span style="color:#a6e22e">begin</span>(spliterator.<span style="color:#a6e22e">getExactSizeIfKnown</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//执行</span>
+</span></span><span style="display:flex;"><span>            spliterator.<span style="color:#a6e22e">forEachRemaining</span>(wrappedSink);
+</span></span><span style="display:flex;"><span>            wrappedSink.<span style="color:#a6e22e">end</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            copyIntoWithCancel(wrappedSink, spliterator);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>forEachRemaining()</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">tryAdvance</span>(Consumer<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> E<span style="color:#f92672">&gt;</span> action) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (action <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NullPointerException();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> hi <span style="color:#f92672">=</span> getFence(), i <span style="color:#f92672">=</span> index;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&lt;</span> hi) {
+</span></span><span style="display:flex;"><span>        index <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> 1;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@SuppressWarnings</span>(<span style="color:#e6db74">&#34;unchecked&#34;</span>) E e <span style="color:#f92672">=</span> (E)list.<span style="color:#a6e22e">elementData</span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//执行accept()方法</span>
+</span></span><span style="display:flex;"><span>        action.<span style="color:#a6e22e">accept</span>(e);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (list.<span style="color:#a6e22e">modCount</span> <span style="color:#f92672">!=</span> expectedModCount)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ConcurrentModificationException();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="begin">begin</h3>
+<h4 id="filter-1">filter</h4>
+<p>filter: （由于filter会把size变掉，所以-1表示不知道）
 <img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704111405.png" alt="image.png"></p>
-<p>map:
-<img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704111424.png" alt="image.png"></p>
+<h4 id="map">map</h4>
+<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704111424.png" alt="image.png"></p>
+<h4 id="count">count</h4>
 <p>count: 在这里初始化count为0
 <img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704111511.png" alt="image.png"></p>
-<p>step2: forEachRemaining
-<img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704112200.png" alt="image.png">
+<h3 id="foreachremaining">forEachRemaining</h3>
+<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704112200.png" alt="image.png">
 传进来一个Sink，所有的Sink都是一个consumer
 <img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704112240.png" alt="image.png">
-所有sink初始化的时候都会实现accept
-例如filter：
+所有sink初始化的时候都会实现accept</p>
+<h4 id="filter-2">filter</h4>
+<p>例如filter：
 <img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704112324.png" alt="image.png">
 这里只在通过的时候，让后面继续accept</p>
+<h4 id="flatmap">flatmap</h4>
 <p>flatMap如下：上层accept，都会生成这个element的stream，forEach这个downStream
 <img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704112438.png" alt=""></p>
+<h4 id="逐个分析accept">逐个分析accept</h4>
 <p>继续看一个accept的流程：
 先是filter
 <img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704112710.png" alt="image.png"></p>
@@ -426,92 +466,136 @@ filter: （由于filter会把size变掉，所以-1表示不知道）
 <img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704112807.png" alt="image.png"></p>
 <p>再是count
 <img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704112853.png" alt="image.png"></p>
-<p>3.3 end 这里不赘述了</p>
+<h3 id="end-略">end 略</h3>
+<h3 id="get最终结果">get最终结果</h3>
 <p>this是一个ReduceOps CountingSink，evaluateSequential里跑get就拿到结果
 <img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704113306.png" alt="image.png">
 <img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704113346.png" alt="image.png"></p>
 <p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240704113354.png" alt="image.png"></p>
 <p>SortedOps写的有点帅，这里就不再是每次进accept后，都会调用下层的accept了</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SizedRefSortingSink</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">extends</span> AbstractRefSortingSink<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">private</span> T<span style="color:#f92672">[]</span> array<span style="color:#f92672">;</span>  <span style="color:#75715e">//要进行排序，需要一个数组进行缓存
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> offset<span style="color:#f92672">;</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SizedRefSortingSink</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">extends</span> AbstractRefSortingSink<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> T<span style="color:#f92672">[]</span> array;  <span style="color:#75715e">//要进行排序，需要一个数组进行缓存</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> offset; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SizedRefSortingSink(Sink<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">&gt;</span> sink, Comparator<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">&gt;</span> comparator) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">super</span>(sink, comparator);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@SuppressWarnings</span>(<span style="color:#e6db74">&#34;unchecked&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">begin</span>(<span style="color:#66d9ef">long</span> size) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (size <span style="color:#f92672">&gt;=</span> Nodes.<span style="color:#a6e22e">MAX_ARRAY_SIZE</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalArgumentException(Nodes.<span style="color:#a6e22e">BAD_SIZE</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//上游调用begin(),通知sort进行初始化操作，生产一个数组</span>
+</span></span><span style="display:flex;"><span>            array <span style="color:#f92672">=</span> (T<span style="color:#f92672">[]</span>) <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[</span>(<span style="color:#66d9ef">int</span>) size<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//上游调用end()方法，告诉sort水已经全部流过来了。sort开始执行操作</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">end</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//操作</span>
+</span></span><span style="display:flex;"><span>            Arrays.<span style="color:#a6e22e">sort</span>(array, 0, offset, comparator);
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//告诉sort的下游准备接受水流</span>
+</span></span><span style="display:flex;"><span>            downstream.<span style="color:#a6e22e">begin</span>(offset);
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//一个个元素的传递给下游</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>cancellationWasRequested) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> offset; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>                    downstream.<span style="color:#a6e22e">accept</span>(array<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> offset <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>downstream.<span style="color:#a6e22e">cancellationRequested</span>(); i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>                    downstream.<span style="color:#a6e22e">accept</span>(array<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//告诉下游水流传递结束</span>
+</span></span><span style="display:flex;"><span>            downstream.<span style="color:#a6e22e">end</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//缓存清空</span>
+</span></span><span style="display:flex;"><span>            array <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//上游调用accept()方法，将水流存储到到sort的缓存数组中</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span>(T t) {
+</span></span><span style="display:flex;"><span>            array<span style="color:#f92672">[</span>offset<span style="color:#f92672">++]</span> <span style="color:#f92672">=</span> t;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h1 id="一个很形象的图">一个很形象的图</h1>
+<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240705141352.png" alt="image.png"></p>
+<h1 id="源码总结">源码总结</h1>
 
-        SizedRefSortingSink<span style="color:#f92672">(</span>Sink<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">&gt;</span> sink<span style="color:#f92672">,</span> Comparator<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">&gt;</span> comparator<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span>sink<span style="color:#f92672">,</span> comparator<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span>
+        </div>
 
-        <span style="color:#a6e22e">@Override</span>
-        <span style="color:#a6e22e">@SuppressWarnings</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;unchecked&#34;</span><span style="color:#f92672">)</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> size<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>size <span style="color:#f92672">&gt;=</span> Nodes<span style="color:#f92672">.</span><span style="color:#a6e22e">MAX_ARRAY_SIZE</span><span style="color:#f92672">)</span>
-                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalArgumentException<span style="color:#f92672">(</span>Nodes<span style="color:#f92672">.</span><span style="color:#a6e22e">BAD_SIZE</span><span style="color:#f92672">);</span>
-            <span style="color:#75715e">//上游调用begin(),通知sort进行初始化操作，生产一个数组
-</span><span style="color:#75715e"></span>            array <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>T<span style="color:#f92672">[])</span> <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> size<span style="color:#f92672">];</span>
-        <span style="color:#f92672">}</span>
+        <div class="row middle-xs">
+          <div class="col-xs-12">
+            
+            <div class="post-tags">
+              <a href="/tags/java-stream/">
+                java-stream
+              </a>
+            </div>
+            
+          </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-xs-12">
+              
+            </div>
+          </div>
 
-      <span style="color:#75715e">//上游调用end()方法，告诉sort水已经全部流过来了。sort开始执行操作
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">@Override</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">end</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-            <span style="color:#75715e">//操作
-</span><span style="color:#75715e"></span>            Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>array<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> offset<span style="color:#f92672">,</span> comparator<span style="color:#f92672">);</span>
-            <span style="color:#75715e">//告诉sort的下游准备接受水流
-</span><span style="color:#75715e"></span>            downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">begin</span><span style="color:#f92672">(</span>offset<span style="color:#f92672">);</span>
-            <span style="color:#75715e">//一个个元素的传递给下游
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>cancellationWasRequested<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> offset<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span>
-                    downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>array<span style="color:#f92672">[</span>i<span style="color:#f92672">]);</span>
-            <span style="color:#f92672">}</span>
-            <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
-                <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> offset <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">cancellationRequested</span><span style="color:#f92672">();</span> i<span style="color:#f92672">++)</span>
-                    downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>array<span style="color:#f92672">[</span>i<span style="color:#f92672">]);</span>
-            <span style="color:#f92672">}</span>
-            <span style="color:#75715e">//告诉下游水流传递结束
-</span><span style="color:#75715e"></span>            downstream<span style="color:#f92672">.</span><span style="color:#a6e22e">end</span><span style="color:#f92672">();</span>
-            <span style="color:#75715e">//缓存清空
-</span><span style="color:#75715e"></span>            array <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
+          
 
-      <span style="color:#75715e">//上游调用accept()方法，将水流存储到到sort的缓存数组中
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">@Override</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>T t<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            array<span style="color:#f92672">[</span>offset<span style="color:#f92672">++]</span> <span style="color:#f92672">=</span> t<span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">}</span>
-</code></pre></div><p>每次accept的时候都把上层来的数据存起来，不再继续后面的accept了。
-等到上层调用end的时候，再做个排序，然后给排序后的数据依次accept.</p>
+
+
+          
+          
+          <div style="height: 50px;"></div>
+          
+          <div class="post-comments">
+            <div id="disqus_thread"></div>
+<script>
+  window.addEventListener("load", () => {
+    (function() {
+      
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://joway.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  });
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+
+          </div>
+          
+        
+
+        <div class="site-footer">
+  
+  
 </div>
-    </article>
-  </main>
 
       </div>
-      <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      <br />
-      
-        
-        <a href="https://github.com/Ryokki">GitHub</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2024
-    <a href="https://ryokki.github.io/"><strong>Blog Author</strong></a>.
-    This work is licensed under the
-    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> license.
-  </p>
-  <p class="builtWith">
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    using the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>,
-    which was influenced by the theme
-    <a href="https://github.com/sumnerevans/smol">smol</a>.
-  </p>
-</footer>
-
     </div>
-  </body>
+  </article>
+
+  
+
+<script>
+  
+  
+    
+    
+  
+</script>
+
+  
+
+</body>
+
 </html>

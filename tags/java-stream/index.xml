@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java-Stream on XKJ Blog</title>
+    <link>https://ryokki.github.io/tags/java-stream/</link>
+    <description>Recent content in Java-Stream on XKJ Blog</description>
+    <generator>Hugo</generator>
+    <language>zh</language>
+    <lastBuildDate>Thu, 04 Jul 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ryokki.github.io/tags/java-stream/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深入理解Stream流-part1-介绍</title>
+      <link>https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part1%E4%BB%8B%E7%BB%8D/</link>
+      <pubDate>Thu, 04 Jul 2024 00:00:00 +0000</pubDate>
+      <guid>https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part1%E4%BB%8B%E7%BB%8D/</guid>
+      <description>References GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 浅谈 jdk 中的 Stream 流使用及原理 - 掘金 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples/example-misc/src/main/java/com/youthlin/example/stream at master · youthlin/examples · GitHub 类图 sink和AbstrackPipeline什么区别&#xA;Stream&amp;lt;Integer&amp;gt; sourceStream = List.of(8, 1, 1, 2, 2, 3, 4, 5, 6).</description>
+    </item>
+  </channel>
+</rss>

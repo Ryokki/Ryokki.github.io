@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Prometheus on XKJ Blog</title>
+    <link>https://ryokki.github.io/tags/prometheus/</link>
+    <description>Recent content in Prometheus on XKJ Blog</description>
+    <generator>Hugo</generator>
+    <language>zh</language>
+    <lastBuildDate>Fri, 19 Jul 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ryokki.github.io/tags/prometheus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>prometheus basic</title>
+      <link>https://ryokki.github.io/posts/011.-prometheus-basic/</link>
+      <pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate>
+      <guid>https://ryokki.github.io/posts/011.-prometheus-basic/</guid>
+      <description>https://zionbackend.functorz.com/actuator/prometheus&#xA;What&amp;rsquo;s prometheus?&#xA;losevka setup scrape metrics: in prometheus:&#xA;scrape_configs: - job_name: &amp;#39;spring-boot-application&amp;#39; metrics_path: &amp;#39;/actuator/prometheus&amp;#39; scrape_interval: 15s # This can be adjusted based on our needs static_configs: - targets: [&amp;#39;localhost:8080&amp;#39;] </description>
+    </item>
+  </channel>
+</rss>

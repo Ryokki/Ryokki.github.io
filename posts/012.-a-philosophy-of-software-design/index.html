@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="Kaijian Xu" />
-  <meta property="og:url" content="https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0/" />
-  <link rel="canonical" href="https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
+  <meta property="og:url" content="https://ryokki.github.io/posts/012.-a-philosophy-of-software-design/" />
+  <link rel="canonical" href="https://ryokki.github.io/posts/012.-a-philosophy-of-software-design/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
 
   <script type="application/ld+json">
   {
@@ -19,9 +19,9 @@
            "@id": "https:\/\/ryokki.github.io\/"
       },
       "articleSection" : "posts",
-      "name" : "深入理解Stream流-part4-实现",
-      "headline" : "深入理解Stream流-part4-实现",
-      "description" : "",
+      "name" : "【读书笔记】A Philosophy of Software Design",
+      "headline" : "【读书笔记】A Philosophy of Software Design",
+      "description" : "为什么读这本书？这本书主要关于设计软件系统以最小化其复杂性，而控制复杂度是程序员的关键能力之一。\nReference 资料：\n软件设计的哲学第二版中文翻译 By Yingang A Philosophy of Software Design | John Ousterhout | Talks at Google - YouTube A Philosophy of Software Design 读书笔记(great)：\nhttps:\/\/blog.pragmaticengineer.com\/a-philosophy-of-software-design-review\/ Philosophy of Software Design 第九章 - 合并还是拆分 《A Philosophy of Software Design》心得 2 — 透过模组设计降低软件复杂度，从介面开始｜ExplainThis 读书笔记(normal)\nMassive Technical Interviews Tips: A Philosophy of Software Design A Philosophy of SoftwareDesign - 知乎 [[02. naughty 读书笔记：A Philosophy of Software Design]] 降低软件复杂性一般原则和方法 - 美团技术团队 1-3 复杂度 模块的复杂度 = 模块内部复杂度 \u002b 模块外部复杂度",
       "inLanguage" : "en-US",
       "author" : "Kaijian Xu",
       "creator" : "Kaijian Xu",
@@ -29,17 +29,25 @@
       "accountablePerson" : "Kaijian Xu",
       "copyrightHolder" : "Kaijian Xu",
       "copyrightYear" : "2024",
-      "datePublished": "2024-07-04 00:00:00 \u002b0000 UTC",
-      "dateModified" : "2024-07-04 00:00:00 \u002b0000 UTC",
-      "url" : "https:\/\/ryokki.github.io\/posts\/stream\/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0\/",
+      "datePublished": "2024-05-22 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2024-05-22 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/ryokki.github.io\/posts\/012.-a-philosophy-of-software-design\/",
       "keywords" : [  ]
   }
 </script>
-<title>深入理解Stream流-part4-实现</title>
-  <meta property="og:title" content="深入理解Stream流-part4-实现" />
+<title>【读书笔记】A Philosophy of Software Design</title>
+  <meta property="og:title" content="【读书笔记】A Philosophy of Software Design" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="" />
-  <meta name="description" content="" />
+  <meta property="og:description" content="为什么读这本书？这本书主要关于设计软件系统以最小化其复杂性，而控制复杂度是程序员的关键能力之一。
+Reference 资料：
+软件设计的哲学第二版中文翻译 By Yingang A Philosophy of Software Design | John Ousterhout | Talks at Google - YouTube A Philosophy of Software Design 读书笔记(great)：
+https://blog.pragmaticengineer.com/a-philosophy-of-software-design-review/ Philosophy of Software Design 第九章 - 合并还是拆分 《A Philosophy of Software Design》心得 2 — 透过模组设计降低软件复杂度，从介面开始｜ExplainThis 读书笔记(normal)
+Massive Technical Interviews Tips: A Philosophy of Software Design A Philosophy of SoftwareDesign - 知乎 [[02. naughty 读书笔记：A Philosophy of Software Design]] 降低软件复杂性一般原则和方法 - 美团技术团队 1-3 复杂度 模块的复杂度 = 模块内部复杂度 &#43; 模块外部复杂度" />
+  <meta name="description" content="为什么读这本书？这本书主要关于设计软件系统以最小化其复杂性，而控制复杂度是程序员的关键能力之一。
+Reference 资料：
+软件设计的哲学第二版中文翻译 By Yingang A Philosophy of Software Design | John Ousterhout | Talks at Google - YouTube A Philosophy of Software Design 读书笔记(great)：
+https://blog.pragmaticengineer.com/a-philosophy-of-software-design-review/ Philosophy of Software Design 第九章 - 合并还是拆分 《A Philosophy of Software Design》心得 2 — 透过模组设计降低软件复杂度，从介面开始｜ExplainThis 读书笔记(normal)
+Massive Technical Interviews Tips: A Philosophy of Software Design A Philosophy of SoftwareDesign - 知乎 [[02. naughty 读书笔记：A Philosophy of Software Design]] 降低软件复杂性一般原则和方法 - 美团技术团队 1-3 复杂度 模块的复杂度 = 模块内部复杂度 &#43; 模块外部复杂度" />
   <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
 
@@ -89,13 +97,13 @@
 
         </div>
         <header class="post-header">
-          <h1 class="post-title">深入理解Stream流-part4-实现</h1>
+          <h1 class="post-title">【读书笔记】A Philosophy of Software Design</h1>
           
           <div class="row post-desc">
             <div class="col-xs-6">
               
-              <time class="post-date" datetime="2024-07-04 00:00:00 UTC">
-                04 Jul 2024
+              <time class="post-date" datetime="2024-05-22 00:00:00 UTC">
+                22 May 2024
               </time>
               
             </div>
@@ -112,7 +120,40 @@
 
         <div class="post-content markdown-body">
           
-          
+          <p>为什么读这本书？这本书主要关于设计软件系统以最小化其复杂性，而控制复杂度是程序员的关键能力之一。</p>
+<h1 id="reference">Reference</h1>
+<p>资料：</p>
+<ul>
+<li><a href="https://yingang.github.io/aposd2e-zh/">软件设计的哲学第二版中文翻译 By Yingang</a></li>
+<li><a href="https://www.youtube.com/watch?v=bmSAYlu0NcY">A Philosophy of Software Design | John Ousterhout | Talks at Google - YouTube</a></li>
+<li><a href="https://slides.com/saviio/a-philosophy-of-software-design/fullscreen">A Philosophy of Software Design</a></li>
+</ul>
+<p>读书笔记(great)：</p>
+<ul>
+<li><a href="https://blog.pragmaticengineer.com/a-philosophy-of-software-design-review/">https://blog.pragmaticengineer.com/a-philosophy-of-software-design-review/</a></li>
+<li><a href="https://kyon.life/post/philosophy-of-software-design-9/">Philosophy of Software Design 第九章 - 合并还是拆分</a></li>
+<li><a href="https://www.explainthis.io/zh-hans/swe/a-philosophy-of-software-design/part2">《A Philosophy of Software Design》心得 2 — 透过模组设计降低软件复杂度，从介面开始｜ExplainThis</a></li>
+</ul>
+<p>读书笔记(normal)</p>
+<ul>
+<li><a href="https://massivetechinterview.blogspot.com/2018/10/a-philosophy-of-software-design.html?m=1">Massive Technical Interviews Tips: A Philosophy of Software Design</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/43538597">A Philosophy of SoftwareDesign - 知乎</a></li>
+<li>[[02. naughty 读书笔记：A Philosophy of Software Design]]</li>
+<li><a href="https://tech.meituan.com/2019/09/19/common-method-of-reduce-complexity.html">降低软件复杂性一般原则和方法 - 美团技术团队</a></li>
+</ul>
+<h1 id="1-3-复杂度">1-3 复杂度</h1>
+<p>模块的复杂度 = 模块内部复杂度 + 模块外部复杂度</p>
+<ol>
+<li>模块内部的复杂度：改模块内部逻辑的复杂度</li>
+<li>模块外部的复杂度：调这个模块的地方需要多少理解成本，使用起来会不会麻烦</li>
+</ol>
+<p>书中给了两种解决复杂度的办法</p>
+<ol>
+<li>使代码更简单和更明显来消除复杂性，例如消除特殊情况（对应上1）</li>
+<li>封装/模块化设计（例如类），这些模块被设计为彼此相对独立（低耦合），以便程序员可以在一个模块上工作而不必了解其他模块的细节。</li>
+</ol>
+<p>今天把1-3看完</p>
+
         </div>
 
         <div class="row middle-xs">

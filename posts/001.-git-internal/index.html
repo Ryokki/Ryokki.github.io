@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="Kaijian Xu" />
-  <meta property="og:url" content="https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0/" />
-  <link rel="canonical" href="https://ryokki.github.io/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
+  <meta property="og:url" content="https://ryokki.github.io/posts/001.-git-internal/" />
+  <link rel="canonical" href="https://ryokki.github.io/posts/001.-git-internal/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
 
   <script type="application/ld+json">
   {
@@ -19,9 +19,9 @@
            "@id": "https:\/\/ryokki.github.io\/"
       },
       "articleSection" : "posts",
-      "name" : "深入理解Stream流-part4-实现",
-      "headline" : "深入理解Stream流-part4-实现",
-      "description" : "",
+      "name" : "Git Internal（已弃坑）",
+      "headline" : "Git Internal（已弃坑）",
+      "description" : "Reference\nGit Doc: All commands Git Pro2 Understanding Git — Data Model. GIt is a great and powerful VCS but can… | by Zvonimir Spajic | Medium Deep Dive Into Git • Edward Thomson • GOTO 2015 - YouTube You searched for database internal - The GitHub Blog 这里有五篇git internal，看起来更deep，可以做完gitlet后看 从 Commit 到 Branch，一文明白 git 到底怎么回事 - 掘金 （写的巨好） 从 Commit 到 Branch，一文明白 git 到底怎么回事 - Chenyu\u0026rsquo;s Blog （原理 OR 实现 OR 提交 \u0026ldquo;commits-are-snapshots-not-diffs\u0026rdquo;） Commits are snapshots, not diffs - The GitHub Blog : r\/programming git 工作原理与撤销操作图解 | Shall We Code?",
       "inLanguage" : "en-US",
       "author" : "Kaijian Xu",
       "creator" : "Kaijian Xu",
@@ -29,17 +29,19 @@
       "accountablePerson" : "Kaijian Xu",
       "copyrightHolder" : "Kaijian Xu",
       "copyrightYear" : "2024",
-      "datePublished": "2024-07-04 00:00:00 \u002b0000 UTC",
-      "dateModified" : "2024-07-04 00:00:00 \u002b0000 UTC",
-      "url" : "https:\/\/ryokki.github.io\/posts\/stream\/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0\/",
+      "datePublished": "2024-05-01 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2024-05-01 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/ryokki.github.io\/posts\/001.-git-internal\/",
       "keywords" : [  ]
   }
 </script>
-<title>深入理解Stream流-part4-实现</title>
-  <meta property="og:title" content="深入理解Stream流-part4-实现" />
+<title>Git Internal（已弃坑）</title>
+  <meta property="og:title" content="Git Internal（已弃坑）" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="" />
-  <meta name="description" content="" />
+  <meta property="og:description" content="Reference
+Git Doc: All commands Git Pro2 Understanding Git — Data Model. GIt is a great and powerful VCS but can… | by Zvonimir Spajic | Medium Deep Dive Into Git • Edward Thomson • GOTO 2015 - YouTube You searched for database internal - The GitHub Blog 这里有五篇git internal，看起来更deep，可以做完gitlet后看 从 Commit 到 Branch，一文明白 git 到底怎么回事 - 掘金 （写的巨好） 从 Commit 到 Branch，一文明白 git 到底怎么回事 - Chenyu&amp;rsquo;s Blog （原理 OR 实现 OR 提交 &amp;ldquo;commits-are-snapshots-not-diffs&amp;rdquo;） Commits are snapshots, not diffs - The GitHub Blog : r/programming git 工作原理与撤销操作图解 | Shall We Code?" />
+  <meta name="description" content="Reference
+Git Doc: All commands Git Pro2 Understanding Git — Data Model. GIt is a great and powerful VCS but can… | by Zvonimir Spajic | Medium Deep Dive Into Git • Edward Thomson • GOTO 2015 - YouTube You searched for database internal - The GitHub Blog 这里有五篇git internal，看起来更deep，可以做完gitlet后看 从 Commit 到 Branch，一文明白 git 到底怎么回事 - 掘金 （写的巨好） 从 Commit 到 Branch，一文明白 git 到底怎么回事 - Chenyu&amp;rsquo;s Blog （原理 OR 实现 OR 提交 &amp;ldquo;commits-are-snapshots-not-diffs&amp;rdquo;） Commits are snapshots, not diffs - The GitHub Blog : r/programming git 工作原理与撤销操作图解 | Shall We Code?" />
   <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
 
@@ -89,13 +91,13 @@
 
         </div>
         <header class="post-header">
-          <h1 class="post-title">深入理解Stream流-part4-实现</h1>
+          <h1 class="post-title">Git Internal（已弃坑）</h1>
           
           <div class="row post-desc">
             <div class="col-xs-6">
               
-              <time class="post-date" datetime="2024-07-04 00:00:00 UTC">
-                04 Jul 2024
+              <time class="post-date" datetime="2024-05-01 00:00:00 UTC">
+                01 May 2024
               </time>
               
             </div>
@@ -112,7 +114,127 @@
 
         <div class="post-content markdown-body">
           
-          
+          <p>Reference</p>
+<ul>
+<li><a href="https://git-scm.com/docs">Git Doc: All commands</a></li>
+<li><a href="https://git-scm.com/book/en/v2">Git Pro2</a></li>
+<li><a href="https://konrad126.medium.com/https-medium-com-zspajich-understanding-git-data-model-95eb16cc99f5">Understanding Git — Data Model. GIt is a great and powerful VCS but can… | by Zvonimir Spajic | Medium</a></li>
+<li><a href="https://www.youtube.com/watch?v=dBSHLb1B8sw">Deep Dive Into Git • Edward Thomson • GOTO 2015 - YouTube</a></li>
+<li><a href="https://github.blog/?s=database+internal">You searched for database internal - The GitHub Blog</a> 这里有五篇git internal，看起来更deep，可以做完gitlet后看</li>
+<li><a href="https://juejin.cn/post/7056008754491293703">从 Commit 到 Branch，一文明白 git 到底怎么回事 - 掘金</a> （写的巨好） <a href="https://blog.chenyu.pw/blogs/understanding-git">从 Commit 到 Branch，一文明白 git 到底怎么回事 - Chenyu&rsquo;s Blog</a> （原理 OR 实现 OR 提交 &ldquo;commits-are-snapshots-not-diffs&rdquo;） <a href="https://www.reddit.com/r/programming/comments/mn9pwp/commits_are_snapshots_not_diffs_the_github_blog/">Commits are snapshots, not diffs - The GitHub Blog : r/programming</a></li>
+<li><a href="https://waynerv.com/posts/git-undo-intro/">git 工作原理与撤销操作图解 | Shall We Code?</a></li>
+<li><a href="https://stackoverflow.com/questions/73646342/git-commits-are-snapshots-not-diffs-then-why-is-rebase-necessary-to-remove-old">Git commits are snapshots, not diffs. Then why is rebase necessary to remove old commits? - Stack Overflow</a> <a href="https://stackoverflow.com/questions/48708239/why-should-we-never-use-rebase-with-commits-that-have-been-pushed">git - Why should we never use rebase with commits that have been pushed - Stack Overflow</a></li>
+<li><a href="https://jwiegley.github.io/git-from-the-bottom-up/">Git from the Bottom Up</a></li>
+<li><a href="https://koseki.github.io/git-object-browser/">koseki.github.io/git-object-browser/</a></li>
+<li><a href="https://wr.informatik.uni-hamburg.de/_media/teaching/wintersemester_2020_2021/ep-2021_kwasny_advanced-git.pdf">wr.informatik.uni-hamburg.de/_media/teaching/wintersemester_2020_2021/ep-2021_kwasny_advanced-git.pdf</a> ppt + 很好的refer.</li>
+<li><a href="https://blog.daraw.cn/2019/12/21/you-dont-know-git/">你可能不知道的 Git （技术分享）</a></li>
+<li><a href="https://huweicai.com/git-implementation">Git实现原理 | Anonymous&rsquo; Blog</a></li>
+<li><input disabled="" type="checkbox"> git BASIC 对象<a href="https://changchen.me/blog/20180315/git-internal/">Git Internal(初探git的内部实现) | Henry Z&rsquo;s blog~</a>  <a href="https://sandwind.gitbooks.io/git-pro-cn/content/git-core/object.html">Git 对象 | Git详解</a> [Git 内部原理-对象、分支以及底层命令[翻译] - 香取海](<a href="https://zhi.moe/post/git-internal/">https://zhi.moe/post/git-internal/</a></li>
+</ul>
+<p>todo:</p>
+<ul>
+<li>
+<p><input checked="" disabled="" type="checkbox"> 读 <a href="https://juejin.cn/post/7056008754491293703">从 Commit 到 Branch，一文明白 git 到底怎么回事 - 掘金</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 研究清楚commit结构、暂存区和merge的机制</li>
+<li><input checked="" disabled="" type="checkbox"> 重新搞回blog</li>
+<li><input checked="" disabled="" type="checkbox"> 写blog，关于这个的（这周任务，写个潦草版的</li>
+</ul>
+</li>
+<li>
+<p><input disabled="" type="checkbox"> <a href="https://waynerv.com/posts/container-fundamentals-learn-container-with-oci-spec/">容器技术原理(一)：从根本上认识容器镜像 | Shall We Code?</a> 研究下容器镜像的layer增量搭建原理</p>
+</li>
+<li>
+<p><input disabled="" type="checkbox"> 先缓一缓吧 先不写gitlet</p>
+</li>
+<li>
+<p>文件系统主题将带领大家去理解 Git 的存储模型，我们的文件、commit 等信息是如何存储的；</p>
+</li>
+<li>
+<p>命令操作主题将针对我们最常用的两个命令 <code>merge</code> 和 <code>rebase</code> 去解释它们是如何工作的。</p>
+</li>
+</ul>
+<h1 id="questions">Questions</h1>
+<ul>
+<li><input disabled="" type="checkbox"> 常用命令原理. merge. rebase. cherry-pick (看之前先自己想）</li>
+<li><input disabled="" type="checkbox"> 为什么<code>git ls-files -s</code>暂存区里都是直接指向blob而没有tree?</li>
+<li><input disabled="" type="checkbox"> tree/blob 看起来只是把一般文件系统做的事情，重新做了一遍，令人不知所云 —— 我们很快就能看到它在 commit/branch 中的应用，从而理解 git 为何要引入 tree 和 blob【这是一个可复用的文件系统】</li>
+<li><input checked="" disabled="" type="checkbox"> 当进行 Pull Request 或者等价的 <code>git merge</code> 的时候，一个 commit 可以有多个 parent commit。我们之后会探讨 merge 时具体发生了什么：  master中，把dev的merge过来，dev的最新的commit会直接原封不动地进master的最新commit，因此有两个parent，每个分支各一个。（这种条件是很苛刻的，因为commit是要求message、parent-commit, tree都不能有变化，其实是要求master没有新的commit，dev只有一个commit）【Fast-forward，master最新的commit在dev历史提交记录中的】</li>
+<li><input disabled="" type="checkbox"> merge 原理：本质上是找一个最佳公共commit C，然后基于此，对diff(C, lastest dev commit), diff(C, lastest master commit)做合并，得到新的文件快照。
+<ul>
+<li><input disabled="" type="checkbox"> 如何找最佳公共祖先节点：</li>
+<li><input disabled="" type="checkbox"> 运行<code>git merge-base master otherbranch</code>将帮助确认实际的合并基点。</li>
+<li><input disabled="" type="checkbox"> git merge dev时，会先找到公共commitC，C后的dev所有commit提进master，然后把master在C后的所有commit提进来，最后再提一个merge commit.</li>
+<li><input disabled="" type="checkbox"> 试一下冲突</li>
+<li><input disabled="" type="checkbox"> merge squash是什么？</li>
+</ul>
+</li>
+</ul>
+<h1 id="对象模型">对象模型</h1>
+<ol>
+<li>repository 是一系列 commit 的集合</li>
+<li>working dir 是一个包含<code>.git</code>的目录</li>
+<li>staging area 是存放那些被 git 跟踪但是没有 commit 的内容</li>
+</ol>
+<p>三者的关系如下图所示</p>
+<p><a href="https://cdn.jsdelivr.net/gh/zhimoe/picx-images-hosting@master/pic/git-repo-workingdir.39ykllsr2to0.webp" title="https://cdn.jsdelivr.net/gh/zhimoe/picx-images-hosting@master/pic/git-repo-workingdir.39ykllsr2to0.webp"><img src="https://cdn.jsdelivr.net/gh/zhimoe/picx-images-hosting@master/pic/git-repo-workingdir.39ykllsr2to0.webp" alt="git-repo-workingdir" title="git-repo-workingdir"></a></p>
+<p>REPOSITORY是一个树结构</p>
+<ul>
+<li>根是HEAD文件，里面存着当前的分支名</li>
+<li>每个分支都是refs/heads/下的一个文件，如master，这里面存着latest commit sha</li>
+<li>每个commit都指向一个root tree，这是git根目录下的tree结构</li>
+<li>每个tree存着这个目录下所有file的blob和文件夹的tree</li>
+<li>blob里面存着文件内容</li>
+</ul>
+<blockquote>
+<p>这里的核心其实是commit. commit是repo所有文件的快照. branch是指向commit的东西.
+暂存区是基于某个branch的</p>
+</blockquote>
+<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240505125357.png" alt="image.png"></p>
+<p>All entity</p>
+<ul>
+<li>working area/ staging area: 工作区和暂存区，这里是所有这次改动的信息（基于branch latest commit {snapshot}）</li>
+<li>commit:  commit 是 tree + parents + log
+<ul>
+<li>root tree id: snapshot of file system</li>
+<li>commit info: commit message，author, time</li>
+<li>parent commit id: commit list</li>
+</ul>
+</li>
+<li>tree: snapshot of file system under the dir, blob: snapshot of file</li>
+<li>branch:a pointer to latest commit, it&rsquo;s the base of working area</li>
+</ul>
+<p>Point</p>
+<ul>
+<li>all object(commit, tree, blob) 都是不可变的，因为只要内容变了，id sha就会变。</li>
+</ul>
+<h1 id="merge原理">merge原理</h1>
+<ol>
+<li>master a commit</li>
+<li>checkout dev, b commit. master -&gt; c commit. 此时git merge dev.</li>
+</ol>
+<p>master
+<img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240513234859.png" alt="image.png"></p>
+<p>dev
+<img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240513234912.png" alt="image.png"></p>
+<p>e36c48c63d3b616e22df9eef277ae8593bdc820d: parent 17bb, 9c41
+17bb5617e8dc45d8b11387035bdf80e8f53e2a84: parent 3f1232</p>
+<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240514104214.png" alt="image.png">
+本质上是 merge branch &lsquo;dev&rsquo; 的commit的内容是 merge-base B + diff (B, master) + diff (B, dev)。或者是从commit的角度，此时master是同时commit c -&gt; commit b -&gt; merge commit的</p>
+<blockquote>
+<p>这里本质是merge一定有一个新的commit，里面同时有b和c的内容</p>
+</blockquote>
+<p>证明1:merge后的merge base是c.
+假设此时再merge，commit = c + diff(c, merge commit) + diff(c, c),其中c + diff(c, merge commit) = mergeCommit, diff(c,c)=0, 所以commit = merge Commit.
+假设master后还有一堆commit M，dev后一堆commit D，此时c + diff(c, M) + diff(c, D) = mergeCommit +</p>
+<p>merge-base的定义：</p>
+<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240514104956.png" alt="image.png"></p>
+<h1 id="cherry-pick">cherry-pick</h1>
+<h1 id="rebase">rebase</h1>
+<p><a href="https://waynerv.com/posts/git-rebase-intro/">git rebase 用法详解与工作原理 | Shall We Code?</a></p>
+<p>git rebase: Reapply commits on top of another base tip (将分支的基础从一个提交改成另一个提交，使其看起来就像是从另一个提交中创建了分支一样)</p>
+<p><img src="https://kkbabe-picgo.oss-cn-hangzhou.aliyuncs.com/img/20240519220359.png" alt="image.png"></p>
+
         </div>
 
         <div class="row middle-xs">
