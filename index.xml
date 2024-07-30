@@ -6,8 +6,22 @@
     <description>Recent content on XKJ Blog</description>
     <generator>Hugo</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 26 Jul 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jul 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ryokki.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>从typeTag浅窥java泛型</title>
+      <link>https://ryokki.github.io/posts/015.-%E4%BB%8Etypetag%E6%B5%85%E7%AA%A5java%E6%B3%9B%E5%9E%8B/</link>
+      <pubDate>Tue, 30 Jul 2024 00:00:00 +0000</pubDate>
+      <guid>https://ryokki.github.io/posts/015.-%E4%BB%8Etypetag%E6%B5%85%E7%AA%A5java%E6%B3%9B%E5%9E%8B/</guid>
+      <description>#todo&#xA;多种语言的泛型分别如何实现，优劣。&#xA;第二十章 泛型 · 《On Java 8》中文版&#xA;为什么 Go 语言没有泛型 - 面向信仰编程&#xA;Java 泛型 - HackMD&#xA;条条大路通罗马，各语言的泛型实现比较：CPP JAVA GO – 杰峰的博客&#xA;typeTag实现 用typeTag前 以前的写法中，从arguments中get出来的就是一个Object类型的，然后再uncheckCast成一个指定的类型。这样有个明显的坏处，每次从arguments拿东西都需要我们指定类型，很麻烦也很容易出错&#xA;{ Map&amp;lt;String, Object&amp;gt; arguments; Map&amp;lt;String, Object&amp;gt; whereArgument = Utils.uncheckedCast(arguments.get(GraphQLConstants.WHERE)); List&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt; orderByCondition = Utils.uncheckedCast(arguments.get(GraphQLConstants.ORDER_BY)); } 用typeTag后 从arguments中拿where，value的类型是确定的&#xA;class TypeTag&amp;lt;T&amp;gt; { String key; TypeReference&amp;lt;T&amp;gt; type; } class TypeTags { public static TypeTag&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt; WHERE = TypeTaggingUtils.tag(&amp;#34;where&amp;#34;, new TypeReference&amp;lt;Map&amp;lt;String, Object&amp;gt;() {}); } class TypeTagUtils { public static &amp;lt;T&amp;gt; TypeTag&amp;lt;T&amp;gt; tag(String key, TypeReference&amp;lt;T&amp;gt; typeReference) { return new TypeTag&amp;lt;&amp;gt;(key ,typeReference); } public static &amp;lt;T&amp;gt; T get(Map&amp;lt;String, Object&amp;gt; data, TypeTag&amp;lt;T&amp;gt; typeTag) { return (T) data.</description>
+    </item>
+    <item>
+      <title>redisLock vs dbLock</title>
+      <link>https://ryokki.github.io/posts/014.-redislock-vs-dblock/</link>
+      <pubDate>Fri, 26 Jul 2024 00:00:00 +0000</pubDate>
+      <guid>https://ryokki.github.io/posts/014.-redislock-vs-dblock/</guid>
+      <description>redis lock example: https://p.functorz.work/D19537 修买项目版本后，创建两条projectResourceSource的bug. 原因是生成projectResourceSource的地方是加了锁的，但是当线程A和线程B同时跑processControllableProjectResource的时候&#xA;A 拿到事务 B 拿到事务 A 进去生成projectResourceSource 3跑完后，B也进去生成projectResourceSource，由于事务开启的时候是在3之前，所以看到的projectResourceSource是空的，所以又会生成projectResourceSource @Transactional @GlobalSynchronized( key = &amp;#34;&amp;#39;generateProjectPlanResourceSource_&amp;#39; + #projectId + &amp;#39;_&amp;#39; + #resourceType&amp;#34;, autoReleaseMillis = 600_000) // functionC public void generateProjectPlanResourceSource(long projectId, ResourceType resourceType) {} @Transactional @TrackExecutionTime @GlobalSynchronized( key = &amp;#34;&amp;#39;processAndSaveCumulativeProjectResourceUsage_&amp;#39; + #projectId + &amp;#39;_&amp;#39; + #resourceType&amp;#34;, autoReleaseMillis = 600_000) // functionB public ProjectResourceUsage processAndSaveCumulativeProjectResourceUsage( long projectId, ResourceType resourceType, boolean calculateConsumption) { resourceSourceService.generateOrganizationSharedResource( organizationService.getOrganizationByProjectId(projectId).getId(), resourceType); resourceSourceService.generateProjectPlanResourceSource(projectId, resourceType); // xxx } @Transactional @GlobalSynchronized(key = &amp;#34;&amp;#39;processProjectResource_&amp;#39; + #projectId&amp;#34;, autoReleaseMillis = 600_000) // 新加的 @TrackExecutionTime // functionA public void processControllableProjectResource() { // xxx processAndSaveCumulativeProjectResourceUsage(); // xxx } 如果没有在functionC加这个锁，事务A跑完了functionC还没提交，此时事务B进functionC会重复创建source。 本质上是functionC不单单不能同时进，而且要等上一个进的事务提交后才能进。 所以，如果该方法不是事务的第一个方法，不太适合用redis lock。 如果改成用dbLock就不会有这个问题。比如直接在functionC里面用一个dbLock，这个可以确保要等第一个事务提交后，才会跑这个dbLock查询。</description>
+    </item>
     <item>
       <title>悲观锁和乐观锁</title>
       <link>https://ryokki.github.io/posts/013.-%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/</link>

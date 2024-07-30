@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="Kaijian Xu" />
-  <meta property="og:url" content="https://ryokki.github.io/posts/" />
-  <link rel="canonical" href="https://ryokki.github.io/posts/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
+  <meta property="og:url" content="https://ryokki.github.io/posts/014.-redislock-vs-dblock/" />
+  <link rel="canonical" href="https://ryokki.github.io/posts/014.-redislock-vs-dblock/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
 
   <script type="application/ld+json">
   {
@@ -19,9 +19,9 @@
            "@id": "https:\/\/ryokki.github.io\/"
       },
       "articleSection" : "posts",
-      "name" : "Posts",
-      "headline" : "Posts",
-      "description" : "",
+      "name" : "redisLock vs dbLock",
+      "headline" : "redisLock vs dbLock",
+      "description" : "redis lock example: https:\/\/p.functorz.work\/D19537 修买项目版本后，创建两条projectResourceSource的bug. 原因是生成projectResourceSource的地方是加了锁的，但是当线程A和线程B同时跑processControllableProjectResource的时候\nA 拿到事务 B 拿到事务 A 进去生成projectResourceSource 3跑完后，B也进去生成projectResourceSource，由于事务开启的时候是在3之前，所以看到的projectResourceSource是空的，所以又会生成projectResourceSource @Transactional @GlobalSynchronized( key = \u0026#34;\u0026#39;generateProjectPlanResourceSource_\u0026#39; \u002b #projectId \u002b \u0026#39;_\u0026#39; \u002b #resourceType\u0026#34;, autoReleaseMillis = 600_000) \/\/ functionC public void generateProjectPlanResourceSource(long projectId, ResourceType resourceType) {} @Transactional @TrackExecutionTime @GlobalSynchronized( key = \u0026#34;\u0026#39;processAndSaveCumulativeProjectResourceUsage_\u0026#39; \u002b #projectId \u002b \u0026#39;_\u0026#39; \u002b #resourceType\u0026#34;, autoReleaseMillis = 600_000) \/\/ functionB public ProjectResourceUsage processAndSaveCumulativeProjectResourceUsage( long projectId, ResourceType resourceType, boolean calculateConsumption) { resourceSourceService.generateOrganizationSharedResource( organizationService.getOrganizationByProjectId(projectId).getId(), resourceType); resourceSourceService.generateProjectPlanResourceSource(projectId, resourceType); \/\/ xxx } @Transactional @GlobalSynchronized(key = \u0026#34;\u0026#39;processProjectResource_\u0026#39; \u002b #projectId\u0026#34;, autoReleaseMillis = 600_000) \/\/ 新加的 @TrackExecutionTime \/\/ functionA public void processControllableProjectResource() { \/\/ xxx processAndSaveCumulativeProjectResourceUsage(); \/\/ xxx } 如果没有在functionC加这个锁，事务A跑完了functionC还没提交，此时事务B进functionC会重复创建source。 本质上是functionC不单单不能同时进，而且要等上一个进的事务提交后才能进。 所以，如果该方法不是事务的第一个方法，不太适合用redis lock。 如果改成用dbLock就不会有这个问题。比如直接在functionC里面用一个dbLock，这个可以确保要等第一个事务提交后，才会跑这个dbLock查询。",
       "inLanguage" : "en-US",
       "author" : "Kaijian Xu",
       "creator" : "Kaijian Xu",
@@ -29,17 +29,19 @@
       "accountablePerson" : "Kaijian Xu",
       "copyrightHolder" : "Kaijian Xu",
       "copyrightYear" : "2024",
-      "datePublished": "2024-07-30 00:00:00 \u002b0000 UTC",
-      "dateModified" : "2024-07-30 00:00:00 \u002b0000 UTC",
-      "url" : "https:\/\/ryokki.github.io\/posts\/",
+      "datePublished": "2024-07-26 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2024-07-26 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/ryokki.github.io\/posts\/014.-redislock-vs-dblock\/",
       "keywords" : [  ]
   }
 </script>
-<title>Posts</title>
-  <meta property="og:title" content="Posts" />
+<title>redisLock vs dbLock</title>
+  <meta property="og:title" content="redisLock vs dbLock" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="" />
-  <meta name="description" content="" />
+  <meta property="og:description" content="redis lock example: https://p.functorz.work/D19537 修买项目版本后，创建两条projectResourceSource的bug. 原因是生成projectResourceSource的地方是加了锁的，但是当线程A和线程B同时跑processControllableProjectResource的时候
+A 拿到事务 B 拿到事务 A 进去生成projectResourceSource 3跑完后，B也进去生成projectResourceSource，由于事务开启的时候是在3之前，所以看到的projectResourceSource是空的，所以又会生成projectResourceSource @Transactional @GlobalSynchronized( key = &amp;#34;&amp;#39;generateProjectPlanResourceSource_&amp;#39; &#43; #projectId &#43; &amp;#39;_&amp;#39; &#43; #resourceType&amp;#34;, autoReleaseMillis = 600_000) // functionC public void generateProjectPlanResourceSource(long projectId, ResourceType resourceType) {} @Transactional @TrackExecutionTime @GlobalSynchronized( key = &amp;#34;&amp;#39;processAndSaveCumulativeProjectResourceUsage_&amp;#39; &#43; #projectId &#43; &amp;#39;_&amp;#39; &#43; #resourceType&amp;#34;, autoReleaseMillis = 600_000) // functionB public ProjectResourceUsage processAndSaveCumulativeProjectResourceUsage( long projectId, ResourceType resourceType, boolean calculateConsumption) { resourceSourceService.generateOrganizationSharedResource( organizationService.getOrganizationByProjectId(projectId).getId(), resourceType); resourceSourceService.generateProjectPlanResourceSource(projectId, resourceType); // xxx } @Transactional @GlobalSynchronized(key = &amp;#34;&amp;#39;processProjectResource_&amp;#39; &#43; #projectId&amp;#34;, autoReleaseMillis = 600_000) // 新加的 @TrackExecutionTime // functionA public void processControllableProjectResource() { // xxx processAndSaveCumulativeProjectResourceUsage(); // xxx } 如果没有在functionC加这个锁，事务A跑完了functionC还没提交，此时事务B进functionC会重复创建source。 本质上是functionC不单单不能同时进，而且要等上一个进的事务提交后才能进。 所以，如果该方法不是事务的第一个方法，不太适合用redis lock。 如果改成用dbLock就不会有这个问题。比如直接在functionC里面用一个dbLock，这个可以确保要等第一个事务提交后，才会跑这个dbLock查询。" />
+  <meta name="description" content="redis lock example: https://p.functorz.work/D19537 修买项目版本后，创建两条projectResourceSource的bug. 原因是生成projectResourceSource的地方是加了锁的，但是当线程A和线程B同时跑processControllableProjectResource的时候
+A 拿到事务 B 拿到事务 A 进去生成projectResourceSource 3跑完后，B也进去生成projectResourceSource，由于事务开启的时候是在3之前，所以看到的projectResourceSource是空的，所以又会生成projectResourceSource @Transactional @GlobalSynchronized( key = &amp;#34;&amp;#39;generateProjectPlanResourceSource_&amp;#39; &#43; #projectId &#43; &amp;#39;_&amp;#39; &#43; #resourceType&amp;#34;, autoReleaseMillis = 600_000) // functionC public void generateProjectPlanResourceSource(long projectId, ResourceType resourceType) {} @Transactional @TrackExecutionTime @GlobalSynchronized( key = &amp;#34;&amp;#39;processAndSaveCumulativeProjectResourceUsage_&amp;#39; &#43; #projectId &#43; &amp;#39;_&amp;#39; &#43; #resourceType&amp;#34;, autoReleaseMillis = 600_000) // functionB public ProjectResourceUsage processAndSaveCumulativeProjectResourceUsage( long projectId, ResourceType resourceType, boolean calculateConsumption) { resourceSourceService.generateOrganizationSharedResource( organizationService.getOrganizationByProjectId(projectId).getId(), resourceType); resourceSourceService.generateProjectPlanResourceSource(projectId, resourceType); // xxx } @Transactional @GlobalSynchronized(key = &amp;#34;&amp;#39;processProjectResource_&amp;#39; &#43; #projectId&amp;#34;, autoReleaseMillis = 600_000) // 新加的 @TrackExecutionTime // functionA public void processControllableProjectResource() { // xxx processAndSaveCumulativeProjectResourceUsage(); // xxx } 如果没有在functionC加这个锁，事务A跑完了functionC还没提交，此时事务B进functionC会重复创建source。 本质上是functionC不单单不能同时进，而且要等上一个进的事务提交后才能进。 所以，如果该方法不是事务的第一个方法，不太适合用redis lock。 如果改成用dbLock就不会有这个问题。比如直接在functionC里面用一个dbLock，这个可以确保要等第一个事务提交后，才会跑这个dbLock查询。" />
   <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
 
@@ -66,10 +68,11 @@
 
 
 <body>
-  <article class="posts">
+  <article class="post " id="article">
     <div class="row">
       <div class="col-xs-12">
-        
+        <div class="site-header">
+          
 <header>
   <div class="header-title">
     <a href="/"
@@ -86,268 +89,120 @@
 </div>
 <div class="header-line"></div>
 
-
-        <h1 class="taxonomy-term"></h1>
-        <div id="posts-list">
-          <section>
-            <h1 class="site-date-catalog">2024</h1>
-
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-07-30 00:00:00 UTC">Jul 30</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/015.-%E4%BB%8Etypetag%E6%B5%85%E7%AA%A5java%E6%B3%9B%E5%9E%8B/">从typeTag浅窥java泛型</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-07-26 00:00:00 UTC">Jul 26</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/013.-%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/">悲观锁和乐观锁</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-07-26 00:00:00 UTC">Jul 26</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/014.-redislock-vs-dblock/">redisLock vs dbLock</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-07-19 00:00:00 UTC">Jul 19</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/011.-prometheus-basic/">prometheus basic</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-07-04 00:00:00 UTC">Jul 04</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part4%E5%AE%9E%E7%8E%B0/">深入理解Stream流-part4-实现</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-07-04 00:00:00 UTC">Jul 04</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part3%E6%80%BB%E7%BB%93/">深入理解Stream流-part3-总结</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-07-04 00:00:00 UTC">Jul 04</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part2%E6%BA%90%E7%A0%81/">深入理解Stream流-part2-源码</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-07-04 00:00:00 UTC">Jul 04</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/stream/stream%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90part1%E4%BB%8B%E7%BB%8D/">深入理解Stream流-part1-介绍</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-07-01 00:00:00 UTC">Jul 01</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/010.-sql-join-strategies/">sql join strategies</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-27 00:00:00 UTC">May 27</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/000.-csapp/">重学csapp</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-27 00:00:00 UTC">May 27</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/003.-ostep/">简单过一遍ostep</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-22 00:00:00 UTC">May 22</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/012.-a-philosophy-of-software-design/">【读书笔记】A Philosophy of Software Design</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-19 00:00:00 UTC">May 19</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/006.-%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%BA%90%E4%BB%A3%E7%A0%81/">如何阅读源代码——以一个tiny git实现为例</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-15 00:00:00 UTC">May 15</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/008.-jimmer/">jimmer</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-15 00:00:00 UTC">May 15</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/004.-design-pattern-todo/">design pattern(todo)</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-12 00:00:00 UTC">May 12</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/009.-jpa-entity-lifecycle/">jpa entity lifecycle</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-09 00:00:00 UTC">May 09</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/002.-%E6%8B%96%E5%BB%B6--%E4%B9%A0%E6%83%AF/">改善拖延和习惯</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="2024-05-01 00:00:00 UTC">May 01</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/001.-git-internal/">Git Internal（已弃坑）</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </section>
-          <section>
-            <h1 class="site-date-catalog">0001</h1>
-
-            
-            <div class="row posts-line">
-              <div class="posts-date col-xs-2">
-                <time datetime="0001-01-01 00:00:00 UTC">Jan 01</time>
-              </div>
-              <div class="posts-title col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a href="/posts/stream/%E6%9C%AA%E5%91%BD%E5%90%8D/"></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </section>
-          
         </div>
+        <header class="post-header">
+          <h1 class="post-title">redisLock vs dbLock</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2024-07-26 00:00:00 UTC">
+                26 Jul 2024
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="">@Kaijian Xu</a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+          <p>redis lock example: <a href="https://p.functorz.work/D19537">https://p.functorz.work/D19537</a>
+修买项目版本后，创建两条projectResourceSource的bug. 原因是生成projectResourceSource的地方是加了锁的，但是当线程A和线程B同时跑processControllableProjectResource的时候</p>
+<ol>
+<li>A 拿到事务</li>
+<li>B 拿到事务</li>
+<li>A 进去生成projectResourceSource</li>
+<li>3跑完后，B也进去生成projectResourceSource，由于事务开启的时候是在3之前，所以看到的projectResourceSource是空的，所以又会生成projectResourceSource</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>  <span style="color:#a6e22e">@Transactional</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@GlobalSynchronized</span>(
+</span></span><span style="display:flex;"><span>      key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#39;generateProjectPlanResourceSource_&#39; + #projectId + &#39;_&#39; + #resourceType&#34;</span>,
+</span></span><span style="display:flex;"><span>      autoReleaseMillis <span style="color:#f92672">=</span> 600_000)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// functionC</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">generateProjectPlanResourceSource</span>(<span style="color:#66d9ef">long</span> projectId, ResourceType resourceType) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@Transactional</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@TrackExecutionTime</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@GlobalSynchronized</span>(
+</span></span><span style="display:flex;"><span>      key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#39;processAndSaveCumulativeProjectResourceUsage_&#39; + #projectId + &#39;_&#39; + #resourceType&#34;</span>,
+</span></span><span style="display:flex;"><span>      autoReleaseMillis <span style="color:#f92672">=</span> 600_000)
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// functionB</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> ProjectResourceUsage <span style="color:#a6e22e">processAndSaveCumulativeProjectResourceUsage</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">long</span> projectId, ResourceType resourceType, <span style="color:#66d9ef">boolean</span> calculateConsumption) {
+</span></span><span style="display:flex;"><span>    resourceSourceService.<span style="color:#a6e22e">generateOrganizationSharedResource</span>(
+</span></span><span style="display:flex;"><span>        organizationService.<span style="color:#a6e22e">getOrganizationByProjectId</span>(projectId).<span style="color:#a6e22e">getId</span>(), resourceType);
+</span></span><span style="display:flex;"><span>    resourceSourceService.<span style="color:#a6e22e">generateProjectPlanResourceSource</span>(projectId, resourceType);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// xxx</span>
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@Transactional</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@GlobalSynchronized</span>(key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#39;processProjectResource_&#39; + #projectId&#34;</span>, autoReleaseMillis <span style="color:#f92672">=</span> 600_000) <span style="color:#75715e">// 新加的</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@TrackExecutionTime</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// functionA</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">processControllableProjectResource</span>() {
+</span></span><span style="display:flex;"><span>	  <span style="color:#75715e">// xxx</span>
+</span></span><span style="display:flex;"><span>	  processAndSaveCumulativeProjectResourceUsage();
+</span></span><span style="display:flex;"><span>	  <span style="color:#75715e">// xxx</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><p>如果没有在functionC加这个锁，事务A跑完了functionC还没提交，此时事务B进functionC会重复创建source。
+本质上是functionC不单单不能同时进，而且要等上一个进的事务提交后才能进。
+所以，如果该方法不是事务的第一个方法，不太适合用redis lock。
+如果改成用dbLock就不会有这个问题。比如直接在functionC里面用一个dbLock，这个可以确保要等第一个事务提交后，才会跑这个dbLock查询。</p>
+
+        </div>
+
+        <div class="row middle-xs">
+          <div class="col-xs-12">
+            
+          </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-xs-12">
+              
+            </div>
+          </div>
+
+          
+
+
+
+          
+          
+          <div style="height: 50px;"></div>
+          
+          <div class="post-comments">
+            <div id="disqus_thread"></div>
+<script>
+  window.addEventListener("load", () => {
+    (function() {
+      
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://joway.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  });
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+
+          </div>
+          
+        
 
         <div class="site-footer">
   
@@ -367,6 +222,8 @@
     
   
 </script>
+
+  
 
 </body>
 
