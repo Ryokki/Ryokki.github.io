@@ -9,11 +9,11 @@
     <lastBuildDate>Tue, 30 Jul 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ryokki.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>从typeTag浅窥java泛型</title>
-      <link>https://ryokki.github.io/posts/015.-%E4%BB%8Etypetag%E6%B5%85%E7%AA%A5java%E6%B3%9B%E5%9E%8B/</link>
+      <title>浅窥java泛型</title>
+      <link>https://ryokki.github.io/posts/015.-%E6%B5%85%E7%AA%A5java%E6%B3%9B%E5%9E%8B/</link>
       <pubDate>Tue, 30 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>https://ryokki.github.io/posts/015.-%E4%BB%8Etypetag%E6%B5%85%E7%AA%A5java%E6%B3%9B%E5%9E%8B/</guid>
-      <description>#todo&#xA;多种语言的泛型分别如何实现，优劣。&#xA;第二十章 泛型 · 《On Java 8》中文版&#xA;为什么 Go 语言没有泛型 - 面向信仰编程&#xA;Java 泛型 - HackMD&#xA;条条大路通罗马，各语言的泛型实现比较：CPP JAVA GO – 杰峰的博客&#xA;typeTag实现 用typeTag前 以前的写法中，从arguments中get出来的就是一个Object类型的，然后再uncheckCast成一个指定的类型。这样有个明显的坏处，每次从arguments拿东西都需要我们指定类型，很麻烦也很容易出错&#xA;{ Map&amp;lt;String, Object&amp;gt; arguments; Map&amp;lt;String, Object&amp;gt; whereArgument = Utils.uncheckedCast(arguments.get(GraphQLConstants.WHERE)); List&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt; orderByCondition = Utils.uncheckedCast(arguments.get(GraphQLConstants.ORDER_BY)); } 用typeTag后 从arguments中拿where，value的类型是确定的&#xA;class TypeTag&amp;lt;T&amp;gt; { String key; TypeReference&amp;lt;T&amp;gt; type; } class TypeTags { public static TypeTag&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt; WHERE = TypeTaggingUtils.tag(&amp;#34;where&amp;#34;, new TypeReference&amp;lt;Map&amp;lt;String, Object&amp;gt;() {}); } class TypeTagUtils { public static &amp;lt;T&amp;gt; TypeTag&amp;lt;T&amp;gt; tag(String key, TypeReference&amp;lt;T&amp;gt; typeReference) { return new TypeTag&amp;lt;&amp;gt;(key ,typeReference); } public static &amp;lt;T&amp;gt; T get(Map&amp;lt;String, Object&amp;gt; data, TypeTag&amp;lt;T&amp;gt; typeTag) { return (T) data.</description>
+      <guid>https://ryokki.github.io/posts/015.-%E6%B5%85%E7%AA%A5java%E6%B3%9B%E5%9E%8B/</guid>
+      <description>#todo&#xA;多种语言的泛型分别如何实现，优劣。&#xA;How TypeReference work&#xA;signature? work?&#xA;第二十章 泛型 · 《On Java 8》中文版&#xA;为什么 Go 语言没有泛型 - 面向信仰编程&#xA;Java 泛型 - HackMD&#xA;条条大路通罗马，各语言的泛型实现比较：CPP JAVA GO – 杰峰的博客&#xA;Java的泛型——坑、優秀與缺陷 - 覆沉&#xA;typeTag实现 用typeTag前 以前的写法中，从arguments中get出来的就是一个Object类型的，然后再uncheckCast成一个指定的类型。这样有个明显的坏处，每次从arguments拿东西都需要我们指定类型，很麻烦也很容易出错&#xA;{ Map&amp;lt;String, Object&amp;gt; arguments; Map&amp;lt;String, Object&amp;gt; whereArgument = Utils.uncheckedCast(arguments.get(GraphQLConstants.WHERE)); List&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt; orderByCondition = Utils.uncheckedCast(arguments.get(GraphQLConstants.ORDER_BY)); } 用typeTag后 从arguments中拿where，value的类型是确定的&#xA;class TypeTag&amp;lt;T&amp;gt; { String key; TypeReference&amp;lt;T&amp;gt; type; } class TypeTags { public static TypeTag&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt; WHERE = TypeTaggingUtils.tag(&amp;#34;where&amp;#34;, new TypeReference&amp;lt;Map&amp;lt;String, Object&amp;gt;() {}); } class TypeTagUtils { public static &amp;lt;T&amp;gt; TypeTag&amp;lt;T&amp;gt; tag(String key, TypeReference&amp;lt;T&amp;gt; typeReference) { return new TypeTag&amp;lt;&amp;gt;(key ,typeReference); } public static &amp;lt;T&amp;gt; T get(Map&amp;lt;String, Object&amp;gt; data, TypeTag&amp;lt;T&amp;gt; typeTag) { return (T) data.</description>
     </item>
     <item>
       <title>redisLock vs dbLock</title>
@@ -154,6 +154,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://ryokki.github.io/notes/</guid>
       <description>Go 语言学习笔记 Envoy 学习笔记 </description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://ryokki.github.io/posts/stream/drawing-2024-07-31-12.49.14.excalidraw/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://ryokki.github.io/posts/stream/drawing-2024-07-31-12.49.14.excalidraw/</guid>
+      <description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠== You can decompress Drawing data with the command palette: &amp;lsquo;Decompress current Excalidraw file&amp;rsquo;. For more info check in plugin settings under &amp;lsquo;Saving&amp;rsquo;&#xA;Excalidraw Data Text Elements HEAD ^JiVkStxT&#xA;FILTER ^wLoeLRBH&#xA;MAP ^44D7ynwa&#xA;COUNT ^PxSiU4Qm&#xA;strean1 ^F2ilNd6G&#xA;strean2 ^CmTmPjb1&#xA;strean3 ^xIx2gyZz&#xA;evaluate-result ^NNduwrE9&#xA;downstream ^ugdhOWnZ&#xA;downstream ^C7U3Qr0M&#xA;downstream ^eeKXD0hx&#xA;actual process: for (elment: headStream) { if (predicated(element)) { mapped_result = mapper(element); count++; } } return count; ^ORSDDedg</description>
     </item>
     <item>
       <title></title>
