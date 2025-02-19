@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="Kaijian Xu" />
-  <meta property="og:url" content="https://ryokki.github.io/now/" />
-  <link rel="canonical" href="https://ryokki.github.io/now/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
+  <meta property="og:url" content="https://ryokki.github.io/posts/019.postgresql%E5%86%85%E5%B9%95%E6%8E%A2%E7%B4%A2/" />
+  <link rel="canonical" href="https://ryokki.github.io/posts/019.postgresql%E5%86%85%E5%B9%95%E6%8E%A2%E7%B4%A2/" /><link rel="alternate" type="application/atom+xml" href="https://ryokki.github.io/index.xml" title="XKJ Blog">
 
   <script type="application/ld+json">
   {
@@ -18,10 +18,10 @@
            "@type": "WebPage",
            "@id": "https:\/\/ryokki.github.io\/"
       },
-      "articleSection" : "",
-      "name" : "Now",
-      "headline" : "Now",
-      "description" : "看小白debug[[小白debug]]，可以快速过一遍很多中间件\nNow 页面会随着时间和当下生活的优先级而更新，用来让别人看见这个人现在生活的重点是什么，和提醒自己专注于当下最重要的事。\n学习优先级：（gitlet没动力了写了～～ 感觉没啥用 鸽了 还是想回归基础）\n15-445\n软件设计原则\/设计模式\/clean architecture\nmysql是怎样运行的\ncsapp\n6.S081\ncorekv\n看看Comparator设计\n尝试做一个chrome extesion，像parse medium这样简单的就可以啦\n代码转sql的做个插件 https:\/\/ssshooter.com\/intellij-plugin-dev\/ https:\/\/github.com\/fuzhengwei\/guide-idea-plugin\n学netty\n看看我们AI的rag是怎么做的，\n看一下腾讯问卷DSL设计\n学做虾\n闷骚的程序员 - 知乎\n重新启动游泳～\n读on java8重要章节\n拓扑排序\nhow gradle\/maven works\nSignals. I spent 2 years to understand this part. - YouTube Sending and Handling Signals in C (kill, signal, sigaction) - YouTube\n研究学习的整个workflow（包括信息接收，信息存储，项目\/时间管理），以及学习方法[[workflow and method]]\ngit learn\n学习(预计10h): (看一些blog \u0026amp;\u0026amp; 调试rezero的代码) 学习workflow中看代码的方法，结合实践，写一篇blog 输出: git internal blog 知识应用(预计20h): gitlet 优惠券系统设计 \u0026amp; 分销系统设计 总结",
+      "articleSection" : "posts",
+      "name" : "PostgreSQL内幕探索",
+      "headline" : "PostgreSQL内幕探索",
+      "description" : "PostgreSQL指南：内幕探索",
       "inLanguage" : "en-US",
       "author" : "Kaijian Xu",
       "creator" : "Kaijian Xu",
@@ -29,65 +29,17 @@
       "accountablePerson" : "Kaijian Xu",
       "copyrightHolder" : "Kaijian Xu",
       "copyrightYear" : "2024",
-      "datePublished": "2024-05-16 00:00:00 \u002b0000 UTC",
-      "dateModified" : "2024-05-16 00:00:00 \u002b0000 UTC",
-      "url" : "https:\/\/ryokki.github.io\/now\/",
+      "datePublished": "2024-10-21 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2024-10-21 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/ryokki.github.io\/posts\/019.postgresql%E5%86%85%E5%B9%95%E6%8E%A2%E7%B4%A2\/",
       "keywords" : [  ]
   }
 </script>
-<title>Now</title>
-  <meta property="og:title" content="Now" />
+<title>PostgreSQL内幕探索</title>
+  <meta property="og:title" content="PostgreSQL内幕探索" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="看小白debug[[小白debug]]，可以快速过一遍很多中间件
-Now 页面会随着时间和当下生活的优先级而更新，用来让别人看见这个人现在生活的重点是什么，和提醒自己专注于当下最重要的事。
-学习优先级：（gitlet没动力了写了～～ 感觉没啥用 鸽了 还是想回归基础）
-15-445
-软件设计原则/设计模式/clean architecture
-mysql是怎样运行的
-csapp
-6.S081
-corekv
-看看Comparator设计
-尝试做一个chrome extesion，像parse medium这样简单的就可以啦
-代码转sql的做个插件 https://ssshooter.com/intellij-plugin-dev/ https://github.com/fuzhengwei/guide-idea-plugin
-学netty
-看看我们AI的rag是怎么做的，
-看一下腾讯问卷DSL设计
-学做虾
-闷骚的程序员 - 知乎
-重新启动游泳～
-读on java8重要章节
-拓扑排序
-how gradle/maven works
-Signals. I spent 2 years to understand this part. - YouTube Sending and Handling Signals in C (kill, signal, sigaction) - YouTube
-研究学习的整个workflow（包括信息接收，信息存储，项目/时间管理），以及学习方法[[workflow and method]]
-git learn
-学习(预计10h): (看一些blog &amp;amp;&amp;amp; 调试rezero的代码) 学习workflow中看代码的方法，结合实践，写一篇blog 输出: git internal blog 知识应用(预计20h): gitlet 优惠券系统设计 &amp;amp; 分销系统设计 总结" />
-  <meta name="description" content="看小白debug[[小白debug]]，可以快速过一遍很多中间件
-Now 页面会随着时间和当下生活的优先级而更新，用来让别人看见这个人现在生活的重点是什么，和提醒自己专注于当下最重要的事。
-学习优先级：（gitlet没动力了写了～～ 感觉没啥用 鸽了 还是想回归基础）
-15-445
-软件设计原则/设计模式/clean architecture
-mysql是怎样运行的
-csapp
-6.S081
-corekv
-看看Comparator设计
-尝试做一个chrome extesion，像parse medium这样简单的就可以啦
-代码转sql的做个插件 https://ssshooter.com/intellij-plugin-dev/ https://github.com/fuzhengwei/guide-idea-plugin
-学netty
-看看我们AI的rag是怎么做的，
-看一下腾讯问卷DSL设计
-学做虾
-闷骚的程序员 - 知乎
-重新启动游泳～
-读on java8重要章节
-拓扑排序
-how gradle/maven works
-Signals. I spent 2 years to understand this part. - YouTube Sending and Handling Signals in C (kill, signal, sigaction) - YouTube
-研究学习的整个workflow（包括信息接收，信息存储，项目/时间管理），以及学习方法[[workflow and method]]
-git learn
-学习(预计10h): (看一些blog &amp;amp;&amp;amp; 调试rezero的代码) 学习workflow中看代码的方法，结合实践，写一篇blog 输出: git internal blog 知识应用(预计20h): gitlet 优惠券系统设计 &amp;amp; 分销系统设计 总结" />
+  <meta property="og:description" content="PostgreSQL指南：内幕探索" />
+  <meta name="description" content="PostgreSQL指南：内幕探索" />
   <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
 
@@ -137,99 +89,30 @@ git learn
 
         </div>
         <header class="post-header">
-          <h1 class="post-title">Now</h1>
+          <h1 class="post-title">PostgreSQL内幕探索</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2024-10-21 00:00:00 UTC">
+                21 Oct 2024
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="">@Kaijian Xu</a>
+              </div>
+              
+            </div>
+          </div>
           
         </header>
 
         <div class="post-content markdown-body">
           
-          <p>看小白debug[[小白debug]]，可以快速过一遍很多中间件</p>
-<p>Now 页面会随着时间和当下生活的优先级而更新，用来<strong>让别人看见这个人现在生活的重点是什么</strong>，和<strong>提醒自己专注于当下最重要的事</strong>。</p>
-<p>学习优先级：（gitlet没动力了写了～～ 感觉没啥用 鸽了 还是想回归基础）</p>
-<ul>
-<li>
-<p><input disabled="" type="checkbox"> 15-445</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> 软件设计原则/设计模式/clean architecture</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> mysql是怎样运行的</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> csapp</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> 6.S081</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> corekv</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> 看看Comparator设计</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> 尝试做一个chrome extesion，像parse medium这样简单的就可以啦</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> 代码转sql的做个插件 <a href="https://ssshooter.com/intellij-plugin-dev/">https://ssshooter.com/intellij-plugin-dev/</a> <a href="https://github.com/fuzhengwei/guide-idea-plugin">https://github.com/fuzhengwei/guide-idea-plugin</a></p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> 学netty</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> 看看我们AI的rag是怎么做的，</p>
-</li>
-<li>
-<p><input checked="" disabled="" type="checkbox"> 看一下腾讯问卷DSL设计</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> 学做虾</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> <a href="https://www.zhihu.com/column/learn4fun">闷骚的程序员 - 知乎</a></p>
-</li>
-<li>
-<p><input checked="" disabled="" type="checkbox"> 重新启动游泳～</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> 读on java8重要章节</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> 拓扑排序</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> how gradle/maven works</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> <a href="https://www.youtube.com/watch?v=d0gS5TXarXc">Signals. I spent 2 years to understand this part. - YouTube</a> <a href="https://www.youtube.com/watch?v=83M5-NPDeWs">Sending and Handling Signals in C (kill, signal, sigaction) - YouTube</a></p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> 研究学习的整个workflow（包括信息接收，信息存储，项目/时间管理），以及学习方法[[workflow and method]]</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> git learn</p>
-<ul>
-<li><input disabled="" type="checkbox"> 学习(预计10h): (看一些blog &amp;&amp; 调试rezero的代码)
-<ul>
-<li><input disabled="" type="checkbox"> 学习workflow中看代码的方法，结合实践，写一篇blog</li>
-</ul>
-</li>
-<li><input disabled="" type="checkbox"> 输出: git internal blog</li>
-<li><input disabled="" type="checkbox"> 知识应用(预计20h):  gitlet</li>
-</ul>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> 优惠券系统设计 &amp; 分销系统设计 总结</p>
-</li>
-<li>
-<p><input disabled="" type="checkbox"> java &amp; 并发</p>
-<ul>
-<li><input disabled="" type="checkbox"> effective-java</li>
-<li><input disabled="" type="checkbox"> <a href="https://www.bilibili.com/video/BV1pt4y1X7kt/?spm_id_from=333.788.top_right_bar_window_default_collection.content.click&amp;vd_source=4ec20761e597840bf51391ed9ddba7ff">【单例模式】猛男因不懂单例模式，被面试官无情嘲讽_哔哩哔哩_bilibili</a> 这个视频及相关的并发知识、以及其他的视频都挺适合我的</li>
-</ul>
-</li>
-</ul>
+          <p><a href="https://pg-internal.vonng.com/#/ch1">PostgreSQL指南：内幕探索</a></p>
 
         </div>
 
@@ -238,6 +121,44 @@ git learn
             
           </div>
         </div>
+        
+          <div class="row">
+            <div class="col-xs-12">
+              
+            </div>
+          </div>
+
+          
+
+
+
+          
+          
+          <div style="height: 50px;"></div>
+          
+          <div class="post-comments">
+            <div id="disqus_thread"></div>
+<script>
+  window.addEventListener("load", () => {
+    (function() {
+      
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://joway.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  });
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+
+          </div>
+          
         
 
         <div class="site-footer">

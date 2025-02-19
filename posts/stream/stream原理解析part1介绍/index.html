@@ -21,7 +21,7 @@
       "articleSection" : "posts",
       "name" : "深入理解Stream流-part1-介绍",
       "headline" : "深入理解Stream流-part1-介绍",
-      "description" : "References GitHub - CarpenterLee\/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 浅谈 jdk 中的 Stream 流使用及原理 - 掘金 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples\/example-misc\/src\/main\/java\/com\/youthlin\/example\/stream at master · youthlin\/examples · GitHub 类图 sink和AbstrackPipeline什么区别\nStream\u0026lt;Integer\u0026gt; sourceStream = List.of(8, 1, 1, 2, 2, 3, 4, 5, 6).",
+      "description" : "References mp.weixin.qq.com\/s\/OOKqIx7Py4iG3-4m5rFfXg 【大厂文章速读】阿里-stream原理_哔哩哔哩_bilibili GitHub - CarpenterLee\/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 浅谈 jdk 中的 Stream 流使用及原理 - 掘金 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples\/example-misc\/src\/main\/java\/com\/youthlin\/example\/stream at master · youthlin\/examples · GitHub 类图 sink和AbstrackPipeline什么区别\nStream\u0026lt;Integer\u0026gt; sourceStream = List.of(8, 1, 1, 2, 2, 3, 4, 5, 6).",
       "inLanguage" : "en-US",
       "author" : "Kaijian Xu",
       "creator" : "Kaijian Xu",
@@ -38,9 +38,9 @@
 <title>深入理解Stream流-part1-介绍</title>
   <meta property="og:title" content="深入理解Stream流-part1-介绍" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="References GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 浅谈 jdk 中的 Stream 流使用及原理 - 掘金 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples/example-misc/src/main/java/com/youthlin/example/stream at master · youthlin/examples · GitHub 类图 sink和AbstrackPipeline什么区别
+  <meta property="og:description" content="References mp.weixin.qq.com/s/OOKqIx7Py4iG3-4m5rFfXg 【大厂文章速读】阿里-stream原理_哔哩哔哩_bilibili GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 浅谈 jdk 中的 Stream 流使用及原理 - 掘金 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples/example-misc/src/main/java/com/youthlin/example/stream at master · youthlin/examples · GitHub 类图 sink和AbstrackPipeline什么区别
 Stream&amp;lt;Integer&amp;gt; sourceStream = List.of(8, 1, 1, 2, 2, 3, 4, 5, 6)." />
-  <meta name="description" content="References GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 浅谈 jdk 中的 Stream 流使用及原理 - 掘金 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples/example-misc/src/main/java/com/youthlin/example/stream at master · youthlin/examples · GitHub 类图 sink和AbstrackPipeline什么区别
+  <meta name="description" content="References mp.weixin.qq.com/s/OOKqIx7Py4iG3-4m5rFfXg 【大厂文章速读】阿里-stream原理_哔哩哔哩_bilibili GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API 浅谈 jdk 中的 Stream 流使用及原理 - 掘金 Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区 Java 8 Stream原理解析 - vivo互联网技术 - 博客园 《流》 —— Java Stream原理解析，它为什么这么简洁又这么好用？ - 掘金 Streams under the hood - IBM Developer Understanding Java Streams » The Bored Dev Java Streams – Parallel and Declarative – Basics Strong examples/example-misc/src/main/java/com/youthlin/example/stream at master · youthlin/examples · GitHub 类图 sink和AbstrackPipeline什么区别
 Stream&amp;lt;Integer&amp;gt; sourceStream = List.of(8, 1, 1, 2, 2, 3, 4, 5, 6)." />
   <meta property="og:locale" content="zh" /><meta property="og:image" content="" />
   
@@ -116,6 +116,7 @@ Stream&amp;lt;Integer&amp;gt; sourceStream = List.of(8, 1, 1, 2, 2, 3, 4, 5, 6).
           
           <h1 id="references">References</h1>
 <ul>
+<li><a href="https://mp.weixin.qq.com/s/OOKqIx7Py4iG3-4m5rFfXg">mp.weixin.qq.com/s/OOKqIx7Py4iG3-4m5rFfXg</a> <a href="https://www.bilibili.com/video/BV1yuHaekEcn/?spm_id_from=333.1007.0.0&amp;vd_source=4ec20761e597840bf51391ed9ddba7ff">【大厂文章速读】阿里-stream原理_哔哩哔哩_bilibili</a></li>
 <li><a href="https://github.com/CarpenterLee/JavaLambdaInternals">GitHub - CarpenterLee/JavaLambdaInternals: 深入理解Java函数式编程和Streams API</a></li>
 <li><a href="https://juejin.cn/post/6911940595850313736">浅谈 jdk 中的 Stream 流使用及原理 - 掘金</a></li>
 <li><a href="https://xie.infoq.cn/article/a0e6dc7ed0735da5128b6825b">Java Stream 源码深入解析_Java_Zexho_InfoQ写作社区</a></li>

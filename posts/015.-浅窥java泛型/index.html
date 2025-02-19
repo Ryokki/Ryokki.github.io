@@ -21,7 +21,7 @@
       "articleSection" : "posts",
       "name" : "浅窥java泛型",
       "headline" : "浅窥java泛型",
-      "description" : "#todo\n多种语言的泛型分别如何实现，优劣。\nHow TypeReference work\nsignature? work?\n第二十章 泛型 · 《On Java 8》中文版\n为什么 Go 语言没有泛型 - 面向信仰编程\nJava 泛型 - HackMD\n条条大路通罗马，各语言的泛型实现比较：CPP JAVA GO – 杰峰的博客\nJava的泛型——坑、優秀與缺陷 - 覆沉\ntypeTag实现 用typeTag前 以前的写法中，从arguments中get出来的就是一个Object类型的，然后再uncheckCast成一个指定的类型。这样有个明显的坏处，每次从arguments拿东西都需要我们指定类型，很麻烦也很容易出错\n{ Map\u0026lt;String, Object\u0026gt; arguments; Map\u0026lt;String, Object\u0026gt; whereArgument = Utils.uncheckedCast(arguments.get(GraphQLConstants.WHERE)); List\u0026lt;Map\u0026lt;String, Object\u0026gt;\u0026gt; orderByCondition = Utils.uncheckedCast(arguments.get(GraphQLConstants.ORDER_BY)); } 用typeTag后 从arguments中拿where，value的类型是确定的\nclass TypeTag\u0026lt;T\u0026gt; { String key; TypeReference\u0026lt;T\u0026gt; type; } class TypeTags { public static TypeTag\u0026lt;Map\u0026lt;String, Object\u0026gt;\u0026gt; WHERE = TypeTaggingUtils.tag(\u0026#34;where\u0026#34;, new TypeReference\u0026lt;Map\u0026lt;String, Object\u0026gt;() {}); } class TypeTagUtils { public static \u0026lt;T\u0026gt; TypeTag\u0026lt;T\u0026gt; tag(String key, TypeReference\u0026lt;T\u0026gt; typeReference) { return new TypeTag\u0026lt;\u0026gt;(key ,typeReference); } public static \u0026lt;T\u0026gt; T get(Map\u0026lt;String, Object\u0026gt; data, TypeTag\u0026lt;T\u0026gt; typeTag) { return (T) data.",
+      "description" : "#todo\n多种语言的泛型分别如何实现，优劣。\nHow TypeReference work\nsignature? work?\n第二十章 泛型 · 《On Java 8》中文版\n为什么 Go 语言没有泛型 - 面向信仰编程\nJava 泛型 - HackMD\n条条大路通罗马，各语言的泛型实现比较：CPP JAVA GO – 杰峰的博客\nJava的泛型——坑、優秀與缺陷 - 覆沉\nJava中泛型的理解-HollisChuang\u0026rsquo;s Blog\ntypeTag实现 用typeTag前 以前的写法中，从arguments中get出来的就是一个Object类型的，然后再uncheckCast成一个指定的类型。这样有个明显的坏处，每次从arguments拿东西都需要我们指定类型，很麻烦也很容易出错\n{ Map\u0026lt;String, Object\u0026gt; arguments; Map\u0026lt;String, Object\u0026gt; whereArgument = Utils.uncheckedCast(arguments.get(GraphQLConstants.WHERE)); List\u0026lt;Map\u0026lt;String, Object\u0026gt;\u0026gt; orderByCondition = Utils.uncheckedCast(arguments.get(GraphQLConstants.ORDER_BY)); } 用typeTag后 从arguments中拿where，value的类型是确定的\nclass TypeTag\u0026lt;T\u0026gt; { String key; TypeReference\u0026lt;T\u0026gt; type; } class TypeTags { public static TypeTag\u0026lt;Map\u0026lt;String, Object\u0026gt;\u0026gt; WHERE = TypeTaggingUtils.tag(\u0026#34;where\u0026#34;, new TypeReference\u0026lt;Map\u0026lt;String, Object\u0026gt;() {}); } class TypeTagUtils { public static \u0026lt;T\u0026gt; TypeTag\u0026lt;T\u0026gt; tag(String key, TypeReference\u0026lt;T\u0026gt; typeReference) { return new TypeTag\u0026lt;\u0026gt;(key ,typeReference); } public static \u0026lt;T\u0026gt; T get(Map\u0026lt;String, Object\u0026gt; data, TypeTag\u0026lt;T\u0026gt; typeTag) { return (T) data.",
       "inLanguage" : "en-US",
       "author" : "Kaijian Xu",
       "creator" : "Kaijian Xu",
@@ -47,6 +47,7 @@ signature? work?
 Java 泛型 - HackMD
 条条大路通罗马，各语言的泛型实现比较：CPP JAVA GO – 杰峰的博客
 Java的泛型——坑、優秀與缺陷 - 覆沉
+Java中泛型的理解-HollisChuang&amp;rsquo;s Blog
 typeTag实现 用typeTag前 以前的写法中，从arguments中get出来的就是一个Object类型的，然后再uncheckCast成一个指定的类型。这样有个明显的坏处，每次从arguments拿东西都需要我们指定类型，很麻烦也很容易出错
 { Map&amp;lt;String, Object&amp;gt; arguments; Map&amp;lt;String, Object&amp;gt; whereArgument = Utils.uncheckedCast(arguments.get(GraphQLConstants.WHERE)); List&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt; orderByCondition = Utils.uncheckedCast(arguments.get(GraphQLConstants.ORDER_BY)); } 用typeTag后 从arguments中拿where，value的类型是确定的
 class TypeTag&amp;lt;T&amp;gt; { String key; TypeReference&amp;lt;T&amp;gt; type; } class TypeTags { public static TypeTag&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt; WHERE = TypeTaggingUtils.tag(&amp;#34;where&amp;#34;, new TypeReference&amp;lt;Map&amp;lt;String, Object&amp;gt;() {}); } class TypeTagUtils { public static &amp;lt;T&amp;gt; TypeTag&amp;lt;T&amp;gt; tag(String key, TypeReference&amp;lt;T&amp;gt; typeReference) { return new TypeTag&amp;lt;&amp;gt;(key ,typeReference); } public static &amp;lt;T&amp;gt; T get(Map&amp;lt;String, Object&amp;gt; data, TypeTag&amp;lt;T&amp;gt; typeTag) { return (T) data." />
@@ -59,6 +60,7 @@ signature? work?
 Java 泛型 - HackMD
 条条大路通罗马，各语言的泛型实现比较：CPP JAVA GO – 杰峰的博客
 Java的泛型——坑、優秀與缺陷 - 覆沉
+Java中泛型的理解-HollisChuang&amp;rsquo;s Blog
 typeTag实现 用typeTag前 以前的写法中，从arguments中get出来的就是一个Object类型的，然后再uncheckCast成一个指定的类型。这样有个明显的坏处，每次从arguments拿东西都需要我们指定类型，很麻烦也很容易出错
 { Map&amp;lt;String, Object&amp;gt; arguments; Map&amp;lt;String, Object&amp;gt; whereArgument = Utils.uncheckedCast(arguments.get(GraphQLConstants.WHERE)); List&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt; orderByCondition = Utils.uncheckedCast(arguments.get(GraphQLConstants.ORDER_BY)); } 用typeTag后 从arguments中拿where，value的类型是确定的
 class TypeTag&amp;lt;T&amp;gt; { String key; TypeReference&amp;lt;T&amp;gt; type; } class TypeTags { public static TypeTag&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt; WHERE = TypeTaggingUtils.tag(&amp;#34;where&amp;#34;, new TypeReference&amp;lt;Map&amp;lt;String, Object&amp;gt;() {}); } class TypeTagUtils { public static &amp;lt;T&amp;gt; TypeTag&amp;lt;T&amp;gt; tag(String key, TypeReference&amp;lt;T&amp;gt; typeReference) { return new TypeTag&amp;lt;&amp;gt;(key ,typeReference); } public static &amp;lt;T&amp;gt; T get(Map&amp;lt;String, Object&amp;gt; data, TypeTag&amp;lt;T&amp;gt; typeTag) { return (T) data." />
@@ -159,6 +161,9 @@ class TypeTag&amp;lt;T&amp;gt; { String key; TypeReference&amp;lt;T&amp;gt; type
 </li>
 <li>
 <p><a href="http://renyuneyun.is-programmer.com/2017/12/31/java-generics.211770.html">Java的泛型——坑、優秀與缺陷 - 覆沉</a></p>
+</li>
+<li>
+<p><a href="https://www.hollischuang.com/archives/230">Java中泛型的理解-HollisChuang&rsquo;s Blog</a></p>
 </li>
 </ul>
 <h1 id="typetag实现">typeTag实现</h1>
