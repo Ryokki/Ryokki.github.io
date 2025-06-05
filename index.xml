@@ -1,11 +1,12 @@
 <?xml-stylesheet href="/rss.xsl" type="text/xsl"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Stay Foolish</title>
+    <title>Ryokki Site</title>
     <link>https://ryokki.github.io/</link>
-    <description>Recent content on Stay Foolish</description>
+    <description>Recent content on Ryokki Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>This is a customized copyright.</copyright>
     <lastBuildDate>Wed, 19 Feb 2025 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://ryokki.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -18,7 +19,7 @@
         <pubDate>Wed, 19 Feb 2025 00:00:00 +0000</pubDate>
         
         <guid>https://ryokki.github.io/posts/021.-%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/</guid>
-        <description>Stay Foolish https://ryokki.github.io/posts/021.-%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/ -&lt;p&gt;参考 &lt;a href=&#34;https://www.hitzhangjie.pro/blog/2021-04-17-locks%E5%AE%9E%E7%8E%B0%E9%82%A3%E4%BA%9B%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%9F%A5%E7%9A%84%E6%95%85%E4%BA%8B/&#34;&gt;Locks实现:背后不为人知的故事 - MySpace&lt;/a&gt;&lt;/p&gt;
+        <description>Ryokki Site https://ryokki.github.io/posts/021.-%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/ -&lt;p&gt;参考 &lt;a href=&#34;https://www.hitzhangjie.pro/blog/2021-04-17-locks%E5%AE%9E%E7%8E%B0%E9%82%A3%E4%BA%9B%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%9F%A5%E7%9A%84%E6%95%85%E4%BA%8B/&#34;&gt;Locks实现:背后不为人知的故事 - MySpace&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;以及下面两个视频很清楚解释了cpu cache,MESI, store buffer/invalidation queue, 内存屏障的历史演进&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;【面试官问我MESI如何保证内存一致性，我把这个动画甩给他】 &lt;a href=&#34;https://www.bilibili.com/video/BV1kD4y1T7XU/?share_source=copy_web&amp;amp;vd_source=6d5bbefdbb303f5c1b77aaeaa935d3de&#34;&gt;https://www.bilibili.com/video/BV1kD4y1T7XU/?share_source=copy_web&amp;amp;vd_source=6d5bbefdbb303f5c1b77aaeaa935d3de&lt;/a&gt;&lt;/li&gt;
@@ -190,13 +191,13 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;：双线程循环检查 &lt;code&gt;flag&lt;/code&gt; 变量：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 线程 A
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;42&lt;/span&gt;;          &lt;span style=&#34;color:#75715e&#34;&gt;// 写入 Store Buffer，未提交
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;           &lt;span style=&#34;color:#75715e&#34;&gt;// Store Buffer 可能先于 data 提交
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 线程 B
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; (flag &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);  &lt;span style=&#34;color:#75715e&#34;&gt;// 看到 flag=1 但 data 可能仍是旧值
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;print&lt;/span&gt;(data);
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 线程 A
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;data = &lt;span style=&#34;color:#b452cd&#34;&gt;42&lt;/span&gt;;          &lt;span style=&#34;color:#228b22&#34;&gt;// 写入 Store Buffer，未提交
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;flag = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;;           &lt;span style=&#34;color:#228b22&#34;&gt;// Store Buffer 可能先于 data 提交
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;// 线程 B
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;while&lt;/span&gt; (flag != &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;);  &lt;span style=&#34;color:#228b22&#34;&gt;// 看到 flag=1 但 data 可能仍是旧值
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;print&lt;/span&gt;(data);
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;解决&lt;/strong&gt;：在 &lt;code&gt;data=42&lt;/code&gt; 后插入写屏障，在 &lt;code&gt;while&lt;/code&gt; 前插入读屏障。&lt;/p&gt;
@@ -206,8 +207,8 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;：单核指令重排（Alpha 处理器著名案例）：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-asm&#34; data-lang=&#34;asm&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;STORE&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;A&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;           &lt;span style=&#34;color:#75715e&#34;&gt;; 存入 Store Buffer
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;LOAD&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;B&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;            &lt;span style=&#34;color:#75715e&#34;&gt;; B 已在缓存中，立即读到 0
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-asm&#34; data-lang=&#34;asm&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;STORE&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;A&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;           &lt;span style=&#34;color:#228b22&#34;&gt;; 存入 Store Buffer
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#008b45&#34;&gt;LOAD&lt;/span&gt; &lt;span style=&#34;color:#00688b&#34;&gt;B&lt;/span&gt;&lt;span style=&#34;color:#a61717;background-color:#e3d2d2&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;            &lt;span style=&#34;color:#228b22&#34;&gt;; B 已在缓存中，立即读到 0
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;其他 CPU 可能看到 &lt;code&gt;B=0&lt;/code&gt; 先于 &lt;code&gt;A=1&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
@@ -240,114 +241,8 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;希望这些补充能让知识结构更完整！如果需要进一步展开某个点，请随时告诉我。&lt;/p&gt;
-- https://ryokki.github.io/posts/021.-%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/ - </description>
+- https://ryokki.github.io/posts/021.-%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/ - This is a customized copyright.</description>
         </item>
-    
-    
-    
-        <item>
-        <title>Now</title>
-        <link>https://ryokki.github.io/now/</link>
-        <pubDate>Thu, 16 May 2024 00:00:00 +0000</pubDate>
-        
-        <guid>https://ryokki.github.io/now/</guid>
-        <description>Stay Foolish https://ryokki.github.io/now/ -&lt;p&gt;看小白debug[[小白debug]]，可以快速过一遍很多中间件&lt;/p&gt;
-&lt;p&gt;Now 页面会随着时间和当下生活的优先级而更新，用来&lt;strong&gt;让别人看见这个人现在生活的重点是什么&lt;/strong&gt;，和&lt;strong&gt;提醒自己专注于当下最重要的事&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;学习优先级：（gitlet没动力了写了～～ 感觉没啥用 鸽了 还是想回归基础）&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 15-445&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 软件设计原则/设计模式/clean architecture&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; mysql是怎样运行的&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; csapp&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 6.S081&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; corekv&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 看看Comparator设计&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 尝试做一个chrome extesion，像parse medium这样简单的就可以啦&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 代码转sql的做个插件 &lt;a href=&#34;https://ssshooter.com/intellij-plugin-dev/&#34;&gt;https://ssshooter.com/intellij-plugin-dev/&lt;/a&gt; &lt;a href=&#34;https://github.com/fuzhengwei/guide-idea-plugin&#34;&gt;https://github.com/fuzhengwei/guide-idea-plugin&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 学netty&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 看看我们AI的rag是怎么做的，&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 看一下腾讯问卷DSL设计&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 学做虾&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;a href=&#34;https://www.zhihu.com/column/learn4fun&#34;&gt;闷骚的程序员 - 知乎&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 重新启动游泳～&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 读on java8重要章节&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 拓扑排序&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; how gradle/maven works&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;a href=&#34;https://www.youtube.com/watch?v=d0gS5TXarXc&#34;&gt;Signals. I spent 2 years to understand this part. - YouTube&lt;/a&gt; &lt;a href=&#34;https://www.youtube.com/watch?v=83M5-NPDeWs&#34;&gt;Sending and Handling Signals in C (kill, signal, sigaction) - YouTube&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 研究学习的整个workflow（包括信息接收，信息存储，项目/时间管理），以及学习方法[[workflow and method]]&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; git learn&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 学习(预计10h): (看一些blog &amp;amp;&amp;amp; 调试rezero的代码)
-&lt;ul&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 学习workflow中看代码的方法，结合实践，写一篇blog&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 输出: git internal blog&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 知识应用(预计20h):  gitlet&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 优惠券系统设计 &amp;amp; 分销系统设计 总结&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; java &amp;amp; 并发&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; effective-java&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;a href=&#34;https://www.bilibili.com/video/BV1pt4y1X7kt/?spm_id_from=333.788.top_right_bar_window_default_collection.content.click&amp;amp;vd_source=4ec20761e597840bf51391ed9ddba7ff&#34;&gt;【单例模式】猛男因不懂单例模式，被面试官无情嘲讽_哔哩哔哩_bilibili&lt;/a&gt; 这个视频及相关的并发知识、以及其他的视频都挺适合我的&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-- https://ryokki.github.io/now/ - </description>
-        </item>
-    
-    
-    
-    
-    
-    
-    
-    
     
     
   </channel>

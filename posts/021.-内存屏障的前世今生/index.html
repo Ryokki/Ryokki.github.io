@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="zh"><head>
 <title>内存屏障的前世今生</title>
 
 
@@ -7,15 +7,33 @@
 
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
-<meta name="google-site-verification" content="">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=5" name="viewport">
 <meta content="telephone=no" name="format-detection">
-<meta name="description" content="">
+<meta name="description" content="/">
 <meta name="renderer" content="webkit">
 <meta name="theme-color" content="#ffffff">
 
 
 
+<meta property="og:url" content="https://ryokki.github.io/posts/021.-%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/">
+  <meta property="og:site_name" content="Ryokki Site">
+  <meta property="og:title" content="内存屏障的前世今生">
+  <meta property="og:description" content="/">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-19T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-02-19T00:00:00+00:00">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="内存屏障的前世今生">
+  <meta name="twitter:description" content="/">
 
 
 
@@ -23,8 +41,37 @@
 
 
 
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+    
+  
 
 
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
 
 
 
@@ -79,20 +126,8 @@
                 
                 
                 
-                <a class="a-block drawer-menu-item active" href="/">
-                    Home
-                </a>
-                
-            
-                
-                
-                
-                    
-                
-                
-                
-                <a class="a-block drawer-menu-item active" href="/posts/">
-                    Posts
+                <a class="a-block drawer-menu-item active" href="/posts">
+                    Archive
                 </a>
                 
             
@@ -101,7 +136,7 @@
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/categories/">
+                <a class="a-block drawer-menu-item false" href="/categories">
                     Categories
                 </a>
                 
@@ -111,8 +146,18 @@
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/tags/">
+                <a class="a-block drawer-menu-item false" href="/tags">
                     Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS Feed
                 </a>
                 
             
@@ -125,7 +170,7 @@
 		
 		
 		
-		<center>- CATALOG -</center>
+		<center>- 目录 -</center>
 		
 		
 		<ul>
@@ -478,7 +523,7 @@
             </i>
         </button>
         <a id="navTitle" class="navbar-brand" href="https://ryokki.github.io/">
-            Stay Foolish
+            Ryokki Site
         </a>
         
         <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
@@ -492,9 +537,7 @@
 <div class="single-column-header-container" id="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
     <a href="https://ryokki.github.io/">
-        <div class="single-column-header-title">Stay Foolish</div>
-        
-        <div class="single-column-header-subtitle">/</div>
+        <div class="single-column-header-title">Ryokki Site</div>
         
 
     </a>
@@ -514,6 +557,10 @@
             >
                 <div class="post-title">
                     内存屏障的前世今生
+                    
+                    <div class="post-subtitle">
+                        /
+                    </div>
                     
                     <div class="post-meta">
                         
@@ -706,13 +753,13 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
 <ul>
 <li>
 <p><strong>示例</strong>：双线程循环检查 <code>flag</code> 变量：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">// 线程 A
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>data <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;          <span style="color:#75715e">// 写入 Store Buffer，未提交
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;           <span style="color:#75715e">// Store Buffer 可能先于 data 提交
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 线程 B
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">while</span> (flag <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>);  <span style="color:#75715e">// 看到 flag=1 但 data 可能仍是旧值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">print</span>(data);
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#228b22">// 线程 A
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>data = <span style="color:#b452cd">42</span>;          <span style="color:#228b22">// 写入 Store Buffer，未提交
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>flag = <span style="color:#b452cd">1</span>;           <span style="color:#228b22">// Store Buffer 可能先于 data 提交
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>
+</span></span><span style="display:flex;"><span><span style="color:#228b22">// 线程 B
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span><span style="color:#8b008b;font-weight:bold">while</span> (flag != <span style="color:#b452cd">1</span>);  <span style="color:#228b22">// 看到 flag=1 但 data 可能仍是旧值
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span><span style="color:#008b45">print</span>(data);
 </span></span></code></pre></div></li>
 <li>
 <p><strong>解决</strong>：在 <code>data=42</code> 后插入写屏障，在 <code>while</code> 前插入读屏障。</p>
@@ -722,8 +769,8 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
 <ul>
 <li>
 <p><strong>示例</strong>：单核指令重排（Alpha 处理器著名案例）：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#a6e22e">STORE</span> <span style="color:#66d9ef">A</span><span style="color:#960050;background-color:#1e0010">=</span><span style="color:#ae81ff">1</span>           <span style="color:#75715e">; 存入 Store Buffer
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">LOAD</span> <span style="color:#66d9ef">B</span><span style="color:#960050;background-color:#1e0010">=</span><span style="color:#ae81ff">0</span>            <span style="color:#75715e">; B 已在缓存中，立即读到 0
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#008b45">STORE</span> <span style="color:#00688b">A</span><span style="color:#a61717;background-color:#e3d2d2">=</span><span style="color:#b452cd">1</span>           <span style="color:#228b22">; 存入 Store Buffer
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span><span style="color:#008b45">LOAD</span> <span style="color:#00688b">B</span><span style="color:#a61717;background-color:#e3d2d2">=</span><span style="color:#b452cd">0</span>            <span style="color:#228b22">; B 已在缓存中，立即读到 0
 </span></span></span></code></pre></div><ul>
 <li>其他 CPU 可能看到 <code>B=0</code> 先于 <code>A=1</code>。</li>
 </ul>
@@ -759,7 +806,7 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
 
                     
                     <HR width="100%" id="EOF">
-		    <p style="color:#777;">Last modified on 2025-02-19</p>
+		    <p style="color:#777;">最后修改于 2025-02-19</p>
                     
                 </div>
             </div>
@@ -769,13 +816,13 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
 
                 
                 <a class="newer-posts">
-			Next<br>No newer posts.
+			下回<br>已经到头啦。
                 </a>
                 
                 
                 
-                <a class="older-posts" href="/now/">
-			Previous<br>Now
+                <a class="older-posts">
+			上回<br>这是最旧的文章了。
                 </a>
                 
             </nav>
@@ -793,6 +840,22 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
 
 
 
+<script src="https://giscus.app/client.js"
+        data-repo="username/repo"
+        data-repo-id="**************************"
+        data-category="General"
+        data-category-id="*********************"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
             </div>
         </div>
     </div>
@@ -804,11 +867,7 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
     <a class="a-block nav-head false" href="https://ryokki.github.io/">
     
         <div class="nav-title">
-            Stay Foolish
-        </div>
-        
-        <div class="nav-subtitle">
-            /
+            Ryokki Site
         </div>
         
     </a>
@@ -823,20 +882,8 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
             
             
             
-            <a class="a-block nav-link-item active" href="/">
-                Home
-            </a>
-            
-        
-            
-            
-            
-                
-            
-            
-            
-            <a class="a-block nav-link-item active" href="/posts/">
-                Posts
+            <a class="a-block nav-link-item active" href="/posts">
+                Archive
             </a>
             
         
@@ -845,7 +892,7 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
             
             
             
-            <a class="a-block nav-link-item false" href="/categories/">
+            <a class="a-block nav-link-item false" href="/categories">
                 Categories
             </a>
             
@@ -855,8 +902,18 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
             
             
             
-            <a class="a-block nav-link-item false" href="/tags/">
+            <a class="a-block nav-link-item false" href="/tags">
                 Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS Feed
             </a>
             
         
@@ -868,12 +925,12 @@ Invalid Queue: Invalidation Queue 的作用就是异步地接收和处理这些�
         
 Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
 <br>
-Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
 <br>
 
 &copy;
 	
-	2025 Stay Foolish
+	This is a customized copyright.
 	
 
     </div>
@@ -891,7 +948,7 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 		
 		
 		
-		<center>- CATALOG -</center>
+		<center>- 目录 -</center>
 		
 		
 		<ul>
@@ -1251,12 +1308,12 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 <div id="single-column-footer">
 Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
 <br>
-Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
 <br>
 
 &copy;
 	
-	2025 Stay Foolish
+	This is a customized copyright.
 	
 </div>
             </div>

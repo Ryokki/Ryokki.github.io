@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="zh"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 <title>Posts Archive</title>
 
 
@@ -7,7 +7,7 @@
 
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
-<meta name="google-site-verification" content="">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=5" name="viewport">
 <meta content="telephone=no" name="format-detection">
 <meta name="description" content="Archive of historical posts.">
@@ -16,6 +16,21 @@
 
 
 
+<meta property="og:url" content="http://localhost:1313/archive/">
+  <meta property="og:site_name" content="A Hugo Site">
+  <meta property="og:title" content="Posts Archive">
+  <meta property="og:description" content="Archive of historical posts.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Posts Archive">
+  <meta name="twitter:description" content="Archive of historical posts.">
 
 
 
@@ -23,8 +38,37 @@
 
 
 
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+    
+  
 
 
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
 
 
 
@@ -75,12 +119,10 @@
                 
                 
                 
-                    
                 
                 
-                
-                <a class="a-block drawer-menu-item active" href="/">
-                    Home
+                <a class="a-block drawer-menu-item false" href="/posts">
+                    Archive
                 </a>
                 
             
@@ -89,17 +131,7 @@
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/posts/">
-                    Posts
-                </a>
-                
-            
-                
-                
-                
-                
-                
-                <a class="a-block drawer-menu-item false" href="/categories/">
+                <a class="a-block drawer-menu-item false" href="/categories">
                     Categories
                 </a>
                 
@@ -109,8 +141,18 @@
                 
                 
                 
-                <a class="a-block drawer-menu-item false" href="/tags/">
+                <a class="a-block drawer-menu-item false" href="/tags">
                     Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS Feed
                 </a>
                 
             
@@ -134,8 +176,8 @@
                 menu
             </i>
         </button>
-        <a id="navTitle" class="navbar-brand" href="https://ryokki.github.io/">
-            Stay Foolish
+        <a id="navTitle" class="navbar-brand" href="http://localhost:1313/">
+            A Hugo Site
         </a>
         
         <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
@@ -148,10 +190,10 @@
 </nav>
 <div class="single-column-header-container" id="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="https://ryokki.github.io/">
-        <div class="single-column-header-title">Stay Foolish</div>
+    <a href="http://localhost:1313/">
+        <div class="single-column-header-title">A Hugo Site</div>
         
-        <div class="single-column-header-subtitle">/</div>
+        <div class="single-column-header-subtitle">Themed by Diary.</div>
         
 
     </a>
@@ -201,13 +243,13 @@
 
                 
                 <a class="newer-posts" href="/search/placeholder/">
-			Next<br>
+			下回<br>
                 </a>
                 
                 
                 
                 <a class="older-posts">
-			Previous<br>No older posts.
+			上回<br>这是最旧的文章了。
                 </a>
                 
             </nav>
@@ -225,6 +267,22 @@
 
 
 
+<script src="https://giscus.app/client.js"
+        data-repo="username/repo"
+        data-repo-id="**************************"
+        data-category="General"
+        data-category-id="*********************"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
             </div>
         </div>
     </div>
@@ -233,14 +291,14 @@
                     </div>
             </div><div id="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="https://ryokki.github.io/">
+    <a class="a-block nav-head false" href="http://localhost:1313/">
     
         <div class="nav-title">
-            Stay Foolish
+            A Hugo Site
         </div>
         
         <div class="nav-subtitle">
-            /
+            Themed by Diary.
         </div>
         
     </a>
@@ -251,12 +309,10 @@
             
             
             
-                
             
             
-            
-            <a class="a-block nav-link-item active" href="/">
-                Home
+            <a class="a-block nav-link-item false" href="/posts">
+                Archive
             </a>
             
         
@@ -265,17 +321,7 @@
             
             
             
-            <a class="a-block nav-link-item false" href="/posts/">
-                Posts
-            </a>
-            
-        
-            
-            
-            
-            
-            
-            <a class="a-block nav-link-item false" href="/categories/">
+            <a class="a-block nav-link-item false" href="/categories">
                 Categories
             </a>
             
@@ -285,8 +331,18 @@
             
             
             
-            <a class="a-block nav-link-item false" href="/tags/">
+            <a class="a-block nav-link-item false" href="/tags">
                 Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS Feed
             </a>
             
         
@@ -298,12 +354,12 @@
         
 Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
 <br>
-Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
 <br>
 
 &copy;
 	
-	2025 Stay Foolish
+	This is a customized copyright.
 	
 
     </div>
@@ -340,12 +396,12 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 <div id="single-column-footer">
 Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
 <br>
-Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
 <br>
 
 &copy;
 	
-	2025 Stay Foolish
+	This is a customized copyright.
 	
 </div>
             </div>
