@@ -1,26 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on XKJ Blog</title>
+    <title>Categories on Ryokki Blog</title>
     <link>https://ryokki.github.io/categories/</link>
-    <description>Recent content in Categories on XKJ Blog</description>
+    <description>Recent content in Categories on Ryokki Blog</description>
     <generator>Hugo</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 19 Jul 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ryokki.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Prometheus</title>
-      <link>https://ryokki.github.io/categories/prometheus/</link>
-      <pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>https://ryokki.github.io/categories/prometheus/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Java-Stream</title>
-      <link>https://ryokki.github.io/categories/java-stream/</link>
-      <pubDate>Thu, 04 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>https://ryokki.github.io/categories/java-stream/</guid>
-      <description></description>
-    </item>
   </channel>
 </rss>
